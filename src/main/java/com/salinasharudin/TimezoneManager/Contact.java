@@ -1,6 +1,6 @@
 package com.salinasharudin.TimezoneManager;
 
-class Contact {
+public class Contact {
 	
 	//Fields
 	private int uID;
@@ -19,32 +19,38 @@ class Contact {
 	}
 	
 	//Methods
-	private int getuID() {
+	int getuID() {
 		return uID;
 	}
 
-	private String getName() {
+	String getName() {
 		return name;
 	}
 	
-	private void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 	
-	private String getTimezone() {
+	String getTimezone() {
 		return timezone;
 	}
 	
-	private void setTimezone(String timezone) {
+	void setTimezone(String timezone) {
 		this.timezone = timezone;
 	}
 	
-	private Boolean[][] getAvailability() {
+	Boolean[][] getAvailability() {
 		return availability;
 	}
 	
-	private void setAvailability(Boolean[][] availability) {
+	void setAvailability(Boolean[][] availability) {
 		this.availability = availability;
+	}
+	
+	public String toString() {
+		return "Name: " + this.name
+				+ " ID: " + this.uID 
+				+ " timezone: " + this.timezone;
 	}
 	
 }

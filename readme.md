@@ -5,4 +5,7 @@
 Salina Sharudin  
 salinasharudin@gmail.com
 
-more details coming soon
+more details coming soon  
+some questions:  
+What I learned  
+What I would do differently  

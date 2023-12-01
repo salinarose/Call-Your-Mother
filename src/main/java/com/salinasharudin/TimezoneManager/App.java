@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Author: Salina Sharudin
@@ -35,7 +36,15 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+    	/* Testing ContactHelper class*/
+    	ArrayList<Contact> contacts = new ArrayList<>();
+    	ContactHelper.demo_addContacts(contacts);
+    	contacts.add(new Contact("Rosie", "5"));
+    	ContactHelper.printContacts(contacts);
+    	
+    	//TODO: make an initialize method that will load contacts from a file
+    	
+        //launch();
     }
 
 }
