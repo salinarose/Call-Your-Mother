@@ -40,9 +40,12 @@ public class App extends Application {
     	ArrayList<Contact> contacts = new ArrayList<>();
     	ContactHelper.demo_addContacts(contacts);
     	contacts.add(new Contact("Rosie", "5"));
-    	ContactHelper.printContacts(contacts);
+    	//ContactHelper.printContacts(contacts);
+    	
     	
     	//TODO: make an initialize method that will load contacts from a file
+    	FileHelper.writeContactData(contacts);
+    	contacts = FileHelper.readContactData();
     	
         //launch();
     }
