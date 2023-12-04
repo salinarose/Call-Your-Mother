@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class App extends Application {
 
     private static Scene scene;
+    private static ArrayList<Contact> contacts;
    
     @Override
     public void start(Stage stage) throws IOException {
@@ -36,18 +37,16 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-    	/* Testing ContactHelper class*/
-    	ArrayList<Contact> contacts = new ArrayList<>();
-    	ContactHelper.demo_addContacts(contacts);
-    	contacts.add(new Contact("Rosie", "5"));
-    	//ContactHelper.printContacts(contacts);
-    	
-    	
-    	//TODO: make an initialize method that will load contacts from a file
-    	FileHelper.writeContactData(contacts);
-    	contacts = FileHelper.readContactData();
+    	initialize();
     	
         //launch();
+    }
+    
+    public static void initialize() {
+    	// Load the contacts list from a file if it exists, or a new empty list if it does not
+    	contacts = FileHelper.readContactData();
+    	
+    	//TODO: create user settings and load them here
     }
 
 }

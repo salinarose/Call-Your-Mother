@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
 public final class FileHelper {
 	
-	//TODO: Read contact data from save file and load them into a new array
+	// Read contact data from save file and load them into a new array
 	public static ArrayList<Contact> readContactData() {
 		
 		ArrayList<Contact> contactsList = new ArrayList<>();
@@ -48,7 +48,7 @@ public final class FileHelper {
 		return contactsList;
 	}
 	
-	//TODO: Write contact data to a file
+	// Write contact data to a file
 	public static void writeContactData(List<Contact> contacts) {
 
 		try {
@@ -79,6 +79,28 @@ public final class FileHelper {
 			System.out.println("Error with save file.");
 			ioe.printStackTrace();
 		}
+	}
+	
+	/* Initialize the contact list. Runs when the program starts up 
+	public static ArrayList<Contact> initialize() {
+		ArrayList<Contact> contacts = readContactData();
+		
+		//TODO: load user settings
+		
+		return contacts;
+	}
+	*/
+	
+	/* Adds some sample people to the contacts list. */
+	static void test_addContacts() {
+		ArrayList<Contact> contacts = new ArrayList<>();
+		Contact person1 = new Contact("Mom", "UTC-1");
+		Contact person2 = new Contact("Dad", "UTC-3");
+		Contact person3 = new Contact("Simon", "UTC-2");
+		person3.setTimezone("north pole");
+		contacts.add(person1);
+		contacts.add(person2);
+		contacts.add(person3);
 	}
 
 }
