@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class App extends Application {
 
     private static Scene scene;
-    private static ArrayList<Contact> contacts;
+    //private static ArrayList<Contact> contacts;
    
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,12 +39,15 @@ public class App extends Application {
     public static void main(String[] args) {
     	initialize();
     	
-        //launch();
+        launch();
     }
     
     public static void initialize() {
     	// Load the contacts list from a file if it exists, or a new empty list if it does not
-    	contacts = FileHelper.readContactData();
+    	//contacts = FileHelper.readContactData();
+    	FileHelper.readContactData();
+    	ArrayList<Contact> contactList = FileHelper.getContacts();
+    	ContactHelper.printContacts(contactList);
     	
     	//TODO: create user settings and load them here
     }

@@ -19,8 +19,10 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
 public final class FileHelper {
 	
+	private static ArrayList<Contact> contacts;
+	
 	// Read contact data from save file and load them into a new array
-	public static ArrayList<Contact> readContactData() {
+	public static void readContactData() {
 		
 		ArrayList<Contact> contactsList = new ArrayList<>();
 	    
@@ -28,9 +30,9 @@ public final class FileHelper {
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonArray = Files.readString(Paths.get("contacts.json"));
 		
-			Contact[] contacts = mapper.readValue(jsonArray, Contact[].class);
+			Contact[] contactsArray = mapper.readValue(jsonArray, Contact[].class);
 			
-			for (Contact c : contacts) {
+			for (Contact c : contactsArray) {
 				//System.out.println(c.toString());
 				contactsList.add(c);
 			}
@@ -40,11 +42,17 @@ public final class FileHelper {
 			System.out.println("Load unsuccessful.");
 			e.printStackTrace();
 		}
-		return contactsList;
+		
+		contacts = contactsList;
+		//return contactsList;
+	}
+	
+	public static ArrayList<Contact> getContacts() {
+		return contacts;
 	}
 	
 	// Write contact data to a file
-	public static void writeContactData(List<Contact> contacts) {
+	public static void writeContactData() {
 
 		try {
 			FileWriter writer = new FileWriter("contacts.json", false);
