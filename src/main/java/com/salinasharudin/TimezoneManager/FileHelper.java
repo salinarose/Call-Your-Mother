@@ -27,16 +27,11 @@ public final class FileHelper {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonArray = Files.readString(Paths.get("contacts.json"));
-			//mapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
-			/*
-			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	        mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
-	        */
 		
 			Contact[] contacts = mapper.readValue(jsonArray, Contact[].class);
 			
 			for (Contact c : contacts) {
-				System.out.println(c.toString());
+				//System.out.println(c.toString());
 				contactsList.add(c);
 			}
 			System.out.println("Load successful.");
@@ -80,16 +75,6 @@ public final class FileHelper {
 			ioe.printStackTrace();
 		}
 	}
-	
-	/* Initialize the contact list. Runs when the program starts up 
-	public static ArrayList<Contact> initialize() {
-		ArrayList<Contact> contacts = readContactData();
-		
-		//TODO: load user settings
-		
-		return contacts;
-	}
-	*/
 	
 	/* Adds some sample people to the contacts list. */
 	static void test_addContacts() {
