@@ -15,6 +15,13 @@ import javafx.scene.layout.GridPane;
 
 public class MainController implements Initializable {
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		/* Calls display methods */
+		displayLocalDateTime();
+		displayContacts();
+	}
+
 	// Creates a local clock
 	private ZonedDateTime clockNow = ZonedDateTime.now();
 	private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
@@ -59,12 +66,6 @@ public class MainController implements Initializable {
 		}
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		/* Calls display methods */
-		displayLocalDateTime();
-		displayContacts();
-	}
     
 }
 
