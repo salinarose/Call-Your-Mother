@@ -8,12 +8,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class MainController implements Initializable {
+	
+	Contact selected = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -49,7 +55,10 @@ public class MainController implements Initializable {
 	
 	@FXML
 	GridPane gridPaneContacts;
+	@FXML
+	Button btnEdit;
 	
+	@FXML
 	/* Displays the user's list of contacts */
 	public void displayContacts() {
 		// Get the contact list
@@ -61,15 +70,83 @@ public class MainController implements Initializable {
 		// Populate the grid pane with the new contacts
 		int i = 0;
 		for (Contact c : list) {
-			gridPaneContacts.addRow(i, new Label(c.getName()), new Label(c.getTimezone()));
+			Label name = new Label(c.getName());
+			gridPaneContacts.addRow(i, name, new Label(c.getTimezone()));
+			/*
+			name.setOnMouseClicked(event -> {
+				btnEdit.setDisable(false);
+				selected = c;
+			});
+			*/
+			/*
+			for (Node node : gridPaneContacts.getChildren()) {
+			    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(r -> {
+			        Integer targetIndex = GridPane.getRowIndex(node);
+			        if (GridPane.getRowIndex(r) == targetIndex) {
+			            r.setStyle("-fx-background-color:#f9f3c5;");
+			        }
+			    }));
+			    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(r -> {
+			        Integer targetIndex = GridPane.getRowIndex(node);
+			        if (GridPane.getRowIndex(r) == targetIndex) {
+			            r.setStyle("-fx-background-color:#F3F3F3;");
+			        }
+			    }));
+			    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
+			        Integer targetIndex = GridPane.getRowIndex(node);
+			        if (GridPane.getRowIndex(r) == targetIndex) {
+			            System.out.println(r.);
+			        }
+			    }));
+			    
+			}
+			*/
 			i++;
 		}
+		
+		
+		for (Node node : gridPaneContacts.getChildren()) {
+		    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(c -> {
+		        Integer targetIndex = GridPane.getRowIndex(node);
+		        if (GridPane.getRowIndex(c) == targetIndex) {
+		            c.setStyle("-fx-background-color:#f9f3c5;");
+		        }
+		    }));
+		    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(c -> {
+		        Integer targetIndex = GridPane.getRowIndex(node);
+		        if (GridPane.getRowIndex(c) == targetIndex) {
+		            c.setStyle("-fx-background-color:#F3F3F3;");
+		        }
+		    }));
+		    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
+			        Integer targetIndex = GridPane.getRowIndex(node);
+			        if (GridPane.getRowIndex(r) == targetIndex) {
+			            System.out.println(r);
+			            // How do i grab the actual contact object?
+			        }
+			    }));
+		    
+		}
+		
 	}
 	
+	public void editContact() {
+		System.out.println(selected.toString());	
+	}
+
+	@FXML
 	/* When add new button clicked, go to contact edit scene */
 	public void goToContactScene() throws IOException {
 		App.setRoot("ContactScene");
 	}
+	
+	/* Get selected contact 
+	public void test() {
+		gridPaneContacts.getrow
+	}
+	*/
+
+
 
     
 }
