@@ -1,5 +1,6 @@
 package com.salinasharudin.TimezoneManager;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,6 +20,7 @@ import javafx.scene.layout.RowConstraints;
 
 public class ContactSceneController implements Initializable {
 	
+	/* Initializes scene */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setupGrid();
@@ -27,6 +29,7 @@ public class ContactSceneController implements Initializable {
 	@FXML
 	GridPane gridAvailability;
 	
+	/* Sets up the availability grid */
 	public void setupGrid() {
 		
 		// Hours column
@@ -37,6 +40,11 @@ public class ContactSceneController implements Initializable {
 				gridAvailability.add(new CheckBox(), j, i);
 			}
 		}
+	}
+	
+	/* Returns to main scene */
+	public void goToMainScene() throws IOException {
+		App.setRoot("Main");
 	}
 	
 }

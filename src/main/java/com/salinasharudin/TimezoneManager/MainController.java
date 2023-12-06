@@ -65,6 +65,11 @@ public class MainController implements Initializable {
 			i++;
 		}
 	}
+	
+	/* When add new button clicked, go to contact edit scene */
+	public void goToContactScene() throws IOException {
+		App.setRoot("ContactScene");
+	}
 
     
 }
