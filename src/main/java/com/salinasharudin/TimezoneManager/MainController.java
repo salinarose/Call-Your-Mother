@@ -19,7 +19,7 @@ import javafx.scene.layout.GridPane;
 
 public class MainController implements Initializable {
 	
-	Contact selected = null;
+	int selected = -1;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -71,45 +71,19 @@ public class MainController implements Initializable {
 		int i = 0;
 		for (Contact c : list) {
 			Label name = new Label(c.getName());
-			gridPaneContacts.addRow(i, name, new Label(c.getTimezone()));
-			/*
-			name.setOnMouseClicked(event -> {
-				btnEdit.setDisable(false);
-				selected = c;
-			});
-			*/
-			/*
-			for (Node node : gridPaneContacts.getChildren()) {
-			    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(r -> {
-			        Integer targetIndex = GridPane.getRowIndex(node);
-			        if (GridPane.getRowIndex(r) == targetIndex) {
-			            r.setStyle("-fx-background-color:#f9f3c5;");
-			        }
-			    }));
-			    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(r -> {
-			        Integer targetIndex = GridPane.getRowIndex(node);
-			        if (GridPane.getRowIndex(r) == targetIndex) {
-			            r.setStyle("-fx-background-color:#F3F3F3;");
-			        }
-			    }));
-			    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
-			        Integer targetIndex = GridPane.getRowIndex(node);
-			        if (GridPane.getRowIndex(r) == targetIndex) {
-			            System.out.println(r.);
-			        }
-			    }));
-			    
-			}
-			*/
+			name.setPrefWidth(75);
+			Label zone = new Label(c.getTimezone());
+			zone.setPrefWidth(75);
+			gridPaneContacts.addRow(i, name, zone);
 			i++;
 		}
 		
-		
+		/* Events for hovering over or selecting contacts */
 		for (Node node : gridPaneContacts.getChildren()) {
 		    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(c -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
 		        if (GridPane.getRowIndex(c) == targetIndex) {
-		            c.setStyle("-fx-background-color:#f9f3c5;");
+		            c.setStyle("-fx-background-color:#FFFFFF;");
 		        }
 		    }));
 		    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(c -> {
@@ -121,17 +95,21 @@ public class MainController implements Initializable {
 		    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
 			        Integer targetIndex = GridPane.getRowIndex(node);
 			        if (GridPane.getRowIndex(r) == targetIndex) {
-			            System.out.println(r);
-			            // How do i grab the actual contact object?
+			        	// Get the item selected
+			            selected = targetIndex;
+			            btnEdit.setDisable(false);
+			            
+			            // TODO: (wishlist) disable edit button if clicked away from gridpane
 			        }
-			    }));
+			}));
 		    
 		}
 		
 	}
 	
-	public void editContact() {
-		System.out.println(selected.toString());	
+	public void editContact() throws IOException {
+		System.out.println(selected);
+		App.setRoot("ContactScene");
 	}
 
 	@FXML
