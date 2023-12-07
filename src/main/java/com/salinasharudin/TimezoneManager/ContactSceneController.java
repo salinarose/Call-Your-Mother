@@ -53,23 +53,16 @@ public class ContactSceneController implements Initializable {
 	
 	/* Returns to main scene */
 	public void goToMainScene() throws IOException {
-		App.setRoot("Main");
-		
-		// Need to debug this
-		// This just opens new windows
-		/*
-		System.out.println("here");
-		
-        //Load main scene
+        
+		// Load main scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
         Parent root = loader.load();
  
-        //Show scene 2 in new window
-        Stage stage = new Stage();
+        Stage stage = (Stage) gridAvailability.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Time Zone Manager");
         stage.show();
-        */
+        
 	}
 	
 }

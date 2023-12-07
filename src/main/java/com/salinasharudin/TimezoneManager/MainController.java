@@ -104,6 +104,7 @@ public class MainController implements Initializable {
 			            btnEdit.setDisable(false);
 			            
 			            // TODO: (wishlist) disable edit button if clicked away from gridpane
+			            // TODO: (wishlist) selected item stays highlighted
 			        }
 			}));
 		    
@@ -113,18 +114,20 @@ public class MainController implements Initializable {
 	
 	/* When add new or edit button clicked, switches to the contact scene */
 	public void goToContactScene() throws IOException {
-        //Load contact editing scene
+        // Load contact editing scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ContactScene.fxml"));
         Parent root = loader.load();
  
-        //Get controller of scene2
+        // Get controller of scene2
         ContactSceneController scene2Controller = loader.getController();
+        
         // Pass selection index to the contact edit scene
         scene2Controller.getSelection(selected);
  
         
-        //Show scene 2 in new window
-        Stage stage = new Stage();
+        // Load scene2 in same window
+        // I could've used any node in this scene below, I chose btnEdit this time
+        Stage stage = (Stage) btnEdit.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Edit Contact");
         stage.show();

@@ -24,6 +24,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Main"), 640, 640);
         stage.setScene(scene);
+        stage.setTitle("Time Zone Manager");
         stage.show();
     }
 
