@@ -10,16 +10,20 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 	
-	int selected = -1;
+	public int selected = -1;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -107,25 +111,24 @@ public class MainController implements Initializable {
 		
 	}
 	
-	public void editContact() throws IOException {
-		System.out.println(selected);
-		App.setRoot("ContactScene");
-	}
-
-	@FXML
-	/* When add new button clicked, go to contact edit scene */
+	/* When add new or edit button clicked, switches to the contact scene */
 	public void goToContactScene() throws IOException {
-		App.setRoot("ContactScene");
-	}
-	
-	/* Get selected contact 
-	public void test() {
-		gridPaneContacts.getrow
-	}
-	*/
-
-
-
+        //Load contact editing scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ContactScene.fxml"));
+        Parent root = loader.load();
+ 
+        //Get controller of scene2
+        ContactSceneController scene2Controller = loader.getController();
+        // Pass selection index to the contact edit scene
+        scene2Controller.getSelection(selected);
+ 
+        
+        //Show scene 2 in new window
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Edit Contact");
+        stage.show();
+    }
     
 }
 
