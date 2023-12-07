@@ -75,9 +75,9 @@ public class MainController implements Initializable {
 		int i = 0;
 		for (Contact c : list) {
 			Label name = new Label(c.getName());
-			name.setPrefWidth(75);
+			name.setPrefWidth(150);
 			Label zone = new Label(c.getTimezone());
-			zone.setPrefWidth(75);
+			zone.setPrefWidth(150);
 			gridPaneContacts.addRow(i, name, zone);
 			i++;
 		}
@@ -110,6 +110,11 @@ public class MainController implements Initializable {
 		    
 		}
 		
+	}
+	
+	public void btnAddClicked() throws IOException {
+		selected = -1;
+		goToContactScene();
 	}
 	
 	/* When add new or edit button clicked, switches to the contact scene */
