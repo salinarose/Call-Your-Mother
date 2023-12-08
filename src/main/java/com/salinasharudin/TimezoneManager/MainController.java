@@ -84,30 +84,38 @@ public class MainController implements Initializable {
 		
 		/* Events for hovering over or selecting contacts */
 		for (Node node : gridPaneContacts.getChildren()) {
-		    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(c -> {
+		    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
-		        if (GridPane.getRowIndex(c) == targetIndex) {
-		            c.setStyle("-fx-background-color:#FFFFFF;");
+		        if (GridPane.getRowIndex(r) == targetIndex) {
+		            r.setStyle("-fx-background-color:#FFFFFF;");
 		        }
 		    }));
-		    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(c -> {
+		    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
-		        if (GridPane.getRowIndex(c) == targetIndex) {
-		            c.setStyle("-fx-background-color:#F3F3F3;");
+		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
+		            r.setStyle("-fx-background-color:#F3F3F3;");
 		        }
 		    }));
 		    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
 			        Integer targetIndex = GridPane.getRowIndex(node);
+			        // TODO: (wishlist) disable edit button if deselected
 			        if (GridPane.getRowIndex(r) == targetIndex) {
+			        	/* problem is that this runs twice every click
+			        	if (selected == targetIndex) {
+			        		count++;
+			        		System.out.println(count);
+			        	}
+			        	*/
+			        	
 			        	// Get the item selected
 			            selected = targetIndex;
 			            btnEdit.setDisable(false);
-			            
-			            // TODO: (wishlist) disable edit button if clicked away from gridpane
-			            // TODO: (wishlist) selected item stays highlighted
+			            r.setStyle("-fx-background-color:#cccccc;");
+			        }
+			        else {
+			        	r.setStyle("-fx-background-color:#F3F3F3;");   
 			        }
 			}));
-		    
 		}
 		
 	}
