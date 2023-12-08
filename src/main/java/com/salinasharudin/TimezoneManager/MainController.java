@@ -23,7 +23,9 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 	
+	// variables that control selection and de-selection
 	public int selected = -1;
+	Boolean b = false;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -86,7 +88,7 @@ public class MainController implements Initializable {
 		for (Node node : gridPaneContacts.getChildren()) {
 		    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
-		        if (GridPane.getRowIndex(r) == targetIndex) {
+		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
 		            r.setStyle("-fx-background-color:#FFFFFF;");
 		        }
 		    }));
@@ -98,20 +100,31 @@ public class MainController implements Initializable {
 		    }));
 		    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
 			        Integer targetIndex = GridPane.getRowIndex(node);
-			        // TODO: (wishlist) disable edit button if deselected
+			        
 			        if (GridPane.getRowIndex(r) == targetIndex) {
-			        	/* problem is that this runs twice every click
-			        	if (selected == targetIndex) {
-			        		count++;
-			        		System.out.println(count);
+			        	// De-selects if target is the currently selected item
+			        	if (b == true || selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
+			        		btnEdit.setDisable(true);
+			        		selected = -1;
+			        		r.setStyle("-fx-background-color:#F3F3F3;");
+			        		// If this is the last column reset the boolean value to false
+			        		if (GridPane.getColumnIndex(r) == gridPaneContacts.getColumnCount() -1) {
+			        			b = false;
+			        		}
+			        		else {
+			        			b = true;
+			        		}
 			        	}
-			        	*/
-			        	
-			        	// Get the item selected
-			            selected = targetIndex;
-			            btnEdit.setDisable(false);
-			            r.setStyle("-fx-background-color:#cccccc;");
+			        	// Item was not already selected
+			        	else {
+				        	// Get the item selected
+				            selected = targetIndex;
+				            btnEdit.setDisable(false);
+				            r.setStyle("-fx-background-color:#cccccc;");
+				            b = false;
+			        	}
 			        }
+			        // Item was not the target of the click
 			        else {
 			        	r.setStyle("-fx-background-color:#F3F3F3;");   
 			        }
