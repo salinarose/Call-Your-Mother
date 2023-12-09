@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 public class ContactSceneController implements Initializable {
 	
 	private int selected;
-	Boolean[][] hours;
+	private Boolean[][] hours;
 	
 	/* Get the index of the selected contact. If it is -1, it is a new contact that has yet to be added */
 	public void getSelection(int selected) {
@@ -70,6 +70,20 @@ public class ContactSceneController implements Initializable {
 				hours[i] = oldHours[i].clone();
 			}
 		}
+		makeGrid();
+	}
+	
+	public void makeGrid() {
+		gridAvailability.getChildren().clear();
+		
+		// Day of the week labels
+		gridAvailability.add(new Label("S"), 1, 0);
+		gridAvailability.add(new Label("M"), 2, 0);
+		gridAvailability.add(new Label("T"), 3, 0);
+		gridAvailability.add(new Label("W"), 4, 0);
+		gridAvailability.add(new Label("T"), 5, 0);
+		gridAvailability.add(new Label("F"), 6, 0);
+		gridAvailability.add(new Label("S"), 7, 0);
 		
 		// Hours column
 		for (int r = 1; r < 25; r++) {
@@ -95,6 +109,32 @@ public class ContactSceneController implements Initializable {
 				});
 			}
 		}
+	}
+	
+	/* Button actions for changing availability grid */
+	/* Reset to default */
+	public void resetGrid() {
+		initGrid();	
+	}
+	
+	/* Change all to available */
+	public void allAvailable() {
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 24; j++) {
+				hours[i][j] = true;
+			}
+		}
+		makeGrid();
+	}
+	
+	/* Change all to none available */
+	public void noneAvailable() {
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 24; j++) {
+				hours[i][j] = false;
+			}
+		}
+		makeGrid();
 	}
 	
 	/* Initialize zone choice box */

@@ -73,9 +73,9 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="475.2" layoutY="358.6" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Reset Availability" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="360.0" />
-                  <Button layoutX="475.2" layoutY="409.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Set All Unavailable" wrapText="true" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="410.0" />
-                  <Button layoutX="475.0" layoutY="458.6" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Set All Available" wrapText="true" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="460.0" />
+                  <Button layoutX="475.2" layoutY="358.6" mnemonicParsing="false" onAction="#resetGrid" prefHeight="30.0" prefWidth="125.0" text="Reset Availability" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="360.0" />
+                  <Button layoutX="475.2" layoutY="409.0" mnemonicParsing="false" onAction="#noneAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Unavailable" wrapText="true" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="410.0" />
+                  <Button layoutX="475.0" layoutY="458.6" mnemonicParsing="false" onAction="#allAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Available" wrapText="true" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="460.0" />
                   <TextArea layoutX="448.0" layoutY="118.4" prefHeight="115.0" prefWidth="175.0" text="no scheduled calls&#10;" wrapText="true" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="115.0" />
                   <Label alignment="TOP_CENTER" layoutX="454.0" layoutY="316.0" prefHeight="18.0" prefWidth="178.0" text="Availability Options" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="5.0" />
                   <Button layoutX="450.0" layoutY="216.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="175.0" text="Schedule New Call" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="235.0" />
