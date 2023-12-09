@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class ContactSceneController implements Initializable {
 	
 	private int selected;
+	Boolean[][] hours;
 	
 	/* Get the index of the selected contact. If it is -1, it is a new contact that has yet to be added */
 	public void getSelection(int selected) {
@@ -41,7 +42,6 @@ public class ContactSceneController implements Initializable {
 		else {
 			System.out.println("existing contact");
 			Contact c = FileHelper.getContacts().get(selected);
-			//System.out.println(c.toString());
 			loadData(c);
 		}
 	}
@@ -72,13 +72,14 @@ public class ContactSceneController implements Initializable {
 	GridPane gridAvailability;
 	
 	public void initGrid() {
-		System.out.println("grid: " + selected);
-		Boolean[][] hours;
+		// TODO: how do i change this so that it only saves when the save button is pressed?
+		//Boolean[][] hours;
 		
 		if (selected == -1) {
 			hours = new Boolean[7][24];
 		}
 		else {
+			// How can i just make a local copy of this?
 			hours = FileHelper.getContacts().get(selected).getAvailability();
 		}
 		
@@ -90,8 +91,10 @@ public class ContactSceneController implements Initializable {
 			// CheckBoxes corresponding to hours array
 			for (int c = 1; c < 8; c++) {
 				CheckBox check = new CheckBox();
+				int day = c - 1;
+				int hr = r - 1;
 				
-				if (hours[c - 1][r - 1] == null || hours[c - 1][r - 1] == false) {
+				if (hours[day][hr] == null || hours[day][hr] == false) {
 					check.setSelected(false);
 				}
 				else {
@@ -99,6 +102,9 @@ public class ContactSceneController implements Initializable {
 				}
 				
 				gridAvailability.add(check, c, r);
+				check.setOnMouseClicked(e -> {
+					hours[day][hr] = check.isSelected();
+				});
 			}
 		}
 	}
@@ -136,6 +142,7 @@ public class ContactSceneController implements Initializable {
     		c.setTimezone(cbZone.getValue());
     		
     		// other fields
+    		// Availability is automatically updated in the initGrid() method
     	}
     	// return to main scene
     	goToMainScene();
