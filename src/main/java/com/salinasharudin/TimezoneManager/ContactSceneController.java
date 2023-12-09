@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,13 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 public class ContactSceneController implements Initializable {
@@ -44,14 +36,13 @@ public class ContactSceneController implements Initializable {
 			Contact c = FileHelper.getContacts().get(selected);
 			loadData(c);
 		}
+		// Initialize the availability grid
+		initGrid();
 	}
 	
 	/* Initializes scene */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Set up availability grid
-		//initGrid();
-		
 		// Set up choicebox
 		initZoneChoices();
 		
@@ -64,7 +55,6 @@ public class ContactSceneController implements Initializable {
 	private void loadData(Contact c) {
 		tfName.setText(c.getName());
 		cbZone.setValue(c.getTimezone());
-		initGrid();
 	}
 
 	/* Sets up the availability grid */
@@ -72,15 +62,13 @@ public class ContactSceneController implements Initializable {
 	GridPane gridAvailability;
 	
 	public void initGrid() {
-		// TODO: how do i change this so that it only saves when the save button is pressed?
-		//Boolean[][] hours;
+		this.hours = new Boolean[7][24];
 		
-		if (selected == -1) {
-			hours = new Boolean[7][24];
-		}
-		else {
-			// How can i just make a local copy of this?
-			hours = FileHelper.getContacts().get(selected).getAvailability();
+		if (selected != -1) {
+			Boolean[][] oldHours = FileHelper.getContacts().get(selected).getAvailability();
+			for (int i = 0; i < 7; i++) {
+				hours[i] = oldHours[i].clone();
+			}
 		}
 		
 		// Hours column
@@ -131,6 +119,7 @@ public class ContactSceneController implements Initializable {
     		String name = tfName.getText();
     		String zone = cbZone.getValue();
     		Contact c = new Contact(name, zone);
+    		c.setAvailability(hours);
     		FileHelper.getContacts().add(c);
     		
     		// other fields
@@ -140,9 +129,9 @@ public class ContactSceneController implements Initializable {
     		Contact c = FileHelper.getContacts().get(selected);
     		c.setName(tfName.getText());
     		c.setTimezone(cbZone.getValue());
+    		c.setAvailability(hours);
     		
     		// other fields
-    		// Availability is automatically updated in the initGrid() method
     	}
     	// return to main scene
     	goToMainScene();
