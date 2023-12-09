@@ -29,17 +29,6 @@ public class ContactSceneController implements Initializable {
 	
 	private int selected;
 	
-	/* Initializes scene */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// Set up availability grid
-		initGrid();
-		
-		// Set up choicebox
-		initZoneChoices();
-		
-	}
-	
 	/* Get the index of the selected contact. If it is -1, it is a new contact that has yet to be added */
 	public void getSelection(int selected) {
 		this.selected = selected;
@@ -57,6 +46,17 @@ public class ContactSceneController implements Initializable {
 		}
 	}
 	
+	/* Initializes scene */
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// Set up availability grid
+		//initGrid();
+		
+		// Set up choicebox
+		initZoneChoices();
+		
+	}
+	
 	@FXML
 	TextField tfName; 
 	
@@ -64,6 +64,7 @@ public class ContactSceneController implements Initializable {
 	private void loadData(Contact c) {
 		tfName.setText(c.getName());
 		cbZone.setValue(c.getTimezone());
+		initGrid();
 	}
 
 	/* Sets up the availability grid */
@@ -71,12 +72,33 @@ public class ContactSceneController implements Initializable {
 	GridPane gridAvailability;
 	
 	public void initGrid() {
+		System.out.println("grid: " + selected);
+		Boolean[][] hours;
+		
+		if (selected == -1) {
+			hours = new Boolean[7][24];
+		}
+		else {
+			hours = FileHelper.getContacts().get(selected).getAvailability();
+		}
+		
 		// Hours column
-		for (int i = 1; i < 25; i++) {
-			//gridAvailability.addRow(i, new Label((i) + ":00"));
-			gridAvailability.add(new Label((i) + ":00"), 0, i);
-			for (int j = 1; j < 8; j++) {
-				gridAvailability.add(new CheckBox(), j, i);
+		for (int r = 1; r < 25; r++) {
+			// Hours column
+			gridAvailability.add(new Label((r - 1) + ":00"), 0, r);
+			
+			// CheckBoxes corresponding to hours array
+			for (int c = 1; c < 8; c++) {
+				CheckBox check = new CheckBox();
+				
+				if (hours[c - 1][r - 1] == null || hours[c - 1][r - 1] == false) {
+					check.setSelected(false);
+				}
+				else {
+					check.setSelected(true);
+				}
+				
+				gridAvailability.add(check, c, r);
 			}
 		}
 	}
@@ -87,8 +109,8 @@ public class ContactSceneController implements Initializable {
 	String[] choices = {"zone 1", "zone 2", "zone 3", "zone 4", "zone 5"};
 	private void initZoneChoices() {
 		cbZone.getItems().addAll(choices);
-		//cbZone.is
 		cbZone.setOnAction(this::getZone);
+		// TODO: make it uneditable
 	}
 	
 	/* Gets the selected value of the zone */
