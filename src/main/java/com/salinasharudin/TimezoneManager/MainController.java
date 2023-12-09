@@ -104,12 +104,13 @@ public class MainController implements Initializable {
 			        if (GridPane.getRowIndex(r) == targetIndex) {
 			        	// De-selects if target is the currently selected item
 			        	if (b == true || selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
-			        		btnEdit.setDisable(true);
-			        		selected = -1;
 			        		r.setStyle("-fx-background-color:#F3F3F3;");
-			        		// If this is the last column reset the boolean value to false
+			        		
+			        		// Last column
 			        		if (GridPane.getColumnIndex(r) == gridPaneContacts.getColumnCount() -1) {
-			        			b = false;
+			        			b = false; // reset boolean to false
+			        			btnEdit.setDisable(true);
+			        			selected = -1;
 			        		}
 			        		else {
 			        			b = true;

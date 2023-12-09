@@ -12,8 +12,8 @@ import java.util.ArrayList;
 /**
  * Author: Salina Sharudin
  * App: TimeZone Manager
- * Version: 0.0.1
- * Date Updated: 11/16/2023
+ * Version: 0.0.2
+ * Date Updated: 12/9/2023
  */
 public class App extends Application {
 
@@ -48,7 +48,7 @@ public class App extends Application {
     	//contacts = FileHelper.readContactData();
     	FileHelper.readContactData();
     	ArrayList<Contact> contactList = FileHelper.getContacts();
-    	ContactHelper.printContacts(contactList);
+    	//ContactHelper.printContacts(contactList);
     	
     	//TODO: create user settings and load them here
     }

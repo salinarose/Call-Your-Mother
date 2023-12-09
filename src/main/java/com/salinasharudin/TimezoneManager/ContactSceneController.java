@@ -44,7 +44,7 @@ public class ContactSceneController implements Initializable {
 	public void getSelection(int selected) {
 		this.selected = selected;
 		
-		System.out.println("Selected: " + selected);
+		//System.out.println("Selected: " + selected);
 		if (selected == -1) {
 			// Adding new contact. All fields should be blank 
 			System.out.println("new contact");
@@ -52,7 +52,7 @@ public class ContactSceneController implements Initializable {
 		else {
 			System.out.println("existing contact");
 			Contact c = FileHelper.getContacts().get(selected);
-			System.out.println(c.toString());
+			//System.out.println(c.toString());
 			loadData(c);
 		}
 	}
@@ -94,7 +94,6 @@ public class ContactSceneController implements Initializable {
 	/* Gets the selected value of the zone */
     public void getZone(ActionEvent event) {
         String zone = cbZone.getValue();
-        System.out.println(zone);
     }
     
     /* Saves contact data */
