@@ -156,7 +156,7 @@ public class ContactSceneController implements Initializable {
     }
     
     /* Saves contact data */
-    public void saveContact(ActionEvent event) throws IOException {
+    public void saveContact(ActionEvent event){
     	// TODO: Currently still allows if the name is a whitespace character
     	if (tfName.getText() == null || cbZone.getValue() == null ||
     			tfName.getText() == "") {
@@ -197,29 +197,50 @@ public class ContactSceneController implements Initializable {
     		    	// other fields
     		    }
     		    System.out.println("Changes saved.");
-    		    try {
-    		    	// return to main scene
-					goToMainScene();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+    		    /* TODO: I want to change this so that it doesn't go back to the main scene. However, for new contacts I will
+    		     * need to change the selected value so that subsequent changes do not lead to multiple new new contacts. I 
+    		     * also would like the alert to have a slightly different message.
+    		     */
+    		    // return to main scene
+				goToMainScene();
     		  } else if (btnType == ButtonType.CANCEL) {
     			  System.out.println("Changes not saved.");
     		  }
     		});
     	}
     }
+    
+    /* Removes the contact from the list and sends the user back to the main scene */
+    public void deleteContact() {
+		Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+		confirmAlert.setTitle("Confirm Delete");
+		confirmAlert.setHeaderText("Are you sure you want to delete this contact?");
+		confirmAlert.setContentText("Note: If you confirm, you will not be able to undo this change.");
+		confirmAlert.showAndWait().ifPresent((btnType) -> {
+			
+		  if (btnType == ButtonType.OK) {
+			  if (selected != -1) {
+				  FileHelper.getContacts().remove(selected);
+			  }
+			  goToMainScene();
+		  }
+		});
+    	
+    }
 	
 	/* Returns to main scene */
-	public void goToMainScene() throws IOException {
+	public void goToMainScene() {
 		// Load main scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
-        Parent root = loader.load();
- 
-        Stage stage = (Stage) gridAvailability.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Time Zone Manager");
-        stage.show();
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) gridAvailability.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Time Zone Manager");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
