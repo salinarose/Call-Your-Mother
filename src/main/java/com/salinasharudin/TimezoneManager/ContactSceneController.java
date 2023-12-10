@@ -155,6 +155,26 @@ public class ContactSceneController implements Initializable {
         String zone = cbZone.getValue();
     }
     
+    /* Clears all fields */
+    public void clearAll() {
+    	tfName.setText(null);
+    	cbZone.setValue(null);
+    	noneAvailable();
+    	
+    	// other fields
+    	//image
+    	//scheduled calls
+    }
+    
+    public void resetAll() {
+    	Contact c = FileHelper.getContacts().get(selected);
+    	tfName.setText(c.getName());
+    	cbZone.setValue(c.getTimezone());
+    	this.resetGrid();
+    	
+    	// any other fields
+    }
+    
     /* Saves contact data */
     public void saveContact(ActionEvent event){
     	// TODO: Currently still allows if the name is a whitespace character
