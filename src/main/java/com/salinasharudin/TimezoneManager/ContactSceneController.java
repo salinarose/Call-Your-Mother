@@ -10,6 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -154,27 +157,58 @@ public class ContactSceneController implements Initializable {
     
     /* Saves contact data */
     public void saveContact(ActionEvent event) throws IOException {
-    	if (selected == -1) {
-    		// Save as a new contact and add to the arraylist
-    		String name = tfName.getText();
-    		String zone = cbZone.getValue();
-    		Contact c = new Contact(name, zone);
-    		c.setAvailability(hours);
-    		FileHelper.getContacts().add(c);
+    	// TODO: Currently still allows if the name is a whitespace character
+    	if (tfName.getText() == null || cbZone.getValue() == null ||
+    			tfName.getText() == "") {
     		
-    		// other fields
+    		// Alert informs user that the contact can not be saved if necessary fields are empty
+    		Alert saveAlert = new Alert(Alert.AlertType.INFORMATION);
+    		saveAlert.setTitle("Save Error");
+    		saveAlert.setHeaderText("Name and zone can not be empty.");
+    		saveAlert.showAndWait();
     	}
     	else {
-    		// Make changes to existing contact and no need to update the arraylist
-    		Contact c = FileHelper.getContacts().get(selected);
-    		c.setName(tfName.getText());
-    		c.setTimezone(cbZone.getValue());
-    		c.setAvailability(hours);
-    		
-    		// other fields
+    		// System alert asks user for confirmation to save changes
+    		Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+    		confirmAlert.setTitle("Confirm Changes");
+    		confirmAlert.setHeaderText("Contact info may have changed. Are you sure you want to save these changes?");
+    		confirmAlert.showAndWait().ifPresent((btnType) -> {
+    			
+    		  if (btnType == ButtonType.OK) {
+    			// Saves as new contact
+    		    if (selected == -1) {
+    		    	// Save as a new contact and add to the arraylist
+    		    	String name = tfName.getText();
+    		    	String zone = cbZone.getValue();
+    		    	Contact c = new Contact(name, zone);
+    		    	c.setAvailability(hours);
+    		    	FileHelper.getContacts().add(c);
+    		    	
+    		    	// other fields
+    		    }
+    		    // Saves changes to existing contact
+    		    else {
+    		    	// Make changes to existing contact and no need to update the arraylist
+    		    	Contact c = FileHelper.getContacts().get(selected);
+    		    	c.setName(tfName.getText());
+    		    	c.setTimezone(cbZone.getValue());
+    		    	c.setAvailability(hours);
+    		    	
+    		    	// other fields
+    		    }
+    		    System.out.println("Changes saved.");
+    		    try {
+    		    	// return to main scene
+					goToMainScene();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		  } else if (btnType == ButtonType.CANCEL) {
+    			  System.out.println("Changes not saved.");
+    		  }
+    		});
     	}
-    	// return to main scene
-    	goToMainScene();
     }
 	
 	/* Returns to main scene */
