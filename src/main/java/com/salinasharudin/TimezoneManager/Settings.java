@@ -2,33 +2,37 @@ package com.salinasharudin.TimezoneManager;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class Settings {
 	
-	private static Settings single_instance = null;
+	// Singleton variable
+	//private static Settings single_instance = null; // lazy initialization
+	private static final Settings single_instance = new Settings(); // eager initialization
 	
 	private String username;
-	private static ZoneId zone;
-	private static LocalDateTime localClock;
-	// Boolean[][] schedule;
-	// String themeFile
+	private ZoneId zone;
+	private Boolean[][] schedule;
+	private String theme;
 	
-	private Settings(ZoneId zone)
-    {
-        this.zone = zone;
-        this.localClock = LocalDateTime.now(zone);
-    }
+	// Private constructor to ensure it is a singleton class
+	private Settings() {}
  
-    // Method
     // Static method to create instance of Singleton class
-    public static Settings Settings(ZoneId zone)
+	// Eager initialization
+	public static Settings getInstance() {
+		return single_instance;
+	}
+	/*// Lazy initialization 
+    public static Settings Settings()
     {
         // To ensure only one instance is created
         if (single_instance == null) {
-            single_instance = new Settings(zone);
+            single_instance = new Settings();
         }
         return single_instance;
     }
+    */
 
 	public String getUsername() {
 		return username;
@@ -38,18 +42,36 @@ public class Settings {
 		this.username = username;
 	}
 
+	// If the zone is null, set it to the default (system)
 	public ZoneId getZone() {
+		if (zone == null) {
+			ZonedDateTime.now().getZone();
+		}
 		return zone;
 	}
 
 	public void setZone(ZoneId zone) {
 		this.zone = zone;
-		this.localClock = LocalDateTime.now(zone);
 	}
 
 	public LocalDateTime getLocalClock() {
-		return localClock;
+		return LocalDateTime.now(getZone());
 	}
 	
+	public Boolean[][] getSchedule() {
+		return schedule;
+	}
+	
+	public void setSchedule(Boolean[][] array) {
+		this.schedule = array;
+	}
+	
+	private String getTheme() {
+		return theme;
+	}
+	
+	private void setTheme(String filePath) {
+		this.theme = filePath;
+	}
 	
 }
