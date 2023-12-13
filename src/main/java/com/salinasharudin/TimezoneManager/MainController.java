@@ -35,8 +35,8 @@ public class MainController implements Initializable {
 		displayContacts();
 	}
 
-	// Creates a local clock
-	private ZonedDateTime clockNow = ZonedDateTime.now();
+	// Creates a local clock using the time zone specified in user's settings
+	private ZonedDateTime clockNow = ZonedDateTime.now(Settings.getInstance().getZone());
 	private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
 	private DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	
@@ -58,6 +58,10 @@ public class MainController implements Initializable {
 		lblLocalTime.setText(clockNow.format(formatTime));
 		lblLocalDay.setText(clockNow.getDayOfWeek().toString());
 		lblLocalDate.setText(clockNow.format(formatDate));
+		
+		// Obtain offset from clock
+		//String offset = clockNow.getOffset().toString();
+	
 	}
 	
 	@FXML

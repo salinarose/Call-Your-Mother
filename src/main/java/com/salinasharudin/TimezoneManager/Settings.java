@@ -45,7 +45,7 @@ public class Settings {
 	// If the zone is null, set it to the default (system)
 	public ZoneId getZone() {
 		if (zone == null) {
-			ZonedDateTime.now().getZone();
+			zone = ZonedDateTime.now().getZone();
 		}
 		return zone;
 	}
