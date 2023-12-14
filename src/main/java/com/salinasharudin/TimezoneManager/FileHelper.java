@@ -131,8 +131,6 @@ public final class FileHelper {
 		        System.out.println(entry.getKey() + "=" + entry.getValue());
 		    }
 		    */
-		    
-		
 
 			System.out.println("Settings load successful.");
 			//settingsFileSuccess = true;
