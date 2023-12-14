@@ -46,9 +46,16 @@ public class App extends Application {
     }
     
     public static void initialize() {
+    	/* Test 
+    	FileHelper.test_addContacts();
+    	ArrayList<Contact> contactList = FileHelper.getContacts();
+    	for (Contact c : contactList) {
+    		System.out.println(c.toString());
+    	}
+    	*/
+    	
     	// Load the contacts list from a file if it exists, or a new empty list if it does not
     	FileHelper.readContactData();
-    	ArrayList<Contact> contactList = FileHelper.getContacts();
     	
     	FileHelper.writeSettingsData();
     	

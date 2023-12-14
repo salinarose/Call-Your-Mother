@@ -108,14 +108,18 @@ public final class FileHelper {
 	
 	/* Adds some sample people to the contacts list. */
 	static void test_addContacts() {
-		ArrayList<Contact> contacts = new ArrayList<>();
+		ArrayList<Contact> test = new ArrayList<>();
 		Contact person1 = new Contact("Mom", "UTC-1");
 		Contact person2 = new Contact("Dad", "UTC-3");
 		Contact person3 = new Contact("Simon", "UTC-2");
 		person3.setTimezone("north pole");
-		contacts.add(person1);
-		contacts.add(person2);
-		contacts.add(person3);
+		test.add(person1);
+		test.add(person2);
+		test.add(person3);
+		
+		contacts = test;
+		
+		writeContactData();
 	}
 	
 	/* Error alert popup that informs the user that the data file has been corrupted */

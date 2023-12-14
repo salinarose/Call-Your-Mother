@@ -2,6 +2,8 @@ package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -143,9 +145,13 @@ public class ContactSceneController implements Initializable {
 	/* Initialize zone choice box */
 	@FXML
 	ChoiceBox<String> cbZone;
-	String[] choices = {"zone 1", "zone 2", "zone 3", "zone 4", "zone 5"};
+	//String[] choices = {"zone 1", "zone 2", "zone 3", "zone 4", "zone 5"};
 	private void initZoneChoices() {
-		cbZone.getItems().addAll(choices);
+		var o = ZoneId.SHORT_IDS;
+		//System.out.println(o.keySet().size());
+		//var options = ZoneId.getAvailableZoneIds().spliterator();
+		
+		cbZone.getItems().addAll(o.keySet());
 		cbZone.setOnAction(this::getZone);
 		// TODO: make it uneditable
 	}
