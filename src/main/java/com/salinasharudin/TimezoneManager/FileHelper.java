@@ -4,12 +4,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -24,6 +27,7 @@ public final class FileHelper {
 	/* Contacts file methods */
 	private static ArrayList<Contact> contacts;
 	public static Boolean contactFileSuccess;
+	//public static Boolean settingsFileSuccess;
 	
 	/* Read contact data from save file and load them into a new array */
 	public static void readContactData() {
@@ -102,6 +106,41 @@ public final class FileHelper {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			System.out.println("Save failed.");
+		}
+	}
+	
+	/* Read settings data from save file */
+	public static void readSettingsData() {
+	    
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			// convert JSON file to map
+		    Map<?, ?> map = mapper.readValue(Paths.get("settings.json").toFile(), Map.class);
+		    
+		    /* Load each field in settings from map */
+		    Settings settings = Settings.getInstance();		    
+		    settings.setZone(ZoneId.of((String) map.get("zone")));
+		    settings.setUsername(map.get("username").toString());
+		    settings.setSchedule((Boolean[][]) map.get("schedule"));
+		    // TODO: other fields
+
+		    
+		    // print map entries
+		    /*
+		    for (Map.Entry<?, ?> entry : map.entrySet()) {
+		        System.out.println(entry.getKey() + "=" + entry.getValue());
+		    }
+		    */
+		    
+		
+
+			System.out.println("Settings load successful.");
+			//settingsFileSuccess = true;
+			
+		} catch (Exception e) {
+			System.out.println("Settings load unsuccessful.");
+			//settingsFileSuccess = false;
+			//showFileAlert();
 		}
 	}
 	

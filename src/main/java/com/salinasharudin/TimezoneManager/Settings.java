@@ -10,10 +10,10 @@ public class Settings {
 	//private static Settings single_instance = null; // lazy initialization
 	private static final Settings single_instance = new Settings(); // eager initialization
 	
-	private String username;
+	private String username = "";
 	private ZoneId zone;
-	private Boolean[][] schedule;
-	private String theme;
+	private Boolean[][] schedule = new Boolean[7][24];
+	private String theme = "";
 	
 	// Private constructor to ensure it is a singleton class
 	private Settings() {}
