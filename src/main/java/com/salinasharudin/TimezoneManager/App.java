@@ -47,10 +47,10 @@ public class App extends Application {
     
     public static void initialize() {
     	// Load the contacts list from a file if it exists, or a new empty list if it does not
-    	//contacts = FileHelper.readContactData();
     	FileHelper.readContactData();
     	ArrayList<Contact> contactList = FileHelper.getContacts();
-    	//ContactHelper.printContacts(contactList);
+    	
+    	FileHelper.writeSettingsData();
     	
     	//TODO: create user settings and load them here
     }

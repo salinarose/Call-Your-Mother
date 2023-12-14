@@ -33,6 +33,13 @@ public class MainController implements Initializable {
 		/* Calls display methods */
 		displayLocalDateTime();
 		displayContacts();
+		
+		/* Shows an alert to the user if there is an error loading the contact file */
+		if (FileHelper.contactFileSuccess == false) {
+			FileHelper.showFileAlert();
+			// Change variable so that the alert only shows once after attempting to load the file
+			FileHelper.contactFileSuccess = true;
+		}
 	}
 
 	// Creates a local clock using the time zone specified in user's settings

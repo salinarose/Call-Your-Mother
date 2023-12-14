@@ -17,11 +17,15 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
+import javafx.scene.control.Alert;
+
 public final class FileHelper {
 	
+	/* Contacts file methods */
 	private static ArrayList<Contact> contacts;
+	public static Boolean contactFileSuccess;
 	
-	// Read contact data from save file and load them into a new array
+	/* Read contact data from save file and load them into a new array */
 	public static void readContactData() {
 		
 		ArrayList<Contact> contactsList = new ArrayList<>();
@@ -37,21 +41,22 @@ public final class FileHelper {
 				contactsList.add(c);
 			}
 			System.out.println("Load successful.");
+			contactFileSuccess = true;
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("Load unsuccessful.");
-			e.printStackTrace();
+			contactFileSuccess = false;
+			//showFileAlert();
 		}
 		
 		contacts = contactsList;
-		//return contactsList;
 	}
 	
 	public static ArrayList<Contact> getContacts() {
 		return contacts;
 	}
 	
-	// Write contact data to a file
+	/* Write contact data to a file */
 	public static void writeContactData() {
 
 		try {
@@ -65,7 +70,7 @@ public final class FileHelper {
 			for (Contact c: contacts) {
 				JSONObject jo = new JSONObject(c);
 				System.out.println(jo);
-				jo.write(writer, 0, 0);
+				jo.write(writer, 1, 1);
 				if (counter < last) {
 					writer.append(',');
 				}
@@ -84,6 +89,23 @@ public final class FileHelper {
 		}
 	}
 	
+	/* Settings file methods */
+	public static void writeSettingsData() {
+		try {
+			FileWriter writer = new FileWriter("settings.json");
+			JSONObject jo = new JSONObject(Settings.getInstance());
+			jo.write(writer, 1, 1);
+			writer.flush();
+			writer.close();
+			System.out.println("Settings save succcessful.");
+			
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			System.out.println("Save failed.");
+		}
+	}
+	
+	
 	/* Adds some sample people to the contacts list. */
 	static void test_addContacts() {
 		ArrayList<Contact> contacts = new ArrayList<>();
@@ -94,6 +116,15 @@ public final class FileHelper {
 		contacts.add(person1);
 		contacts.add(person2);
 		contacts.add(person3);
+	}
+	
+	/* Error alert popup that informs the user that the data file has been corrupted */
+	public static void showFileAlert() {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("File Error");
+		alert.setHeaderText("Error reading file");
+		alert.setContentText("Unable to load data. File may have been corrupted or deleted.");
+		alert.showAndWait();
 	}
 
 }
