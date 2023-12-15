@@ -26,8 +26,8 @@ public final class FileHelper {
 	
 	/* Contacts file methods */
 	private static ArrayList<Contact> contacts;
-	public static Boolean contactFileSuccess;
-	//public static Boolean settingsFileSuccess;
+	public static Boolean contactFileSuccess = false;
+	public static Boolean settingsFileSuccess = false;
 	
 	/* Read contact data from save file and load them into a new array */
 	public static void readContactData() {
@@ -50,7 +50,6 @@ public final class FileHelper {
 		} catch (Exception e) {
 			System.out.println("Load unsuccessful.");
 			contactFileSuccess = false;
-			//showFileAlert();
 		}
 		
 		contacts = contactsList;
@@ -113,8 +112,8 @@ public final class FileHelper {
 	public static void readSettingsData() {
 	    
 		try {
-			ObjectMapper mapper = new ObjectMapper();
 			// convert JSON file to map
+			ObjectMapper mapper = new ObjectMapper();
 		    Map<?, ?> map = mapper.readValue(Paths.get("settings.json").toFile(), Map.class);
 		    
 		    /* Load each field in settings from map */
@@ -133,12 +132,11 @@ public final class FileHelper {
 		    */
 
 			System.out.println("Settings load successful.");
-			//settingsFileSuccess = true;
+			settingsFileSuccess = true;
 			
 		} catch (Exception e) {
 			System.out.println("Settings load unsuccessful.");
-			//settingsFileSuccess = false;
-			//showFileAlert();
+			settingsFileSuccess = false;
 		}
 	}
 	

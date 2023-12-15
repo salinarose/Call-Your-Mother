@@ -56,9 +56,8 @@ public class App extends Application {
     	
     	// Load the contacts list from a file if it exists, or a new empty list if it does not
     	FileHelper.readContactData();
-    	
     	FileHelper.readSettingsData();
-    	FileHelper.writeSettingsData();
+    	//FileHelper.writeSettingsData();
     	
     	//TODO: create user settings and load them here
     }
