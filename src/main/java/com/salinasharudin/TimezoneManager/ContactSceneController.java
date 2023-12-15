@@ -269,4 +269,20 @@ public class ContactSceneController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/* Goes to the user settings scene */
+	public void goToSettingsScene() {
+		// TODO: add confirmation alert / save changes first
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SettingsScene.fxml"));
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) gridAvailability.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Settings");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

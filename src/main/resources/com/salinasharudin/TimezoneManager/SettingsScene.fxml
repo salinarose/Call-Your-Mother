@@ -43,7 +43,7 @@
             </MenuBar>
             <AnchorPane prefHeight="615.0" prefWidth="640.0">
                <children>
-                  <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="15.0" />
+                  <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackClicked" text="Back" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="15.0" />
                   <Button fx:id="btnSave" layoutX="37.0" layoutY="543.0" mnemonicParsing="false" text="Save All Changes" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="543.0">
                      <font>
                         <Font size="14.0" />
@@ -57,7 +57,7 @@
                   </Label>
                   <Label layoutX="36.0" layoutY="80.0" text="Username" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="80.0" />
                   <Label layoutX="356.0" layoutY="76.0" text="Time Zone" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="80.0" />
-                  <TextField fx:id="tfusername" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0" />
+                  <TextField fx:id="tfUsername" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0" />
                   <ChoiceBox fx:id="cbZone" layoutX="356.0" layoutY="96.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="100.0" />
                   <Label alignment="TOP_CENTER" layoutX="208.0" layoutY="20.0" prefHeight="35.0" prefWidth="239.0" text="User Settings" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                      <font>
@@ -104,7 +104,7 @@
                         </AnchorPane>
                      </content>
                   </ScrollPane>
-                  <ChoiceBox layoutX="36.0" layoutY="165.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="170.0" />
+                  <ChoiceBox fx:id="cbTheme" layoutX="36.0" layoutY="165.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="170.0" />
                   <Label layoutX="36.0" layoutY="147.0" text="Change Theme" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="150.0" />
                   <Label layoutX="356.0" layoutY="151.0" text="Current Time: " AnchorPane.leftAnchor="350.0" />
                   <Label layoutX="356.0" layoutY="188.0" text="Location:" AnchorPane.leftAnchor="350.0" />

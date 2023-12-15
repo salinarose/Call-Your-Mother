@@ -26,6 +26,7 @@ public final class FileHelper {
 	
 	/* Contacts file methods */
 	private static ArrayList<Contact> contacts;
+	//private static Settings settings;
 	public static Boolean contactFileSuccess = false;
 	public static Boolean settingsFileSuccess = false;
 	
@@ -117,7 +118,8 @@ public final class FileHelper {
 		    Map<?, ?> map = mapper.readValue(Paths.get("settings.json").toFile(), Map.class);
 		    
 		    /* Load each field in settings from map */
-		    Settings settings = Settings.getInstance();		    
+		    Settings settings = Settings.getInstance();	
+		    settings = Settings.getInstance();
 		    settings.setZone(ZoneId.of((String) map.get("zone")));
 		    settings.setUsername(map.get("username").toString());
 		    settings.setSchedule((Boolean[][]) map.get("schedule"));
