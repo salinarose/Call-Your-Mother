@@ -30,8 +30,8 @@
                   <Menu mnemonicParsing="false" text="Edit">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Save All" />
-                        <MenuItem mnemonicParsing="false" text="Clear All" />
-                        <MenuItem mnemonicParsing="false" text="Reset All Changes" />
+                        <MenuItem mnemonicParsing="false" onAction="#clearAll" text="Clear All" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetAll" text="Reset All Changes" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="About">
@@ -49,7 +49,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="72.0" layoutY="14.0" mnemonicParsing="false" prefWidth="75.0" text="Clear All" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="15.0" />
+                  <Button layoutX="72.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearAll" prefWidth="75.0" text="Clear All" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="15.0" />
                   <Label alignment="CENTER" layoutX="271.0" layoutY="130.0" prefHeight="20.0" prefWidth="258.0" text="Availability" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font size="14.0" />

@@ -126,8 +126,9 @@ public final class FileHelper {
 		    
 		    settings.setZone(ZoneId.of((String) map.get("zone")));
 		    settings.setUsername(map.get("username").toString());
+		    settings.setTheme((String) map.get("theme"));
 		    
-		    // TRYING TO FIGURE OUT HOW TO GET THE SCHEDULE
+		    // Load schedule
 		    Boolean[][] hours = new Boolean[7][24];
 		    ArrayList<ArrayList> v = (ArrayList<ArrayList>) map.get("schedule");
 		    int dayCount = 0;
@@ -144,33 +145,10 @@ public final class FileHelper {
 		    	}
 		    	dayCount++;
 		    }
-
 		    settings.setSchedule(hours);
 		    
-		    /*
-		    int day = 0;
-		   // for (Object i : ja) {
-		    	//hours[day] = (Boolean[]) i;
-		    	//Boolean[] array = (Boolean[]) list.get(day);
-		    	//System.out.println(i.getClass());
-		    	day++;
-		   // } 
-		    */
 		    
-		    
-		    //test: 
-			/*
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 10; j++) {
-					System.out.println(Settings.getInstance().getSchedule()[i][j]);
-				}
-			}
-			*/
-		    
-		    // TODO: other fields
-
-		    
-		    // print map entries
+		    // test: print map entries
 		    /*
 		    for (Map.Entry<?, ?> entry : map.entrySet()) {
 		        System.out.println(entry.getKey() + "=" + entry.getValue());

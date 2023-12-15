@@ -66,11 +66,11 @@ public class Settings {
 		this.schedule = array;
 	}
 	
-	private String getTheme() {
+	public String getTheme() {
 		return theme;
 	}
 	
-	private void setTheme(String filePath) {
+	public void setTheme(String filePath) {
 		this.theme = filePath;
 	}
 	

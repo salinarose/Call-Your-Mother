@@ -2,8 +2,11 @@ package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -27,6 +31,13 @@ public class SettingsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tfUsername.setText(Settings.getInstance().getUsername());
+		
+		initZoneChoices();
+		cbZone.setValue(Settings.getInstance().getZone().toString());
+		
+		initThemeChoices();
+		cbTheme.setValue(Settings.getInstance().getTheme());
+		
 		initGrid();
 		
 		/* test
@@ -35,6 +46,60 @@ public class SettingsController implements Initializable {
 		*/
 		
 	}
+	
+	/* Initialize zone choice box */
+	@FXML
+	ChoiceBox<String> cbZone;
+	
+	private void initZoneChoices() {
+		Map<String, String> o = ZoneId.SHORT_IDS;
+		cbZone.getItems().addAll(o.keySet());
+		cbZone.setOnAction(this::getZone);
+		// TODO: make it uneditable
+	}
+	
+	/* Gets the selected value of the zone */
+    public void getZone(ActionEvent event) {
+        String zone = cbZone.getValue();
+    }
+    
+    /* Initialize theme choice box */
+    @FXML
+    ChoiceBox<String> cbTheme;
+    
+    private void initThemeChoices() {
+    	String[] options = {"default", "light", "dark"};
+    	cbTheme.getItems().addAll(options);
+    	cbTheme.setOnAction(this::getTheme);
+    }
+    
+    /* Gets the selected theme */
+    public String getTheme(ActionEvent event) {
+    	String theme = cbTheme.getValue();
+    	if (theme == "light") {
+    		return "light.css";
+    	}
+    	else if (theme == "dark") {
+    		return "dark.css";
+    	}
+    	else return "default.css";
+    }
+    
+    /* Clears all fields */
+    public void clearAll() {
+    	tfUsername.setText(null);
+    	cbZone.setValue(null);
+    	cbTheme.setValue("default");
+    	noneAvailable();
+    }
+    
+    /* Reset all fields */
+    public void resetAll() {
+    	tfUsername.setText(Settings.getInstance().getUsername());
+    	cbZone.setValue(Settings.getInstance().getZone().toString());
+    	cbTheme.setValue(Settings.getInstance().getTheme());
+    	this.resetGrid();
+    }
 	
 	/* Sets up the schedule grid */
 	@FXML
@@ -47,14 +112,7 @@ public class SettingsController implements Initializable {
 		for (int i = 0; i < 7; i++) {
 			hours[i] = oldHours[i].clone();
 		}
-		
-		//test
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 10; j++) {
-				//System.out.println(oldHours[i][j]);
-			}
-		}
-		
+
 		makeGrid();
 	}
 	

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -50,7 +51,6 @@ public class ContactSceneController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// Set up choicebox
 		initZoneChoices();
-		
 	}
 	
 	@FXML
@@ -145,15 +145,10 @@ public class ContactSceneController implements Initializable {
 	/* Initialize zone choice box */
 	@FXML
 	ChoiceBox<String> cbZone;
-	//String[] choices = {"zone 1", "zone 2", "zone 3", "zone 4", "zone 5"};
 	private void initZoneChoices() {
-		var o = ZoneId.SHORT_IDS;
-		//System.out.println(o.keySet().size());
-		//var options = ZoneId.getAvailableZoneIds().spliterator();
-		
+		Map<String, String> o = ZoneId.SHORT_IDS;
 		cbZone.getItems().addAll(o.keySet());
 		cbZone.setOnAction(this::getZone);
-		// TODO: make it uneditable
 	}
 	
 	/* Gets the selected value of the zone */
