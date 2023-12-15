@@ -43,36 +43,31 @@
             </MenuBar>
             <AnchorPane prefHeight="615.0" prefWidth="640.0">
                <children>
-                  <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackClicked" text="Back" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="15.0" />
-                  <Button fx:id="btnSave" layoutX="37.0" layoutY="543.0" mnemonicParsing="false" text="Save All Changes" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="543.0">
+                  <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackClicked" text="Back" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                  <Button fx:id="btnSave" layoutX="33.0" layoutY="385.0" mnemonicParsing="false" text="Save All Changes" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="40.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="72.0" layoutY="14.0" mnemonicParsing="false" prefWidth="75.0" text="Clear All" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="15.0" />
-                  <Label alignment="CENTER" layoutX="208.0" layoutY="267.0" text="Availability" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="240.0">
+                  <Button layoutX="72.0" layoutY="14.0" mnemonicParsing="false" prefWidth="75.0" text="Clear All" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="15.0" />
+                  <Label alignment="CENTER" layoutX="271.0" layoutY="130.0" prefHeight="20.0" prefWidth="258.0" text="Availability" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="36.0" layoutY="80.0" text="Username" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="80.0" />
-                  <Label layoutX="356.0" layoutY="76.0" text="Time Zone" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="80.0" />
-                  <TextField fx:id="tfUsername" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0" />
-                  <ChoiceBox fx:id="cbZone" layoutX="356.0" layoutY="96.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="100.0" />
-                  <Label alignment="TOP_CENTER" layoutX="208.0" layoutY="20.0" prefHeight="35.0" prefWidth="239.0" text="User Settings" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="467.0" layoutY="109.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Reset" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="35.0" />
-                  <Button layoutX="467.0" layoutY="159.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Set All Unavailable" wrapText="true" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="35.0" />
-                  <Button layoutX="467.0" layoutY="209.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Set All Available" wrapText="true" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="35.0" />
-                  <Label alignment="TOP_CENTER" layoutX="441.0" layoutY="75.0" prefHeight="18.0" prefWidth="178.0" text="Availability Options" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="10.0" />
-                  <ScrollPane layoutX="13.0" layoutY="290.0" prefHeight="305.0" prefWidth="425.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="265.0">
+                  <Label layoutX="36.0" layoutY="80.0" text="Username" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="60.0" />
+                  <Label layoutX="356.0" layoutY="76.0" text="Time Zone" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="180.0" />
+                  <TextField fx:id="tfUsername" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="178.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="80.0" />
+                  <ChoiceBox fx:id="cbZone" layoutX="356.0" layoutY="96.0" prefHeight="26.0" prefWidth="178.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="200.0" />
+                  <Button layoutX="43.0" layoutY="401.0" mnemonicParsing="false" onAction="#resetGrid" prefHeight="30.0" prefWidth="125.0" text="Reset" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="401.0" />
+                  <Button layoutX="43.0" layoutY="441.0" mnemonicParsing="false" onAction="#noneAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Unavailable" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="441.0" />
+                  <Button layoutX="43.0" layoutY="481.0" mnemonicParsing="false" onAction="#allAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Available" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="481.0" />
+                  <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="375.0" prefHeight="18.0" prefWidth="178.0" text="Availability Options" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="375.0" />
+                  <ScrollPane hbarPolicy="NEVER" layoutX="13.0" layoutY="290.0" prefHeight="305.0" prefWidth="425.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <GridPane fx:id="gridSchedule" hgap="5.0" layoutY="14.0" prefHeight="480.0" prefWidth="410.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane fx:id="grid" hgap="5.0" layoutY="14.0" prefHeight="480.0" prefWidth="410.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnConstraints>
                                     <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="57.0" />
                                     <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
@@ -104,10 +99,10 @@
                         </AnchorPane>
                      </content>
                   </ScrollPane>
-                  <ChoiceBox fx:id="cbTheme" layoutX="36.0" layoutY="165.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="170.0" />
-                  <Label layoutX="36.0" layoutY="147.0" text="Change Theme" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="150.0" />
-                  <Label layoutX="356.0" layoutY="151.0" text="Current Time: " AnchorPane.leftAnchor="350.0" />
-                  <Label layoutX="356.0" layoutY="188.0" text="Location:" AnchorPane.leftAnchor="350.0" />
+                  <ChoiceBox fx:id="cbTheme" layoutX="36.0" layoutY="165.0" prefHeight="26.0" prefWidth="178.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="140.0" />
+                  <Label layoutX="36.0" layoutY="147.0" text="Change Theme" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="120.0" />
+                  <Label alignment="CENTER" contentDisplay="TOP" layoutX="67.0" layoutY="242.0" text="Current Time: " AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="260.0" />
+                  <Label alignment="CENTER" layoutX="78.0" layoutY="274.0" text="Location:" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="300.0" />
                </children>
             </AnchorPane>
          </children>
