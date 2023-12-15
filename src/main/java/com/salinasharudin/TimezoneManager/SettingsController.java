@@ -12,23 +12,119 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
 
 	@FXML 
 	TextField tfUsername;
-	
+	private Boolean[][] hours; // temporary array that holds schedule until save confirmed
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tfUsername.setText(Settings.getInstance().getUsername());
+		initGrid();
+		
+		/* test
 		System.out.println("username: " + Settings.getInstance().getUsername());
 		System.out.println("zone: " + Settings.getInstance().getZone());
+		*/
 		
 	}
 	
+	/* Sets up the schedule grid */
+	@FXML
+	GridPane grid;
+	
+	public void initGrid() {
+		this.hours = new Boolean[7][24];
+		
+		Boolean[][] oldHours = Settings.getInstance().getSchedule();
+		for (int i = 0; i < 7; i++) {
+			hours[i] = oldHours[i].clone();
+		}
+		
+		//test
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 10; j++) {
+				//System.out.println(oldHours[i][j]);
+			}
+		}
+		
+		makeGrid();
+	}
+	
+	public void makeGrid() {
+		grid.getChildren().clear();
+		
+		// Day of the week labels
+		grid.add(new Label("S"), 1, 0);
+		grid.add(new Label("M"), 2, 0);
+		grid.add(new Label("T"), 3, 0);
+		grid.add(new Label("W"), 4, 0);
+		grid.add(new Label("T"), 5, 0);
+		grid.add(new Label("F"), 6, 0);
+		grid.add(new Label("S"), 7, 0);
+		
+		// Hours column
+		for (int r = 1; r < 25; r++) {
+			// Hours column
+			grid.add(new Label((r - 1) + ":00"), 0, r);
+			
+			// CheckBoxes corresponding to hours array
+			for (int c = 1; c < 8; c++) {
+				CheckBox check = new CheckBox();
+				int day = c - 1;
+				int hr = r - 1;
+				
+				if (hours[day][hr] == null || hours[day][hr] == false) {
+					check.setSelected(false);
+				}
+				else {
+					check.setSelected(true);
+				}
+				
+				grid.add(check, c, r);
+				check.setOnMouseClicked(e -> {
+					hours[day][hr] = check.isSelected();
+				});
+			}
+		}
+	}
+	
+	/* Button actions for changing availability grid */
+	/* Reset to default */
+	public void resetGrid() {
+		initGrid();	
+	}
+	
+	/* Change all to available */
+	public void allAvailable() {
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 24; j++) {
+				hours[i][j] = true;
+			}
+		}
+		makeGrid();
+	}
+	
+	/* Change all to none available */
+	public void noneAvailable() {
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 24; j++) {
+				hours[i][j] = false;
+			}
+		}
+		makeGrid();
+	}
+	
+	@FXML
+	Button btnBack;
+
 	public void goBackClicked() {
 		Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
 		confirmAlert.setTitle("Confirm");
@@ -40,9 +136,6 @@ public class SettingsController implements Initializable {
 		  }
 		});
 	}
-	
-	@FXML
-	Button btnBack;
 	
 	/* Returns to main scene */
 	public void goToMainScene() {

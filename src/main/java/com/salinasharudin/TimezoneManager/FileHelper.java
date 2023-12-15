@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -113,16 +114,59 @@ public final class FileHelper {
 	public static void readSettingsData() {
 	    
 		try {
+			
 			// convert JSON file to map
 			ObjectMapper mapper = new ObjectMapper();
 		    Map<?, ?> map = mapper.readValue(Paths.get("settings.json").toFile(), Map.class);
+
 		    
-		    /* Load each field in settings from map */
-		    Settings settings = Settings.getInstance();	
-		    settings = Settings.getInstance();
+		    
+		    // Load each field in settings from map 
+		    Settings settings = Settings.getInstance();
+		    
 		    settings.setZone(ZoneId.of((String) map.get("zone")));
 		    settings.setUsername(map.get("username").toString());
-		    settings.setSchedule((Boolean[][]) map.get("schedule"));
+		    
+		    // TRYING TO FIGURE OUT HOW TO GET THE SCHEDULE
+		    Boolean[][] hours = new Boolean[7][24];
+		    ArrayList<ArrayList> v = (ArrayList<ArrayList>) map.get("schedule");
+		    int dayCount = 0;
+		    for (ArrayList day : v) {
+		    	int hourCount = 0;
+		    	//System.out.println(day);
+		    	for (var hour : day) {
+		    		//System.out.println(hour);
+		    		if (hour == null) {
+		    			hour = false;
+		    		}
+		    		hours[dayCount][hourCount] = (Boolean) hour;
+		    		hourCount++;
+		    	}
+		    	dayCount++;
+		    }
+
+		    settings.setSchedule(hours);
+		    
+		    /*
+		    int day = 0;
+		   // for (Object i : ja) {
+		    	//hours[day] = (Boolean[]) i;
+		    	//Boolean[] array = (Boolean[]) list.get(day);
+		    	//System.out.println(i.getClass());
+		    	day++;
+		   // } 
+		    */
+		    
+		    
+		    //test: 
+			/*
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 10; j++) {
+					System.out.println(Settings.getInstance().getSchedule()[i][j]);
+				}
+			}
+			*/
+		    
 		    // TODO: other fields
 
 		    
