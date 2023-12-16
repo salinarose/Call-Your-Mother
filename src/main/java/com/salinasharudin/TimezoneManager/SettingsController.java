@@ -2,9 +2,12 @@ package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DateTimeException;
 import java.time.ZoneId;
-import java.util.Map;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,15 +55,33 @@ public class SettingsController implements Initializable {
 	ChoiceBox<String> cbZone;
 	
 	private void initZoneChoices() {
-		Map<String, String> o = ZoneId.SHORT_IDS;
-		cbZone.getItems().addAll(o.keySet());
+		Set<String> o = ZoneId.getAvailableZoneIds();
+		cbZone.getItems().addAll(o);
 		cbZone.setOnAction(this::getZone);
 		// TODO: make it uneditable
 	}
 	
+	@FXML
+	Label lblTime = new Label();
+	
+	/* Update time and location labels */
+	public void updateLabels() {
+		if (cbZone.getValue() != null) {
+			try {
+				ZoneId zone = ZoneId.of(cbZone.getValue());				
+				ZonedDateTime time = ZonedDateTime.now(zone);
+				lblTime.setText("Current time: " + time.format(DateTimeFormatter.ofPattern("hh:mm a")).toString());
+			} catch (DateTimeException e) {
+				System.out.println("date time exception");
+			}
+		} else {
+			lblTime.setText("Time: ");
+		}
+	}
+	
 	/* Gets the selected value of the zone */
     public void getZone(ActionEvent event) {
-        String zone = cbZone.getValue();
+        updateLabels();
     }
     
     /* Initialize theme choice box */
@@ -178,6 +199,24 @@ public class SettingsController implements Initializable {
 			}
 		}
 		makeGrid();
+	}
+	
+	/* Save all changes */
+	public void saveAll() {
+		if (tfUsername.getText() != null && cbZone.getValue() != null && cbTheme.getValue() != null) {
+			Settings s = Settings.getInstance();
+			s.setUsername(tfUsername.getText());
+			s.setTheme(cbTheme.getValue());
+			s.setZone(ZoneId.of(cbZone.getValue()));
+			s.setSchedule(hours);
+			
+			FileHelper.writeSettingsData();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setHeaderText("Settings not saved.");
+			alert.setContentText("Username, zone, and theme must not be blank.");
+			alert.show();
+		}
 	}
 	
 	@FXML
