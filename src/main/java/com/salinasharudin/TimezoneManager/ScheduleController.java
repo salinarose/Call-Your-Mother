@@ -1,16 +1,122 @@
 package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class ScheduleController {
-
-	/* Methods for leaving the current scene */
+public class ScheduleController implements Initializable {
 	
+	// Variables to control selection and deselection
+	public int selected = -1;
+	Boolean b = false;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// Initialize contacts list
+		loadContacts();
+	}
+	
+	@FXML
+	GridPane gridContacts;
+	@FXML
+	Button btnAddToList;
+	@FXML
+	ListView listSelected;
+	
+	public void updateList() {
+		// Check that the number selected is valid
+		if (selected != -1 && selected < FileHelper.getContacts().size()) {
+			Contact c = FileHelper.getContacts().get(selected);
+			// Add the selected contact to the list view only if it has not yet been added
+			if (!listSelected.getItems().contains(c)) {
+				listSelected.getItems().add(c);			
+			}
+		}
+	}
+	
+	/* Displays contacts on the left-hand side */
+	public void loadContacts() {
+		// Get the contact list
+		ArrayList<Contact> list = FileHelper.getContacts();
+		
+		// Clear the grid pane
+		gridContacts.getChildren().clear();
+		btnAddToList.setDisable(true);
+		
+		// Populate the grid pane with the new contacts
+		int i = 0;
+		for (Contact c : list) {
+			Label name = new Label(c.getName());
+			name.setPrefWidth(60);
+			Label zone = new Label(c.getTimezone());
+			//zone.setPrefWidth(150);
+			gridContacts.addRow(i, name, zone);
+			i++;
+		}
+		
+		/* Events for hovering over or selecting contacts */
+		for (Node node : gridContacts.getChildren()) {
+		    node.setOnMouseEntered(e -> gridContacts.getChildren().forEach(r -> {
+		        Integer targetIndex = GridPane.getRowIndex(node);
+		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
+		            r.setStyle("-fx-background-color:#FFFFFF;");
+		        }
+		    }));
+		    node.setOnMouseExited(e -> gridContacts.getChildren().forEach(r -> {
+		        Integer targetIndex = GridPane.getRowIndex(node);
+		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
+		            r.setStyle("-fx-background-color:#F3F3F3;");
+		        }
+		    }));
+		    node.setOnMouseClicked(e -> gridContacts.getChildren().forEach(r -> {
+			        Integer targetIndex = GridPane.getRowIndex(node);
+			        
+			        if (GridPane.getRowIndex(r) == targetIndex) {
+			        	// De-selects if target is the currently selected item
+			        	if (b == true || selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
+			        		r.setStyle("-fx-background-color:#F3F3F3;");
+			        		
+			        		// Last column
+			        		if (GridPane.getColumnIndex(r) == gridContacts.getColumnCount() -1) {
+			        			b = false; // reset boolean to false
+			        			btnAddToList.setDisable(true);
+			        			selected = -1;
+			        		}
+			        		else {
+			        			b = true;
+			        		}
+			        	}
+			        	// Item was not already selected
+			        	else {
+				        	// Get the item selected
+				            selected = targetIndex;
+				            btnAddToList.setDisable(false);
+				            r.setStyle("-fx-background-color:#cccccc;");
+				            b = false;
+			        	}
+			        }
+			        // Item was not the target of the click
+			        else {
+			        	r.setStyle("-fx-background-color:#F3F3F3;");   
+			        }
+			}));
+		}
+	}
+	
+	/* Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
 		try {
@@ -28,4 +134,5 @@ public class ScheduleController {
 			System.out.println("Error loading settings from schedule scene.");
 		}
 	}
+
 }
