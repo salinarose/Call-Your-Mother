@@ -14,7 +14,7 @@ public final class ScheduleHelper {
 	public static Map<Integer, ArrayList<Integer>> map = new HashMap<>();
 	
 	// TODO: get members 
-	public static void getMembers(ArrayList<Contact> others) {
+	public static void buildSchedule(ArrayList<Contact> others) {
 		Boolean[][] user = Settings.getInstance().getSchedule();
 		
 		// Get the user offset

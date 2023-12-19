@@ -8,8 +8,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Salina Sharudin
@@ -24,7 +29,7 @@ public class App extends Application {
    
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Main"), 640, 640);
+        scene = new Scene(loadFXML("ScheduleScene"), 640, 640);
         stage.setScene(scene);
         stage.setTitle("Time Zone Manager");
         stage.show();
@@ -41,6 +46,8 @@ public class App extends Application {
 
     public static void main(String[] args) {
     	initialize();
+    	
+    	//testScheduleHelper();
     	
         launch();
     }
@@ -60,6 +67,15 @@ public class App extends Application {
     	// Load user settings
     	FileHelper.readSettingsData();
     	//FileHelper.writeSettingsData();
+    }
+    
+    public static void testScheduleHelper() {
+    	ArrayList<Contact> others = new ArrayList<>();
+    	//others.add(FileHelper.getContacts().get(0));
+    	others.add(FileHelper.getContacts().get(2));
+    	
+    	ScheduleHelper.buildSchedule(others);
+    	
     }
 
 }

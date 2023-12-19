@@ -16,8 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salinasharudin.TimezoneManager.ScheduleController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="640.0">
          <children>
@@ -88,7 +87,7 @@
                                     <Insets top="15.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button fx:id="btnBack" alignment="CENTER" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Back To Main" AnchorPane.bottomAnchor="36.00000000000001">
+                                    <Button fx:id="btnBack" alignment="CENTER" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" onAction="#goToMainScene" prefHeight="26.0" prefWidth="124.0" text="Back To Main" AnchorPane.bottomAnchor="36.00000000000001">
                                        <font>
                                           <Font name="Courier New" size="14.0" />
                                        </font>

@@ -187,6 +187,15 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/* Go to schedule scene */
+	public void goToScheduleScene() {
+		try {
+			App.setRoot("ScheduleScene");
+		} catch (IOException e) {
+			System.out.println("Error loading schedule scene from main scene.");
+		}
+	}
     
 }
 
