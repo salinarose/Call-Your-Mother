@@ -89,7 +89,7 @@ public class MainController implements Initializable {
 		int i = 0;
 		for (Contact c : list) {
 			Label name = new Label(c.getName());
-			name.setPrefWidth(150);
+			name.setPrefWidth(60);
 			Label zone = new Label(c.getTimezone());
 			zone.setPrefWidth(150);
 			gridPaneContacts.addRow(i, name, zone);
