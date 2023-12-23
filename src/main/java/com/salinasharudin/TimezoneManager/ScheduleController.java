@@ -2,7 +2,10 @@ package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -145,10 +148,39 @@ public class ScheduleController implements Initializable {
 		// Build the mutual schedule
 		ScheduleHelper.buildSchedule(others);
 		
+		// Display the results
+		showResults();
+		
 		// Temp: Print map to the console
-		System.out.println(ScheduleHelper.map);
+		//System.out.println(ScheduleHelper.map);
 	}
 	
+	/* Displays the results of calculate */
+	private void showResults() {
+		Map<Integer, ArrayList<Integer>> results = ScheduleHelper.map;
+		
+		for (int day = 0; day < 7; day++) {
+			if (results.containsKey(day)) {
+				System.out.print(DayOfWeek.of(day + 1) + ": ");
+				for (int h: results.get(day)) {
+					if (h == 0 ) {
+						System.out.print("12:00 am, ");
+					} 
+					else if (h == 12) {
+						System.out.print("12:00 pm, ");
+					}
+					else if (h < 12) {
+						System.out.print(h + ":00 am, ");
+						
+					} else {
+						System.out.print(h % 12 + ":00 pm, ");
+					}
+				}
+				System.out.println("");
+			}
+		}
+	}
+
 	/* Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
