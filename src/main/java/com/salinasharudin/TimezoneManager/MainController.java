@@ -188,13 +188,30 @@ public class MainController implements Initializable {
 		}
 	}
 	
+	@FXML
+	Button btnPlan;
+	
 	/* Go to schedule scene */
 	public void goToScheduleScene() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleScene.fxml"));
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) btnPlan.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			//stage.setTitle("ScheduleScene");
+			stage.show();
+		} catch (IOException e) {
+			//e.printStackTrace();
+			System.out.println("Error loading schedule scene.");
+		}
+		/*
 		try {
 			App.setRoot("ScheduleScene");
 		} catch (IOException e) {
 			System.out.println("Error loading schedule scene from main scene.");
 		}
+		*/
 	}
     
 }

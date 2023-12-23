@@ -111,8 +111,8 @@
                               <Font name="Courier New" size="14.0" />
                            </font>
                         </Button>
-                        <ListView fx:id="listSelected" layoutX="89.0" layoutY="-40.0" prefHeight="107.0" prefWidth="294.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0" />
-                        <Button fx:id="btnCalculate" alignment="CENTER" layoutX="116.0" layoutY="136.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="197.0" text="Calculate" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="140.0">
+                        <ListView fx:id="listSelected" layoutX="89.0" layoutY="-40.0" prefHeight="107.0" prefWidth="294.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="35.0" />
+                        <Button fx:id="btnCalculate" alignment="CENTER" layoutX="116.0" layoutY="136.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="197.0" text="Calculate" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="160.0">
                            <font>
                               <Font name="Courier New" size="14.0" />
                            </font>
@@ -135,6 +135,7 @@
                               </GridPane>
                            </children>
                         </AnchorPane>
+                        <Label fx:id="lblMax" alignment="CENTER" layoutX="184.0" layoutY="15.0" text="Max 3 Contacts Allowed" textFill="#ff3636" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
                </items>

@@ -23,8 +23,15 @@ public class ScheduleController implements Initializable {
 	public int selected = -1;
 	Boolean b = false;
 
+	@FXML
+	Button btnCalculate;
+	@FXML
+	Label lblMax;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		btnCalculate.setDisable(true);
+		lblMax.setVisible(false);
 		// Initialize contacts list
 		loadContacts();
 	}
@@ -43,6 +50,19 @@ public class ScheduleController implements Initializable {
 			// Add the selected contact to the list view only if it has not yet been added
 			if (!listSelected.getItems().contains(c)) {
 				listSelected.getItems().add(c);			
+			}
+		}
+		
+		// Check the number of items in the list and enable the calculate button if it has between 1-3 items
+		int items = listSelected.getItems().size();
+		if (items > 0 && items <= 3) {
+			btnCalculate.setDisable(false);
+		} else {
+			btnCalculate.setDisable(true);
+			if (items > 3) {
+				lblMax.setVisible(true);
+			} else {
+				lblMax.setVisible(false);
 			}
 		}
 	}
@@ -119,20 +139,46 @@ public class ScheduleController implements Initializable {
 	/* Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
+		/*
 		try {
 			App.setRoot("Main");
 		} catch (IOException e) {
 			System.out.println("Error loading main scene from schedule scene.");
 		}
+		*/
+		// Load main scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) btnCalculate.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Time Zone Manager");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/* Goes to the user settings scene */
 	public void goToSettingsScene() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("SettingsScene.fxml"));
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) btnCalculate.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Settings");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*
 		try {
 			App.setRoot("SettingsScene");
 		} catch (IOException e) {
 			System.out.println("Error loading settings from schedule scene.");
-		}
+		}*/
 	}
 
 }

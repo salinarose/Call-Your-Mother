@@ -29,7 +29,7 @@ public class App extends Application {
    
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("ScheduleScene"), 640, 640);
+        scene = new Scene(loadFXML("Main"), 640, 640);
         stage.setScene(scene);
         stage.setTitle("Time Zone Manager");
         stage.show();
@@ -76,6 +76,10 @@ public class App extends Application {
     	
     	ScheduleHelper.buildSchedule(others);
     	
+    }
+    
+    public static void exit() {
+    	// save files before exiting
     }
 
 }
