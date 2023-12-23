@@ -136,6 +136,19 @@ public class ScheduleController implements Initializable {
 		}
 	}
 	
+	/* Calculate mutually available times for all contacts in the list */
+	public void calculate() {
+		// Get all the selected items and store it in a new arraylist 
+		ArrayList<Contact> others = new ArrayList<>();
+		others.addAll(listSelected.getItems());
+		
+		// Build the mutual schedule
+		ScheduleHelper.buildSchedule(others);
+		
+		// Temp: Print map to the console
+		System.out.println(ScheduleHelper.map);
+	}
+	
 	/* Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
