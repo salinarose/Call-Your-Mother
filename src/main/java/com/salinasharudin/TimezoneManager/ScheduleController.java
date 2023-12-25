@@ -30,11 +30,14 @@ public class ScheduleController implements Initializable {
 	Button btnCalculate;
 	@FXML
 	Label lblMax;
+	@FXML
+	Label lblNoResults;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnCalculate.setDisable(true);
 		lblMax.setVisible(false);
+		lblNoResults.setVisible(false);
 		// Initialize contacts list
 		loadContacts();
 	}
@@ -141,8 +144,12 @@ public class ScheduleController implements Initializable {
 	
 	/* Calculate mutually available times for all contacts in the list */
 	public void calculate() {
+		// In case it is already visible
+		lblNoResults.setVisible(false);
+		
 		// Get all the selected items and store it in a new arraylist 
 		ArrayList<Contact> others = new ArrayList<>();
+		System.out.println(others);
 		others.addAll(listSelected.getItems());
 		
 		// Build the mutual schedule
@@ -155,30 +162,44 @@ public class ScheduleController implements Initializable {
 		//System.out.println(ScheduleHelper.map);
 	}
 	
+	@FXML
+	GridPane gridResults;
+	
 	/* Displays the results of calculate */
 	private void showResults() {
 		Map<Integer, ArrayList<Integer>> results = ScheduleHelper.map;
 		
-		for (int day = 0; day < 7; day++) {
-			if (results.containsKey(day)) {
-				System.out.print(DayOfWeek.of(day + 1) + ": ");
-				for (int h: results.get(day)) {
-					if (h == 0 ) {
-						System.out.print("12:00 am, ");
-					} 
-					else if (h == 12) {
-						System.out.print("12:00 pm, ");
+		//gridResults.getChildren().clear();
+		
+		if (results.isEmpty()) {
+			//gridResults.add(new Label("The selected contacts and you have no available times in common."), 0, 0);
+			lblNoResults.setVisible(true);
+		} else {
+			
+			//temp: prints to console
+			//TODO: make print to gridpane
+			for (int day = 0; day < 7; day++) {
+				if (results.containsKey(day)) {
+					System.out.print(DayOfWeek.of(day + 1) + ": ");
+					for (int h: results.get(day)) {
+						if (h == 0 ) {
+							System.out.print("12:00 am, ");
+						} 
+						else if (h == 12) {
+							System.out.print("12:00 pm, ");
+						}
+						else if (h < 12) {
+							System.out.print(h + ":00 am, ");
+							
+						} else {
+							System.out.print(h % 12 + ":00 pm, ");
+						}
 					}
-					else if (h < 12) {
-						System.out.print(h + ":00 am, ");
-						
-					} else {
-						System.out.print(h % 12 + ":00 pm, ");
-					}
+					System.out.println("");
 				}
-				System.out.println("");
-			}
+			}			
 		}
+		
 	}
 
 	/* Methods for leaving the current scene */
