@@ -11,12 +11,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
@@ -39,11 +41,14 @@ public class ScheduleController implements Initializable {
 	Label lblMax;
 	@FXML
 	Label lblNoResults;
+	@FXML
+	Button btnAddToSchedule;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnCalculate.setDisable(true);
 		btnClear.setDisable(true);
+		//btnAddToSchedule.setDisable(true);
 		lblMax.setVisible(false);
 		lblNoResults.setVisible(false);
 		// Initialize contacts list
@@ -232,6 +237,40 @@ public class ScheduleController implements Initializable {
 			}			
 		}
 		
+		selectTime();
+		
+	}
+	
+	/* Handle mouse events for selecting the time */
+	public void selectTime() {
+		
+		Node selected;
+		/* Events for hovering over or selecting times */
+		for (Node node : gridResults.getChildren()) {
+		    //node.setOnMouseEntered(e -> gridResults.getChildren().forEach(r -> {
+		    node.setOnMouseEntered(e -> {
+		    	node.setStyle("-fx-background-color:#FFFFFF;");
+		    });
+		    node.setOnMouseExited(e -> {
+		            node.setStyle("-fx-background-color:#F3F3F3;");
+		    });
+		    node.setOnMouseClicked(e -> {
+		    	//TODO: how to get the day?
+		    	//TODO: how to get the plain text?
+		    	//TODO: make sure that it is a time and not a day?
+		    	int i = GridPane.getRowIndex(node);
+			    System.out.println(i);
+			    
+			    // Gets the text value of the selected label
+			    String value = ((Labeled) node).getText().toString();
+			    System.out.println(value);
+			    //if (value.equalsIgnoreCase("thursday: ")) {
+			    if (value.contains("DAY")) {
+			    	System.out.println("is a day");
+			    }
+			    
+		    });
+		}
 	}
 	
 	/* Clear selected items in the listbox */
@@ -240,6 +279,12 @@ public class ScheduleController implements Initializable {
 		btnCalculate.setDisable(true);
 		btnClear.setDisable(true);
 		gridResults.getChildren().clear();
+	}
+	
+	/* Add selected time to the schedule */
+	public void addToSchedule() {
+		// TODO: get selected item
+		// TODO: create a new call including day, time, and contact(s)		
 	}
 
 	/* Methods for leaving the current scene */
