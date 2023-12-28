@@ -156,15 +156,18 @@ public class ScheduleController implements Initializable {
 	
 	/* Calculate mutually available times for all contacts in the list */
 	public void calculate() {
+		
+		// Clear old results if they exist
+		ScheduleHelper.map.clear();
+		
 		// In case it is already visible
 		lblNoResults.setVisible(false);
 		
 		// Get all the selected items and store it in a new arraylist 
 		ArrayList<Contact> others = new ArrayList<>();
 		others.clear();
-		System.out.println(others);
 		others.addAll(listSelected.getItems());
-		
+
 		// Build the mutual schedule
 		ScheduleHelper.buildSchedule(others);
 		
