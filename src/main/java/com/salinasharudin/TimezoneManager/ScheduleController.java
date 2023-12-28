@@ -34,6 +34,8 @@ public class ScheduleController implements Initializable {
 	@FXML
 	Button btnCalculate;
 	@FXML
+	Button btnClear;
+	@FXML
 	Label lblMax;
 	@FXML
 	Label lblNoResults;
@@ -41,6 +43,7 @@ public class ScheduleController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnCalculate.setDisable(true);
+		btnClear.setDisable(true);
 		lblMax.setVisible(false);
 		lblNoResults.setVisible(false);
 		// Initialize contacts list
@@ -66,6 +69,10 @@ public class ScheduleController implements Initializable {
 		
 		// Check the number of items in the list and enable the calculate button if it has between 1-3 items
 		int items = listSelected.getItems().size();
+		if (items > 0) {
+			btnClear.setDisable(false);
+		}
+		
 		if (items > 0 && items <= 3) {
 			btnCalculate.setDisable(false);
 		} else {
@@ -155,6 +162,7 @@ public class ScheduleController implements Initializable {
 		// Get all the selected items and store it in a new arraylist 
 		ArrayList<Contact> others = new ArrayList<>();
 		others.clear();
+		System.out.println(others);
 		others.addAll(listSelected.getItems());
 		
 		// Build the mutual schedule
@@ -163,9 +171,7 @@ public class ScheduleController implements Initializable {
 		// Display the results
 		gridResults.getChildren().clear();
 		showResults();
-		
-		// Temp: Print map to the console
-		//System.out.println(ScheduleHelper.map);
+
 	}
 	
 	@FXML
@@ -175,68 +181,62 @@ public class ScheduleController implements Initializable {
 	private void showResults() {
 		Map<Integer, ArrayList<Integer>> results = ScheduleHelper.map;
 		
-		gridResults.getChildren().clear();
-		
-		// Set up column constraints
-	    System.out.println(gridResults.getColumnConstraints());
-	    //gridResults.getColumnConstraints().addAll( new ColumnConstraints(70), new ColumnConstraints(70), new ColumnConstraints(70), new ColumnConstraints(70), new ColumnConstraints(70) );
+		//gridResults.getChildren().clear();
 		
 		if (results.isEmpty()) {
 			lblNoResults.setVisible(true);
 		} else {
-			
-			//temp: prints to console
-			//TODO: make print to gridpane
+			// Print results to the gridpane
 			for (int day = 0; day < 7; day++) {
+				
 				if (results.containsKey(day)) {
 					int row = gridResults.getRowCount();
 					Label label = new Label();
+					
 					if (day == 0) {
-						// gridResults.addRow(row, new Label("SUNDAY: "));
 						label.setText("SUNDAY");
 						gridResults.add(label, 2, row - 1, 4, 1);
 					} else {
-						//flowResults.getChildren().add(new Label(DayOfWeek.of(day) + ": "));
-						//System.out.print(day + " " + DayOfWeek.of(day) + ": ");
-						//gridResults.addRow(row, new Label(DayOfWeek.of(day) + ": "));
 						label.setText(DayOfWeek.of(day) + ": ");
-						//gridResults.add(label, 2, row, 4, 1);
 						gridResults.add(label, 2, row, 4, 1);
 					}
-					//label.setAlignment(Pos.TOP_RIGHT);
-					//gridResults.setColumnSpan(label, 5);
+					
 					int col = 0;
+					
 					for (int h: results.get(day)) {
-						String hour = "";
+						String hour;
 						if (h == 0 ) {
 							hour = "12:00 am ";
-							//System.out.print("12:00 am, ");
 						} 
 						else if (h == 12) {
 							hour = "12:00 pm ";
-							//System.out.print("12:00 pm, ");
 						}
 						else if (h < 12) {
 							hour = h + ":00 am ";
-							//System.out.print(h + ":00 am, ");
 						} else {
 							hour = h % 12 + ":00 pm ";
-							//System.out.print(h % 12 + ":00 pm, ");
 						}
 						if (col > 4) {
 							row++;
 							col = 0;
 						}
-						//System.out.println(row);
 						gridResults.add(new Label(hour), col, row + 1);	
 						col++;
 					}
-					System.out.println("day" + (day));
+					
 					gridResults.add(new Label(""), 0, gridResults.getRowCount() + 1);
 				}
 			}			
 		}
 		
+	}
+	
+	/* Clear selected items in the listbox */
+	public void clearSelection() {
+		listSelected.getItems().clear();
+		btnCalculate.setDisable(true);
+		btnClear.setDisable(true);
+		gridResults.getChildren().clear();
 	}
 
 	/* Methods for leaving the current scene */

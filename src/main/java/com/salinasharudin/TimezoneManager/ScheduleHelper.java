@@ -84,7 +84,7 @@ public final class ScheduleHelper {
 					// If same is true, all of the contacts were available at that time
 					//map.put(day, map.get(day).add(hr));
 					if (same == true) {
-						System.out.println(day + ", " + hr);
+						//System.out.println(day + ", " + hr);
 						
 				        if (!map.containsKey(day)) {
 				            map.put(day, new ArrayList<>());

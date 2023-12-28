@@ -29,7 +29,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Edit">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Clear Selection" />
+                        <MenuItem mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Settings">
@@ -48,6 +48,11 @@
                <items>
                   <AnchorPane prefHeight="613.0" prefWidth="244.0">
                      <children>
+                        <Button fx:id="btnBack" alignment="CENTER" mnemonicParsing="false" onAction="#goToMainScene" prefHeight="26.0" prefWidth="124.0" text="Back To Main" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                           <font>
+                              <Font name="Courier New" size="14.0" />
+                           </font>
+                        </Button>
                         <VBox alignment="TOP_CENTER" prefHeight="614.0" prefWidth="238.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="207.0" text="CONTACTS">
@@ -82,18 +87,14 @@
                                     <Insets top="15.0" />
                                  </VBox.margin>
                               </Button>
-                              <AnchorPane prefHeight="98.0" prefWidth="218.0">
+                              <Button fx:id="btnClear" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#clearSelection" prefHeight="25.0" prefWidth="165.0" text="Clear Selection">
+                                 <font>
+                                    <Font name="Courier New" size="14.0" />
+                                 </font>
                                  <VBox.margin>
                                     <Insets top="15.0" />
                                  </VBox.margin>
-                                 <children>
-                                    <Button fx:id="btnBack" alignment="CENTER" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" onAction="#goToMainScene" prefHeight="26.0" prefWidth="124.0" text="Back To Main" AnchorPane.bottomAnchor="36.00000000000001">
-                                       <font>
-                                          <Font name="Courier New" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
+                              </Button>
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -112,7 +113,7 @@
                            </font>
                         </Button>
                         <ListView fx:id="listSelected" layoutX="89.0" layoutY="-40.0" prefHeight="107.0" prefWidth="294.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="35.0" />
-                        <Button fx:id="btnCalculate" alignment="CENTER" layoutX="116.0" layoutY="136.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="197.0" text="Calculate" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="160.0">
+                        <Button fx:id="btnCalculate" alignment="CENTER" layoutX="116.0" layoutY="136.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="197.0" text="Calculate" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="155.0">
                            <font>
                               <Font name="Courier New" size="14.0" />
                            </font>
