@@ -11,13 +11,18 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class ScheduleController implements Initializable {
@@ -149,13 +154,14 @@ public class ScheduleController implements Initializable {
 		
 		// Get all the selected items and store it in a new arraylist 
 		ArrayList<Contact> others = new ArrayList<>();
-		System.out.println(others);
+		others.clear();
 		others.addAll(listSelected.getItems());
 		
 		// Build the mutual schedule
 		ScheduleHelper.buildSchedule(others);
 		
 		// Display the results
+		gridResults.getChildren().clear();
 		showResults();
 		
 		// Temp: Print map to the console
@@ -169,10 +175,13 @@ public class ScheduleController implements Initializable {
 	private void showResults() {
 		Map<Integer, ArrayList<Integer>> results = ScheduleHelper.map;
 		
-		//gridResults.getChildren().clear();
+		gridResults.getChildren().clear();
+		
+		// Set up column constraints
+	    System.out.println(gridResults.getColumnConstraints());
+	    //gridResults.getColumnConstraints().addAll( new ColumnConstraints(70), new ColumnConstraints(70), new ColumnConstraints(70), new ColumnConstraints(70), new ColumnConstraints(70) );
 		
 		if (results.isEmpty()) {
-			//gridResults.add(new Label("The selected contacts and you have no available times in common."), 0, 0);
 			lblNoResults.setVisible(true);
 		} else {
 			
@@ -180,22 +189,50 @@ public class ScheduleController implements Initializable {
 			//TODO: make print to gridpane
 			for (int day = 0; day < 7; day++) {
 				if (results.containsKey(day)) {
-					System.out.print(DayOfWeek.of(day + 1) + ": ");
+					int row = gridResults.getRowCount();
+					Label label = new Label();
+					if (day == 0) {
+						// gridResults.addRow(row, new Label("SUNDAY: "));
+						label.setText("SUNDAY");
+						gridResults.add(label, 2, row - 1, 4, 1);
+					} else {
+						//flowResults.getChildren().add(new Label(DayOfWeek.of(day) + ": "));
+						//System.out.print(day + " " + DayOfWeek.of(day) + ": ");
+						//gridResults.addRow(row, new Label(DayOfWeek.of(day) + ": "));
+						label.setText(DayOfWeek.of(day) + ": ");
+						//gridResults.add(label, 2, row, 4, 1);
+						gridResults.add(label, 2, row, 4, 1);
+					}
+					//label.setAlignment(Pos.TOP_RIGHT);
+					//gridResults.setColumnSpan(label, 5);
+					int col = 0;
 					for (int h: results.get(day)) {
+						String hour = "";
 						if (h == 0 ) {
-							System.out.print("12:00 am, ");
+							hour = "12:00 am ";
+							//System.out.print("12:00 am, ");
 						} 
 						else if (h == 12) {
-							System.out.print("12:00 pm, ");
+							hour = "12:00 pm ";
+							//System.out.print("12:00 pm, ");
 						}
 						else if (h < 12) {
-							System.out.print(h + ":00 am, ");
-							
+							hour = h + ":00 am ";
+							//System.out.print(h + ":00 am, ");
 						} else {
-							System.out.print(h % 12 + ":00 pm, ");
+							hour = h % 12 + ":00 pm ";
+							//System.out.print(h % 12 + ":00 pm, ");
 						}
+						if (col > 4) {
+							row++;
+							col = 0;
+						}
+						//System.out.println(row);
+						gridResults.add(new Label(hour), col, row + 1);	
+						col++;
 					}
-					System.out.println("");
+					System.out.println("day" + (day));
+					gridResults.add(new Label(""), 0, gridResults.getRowCount() + 1);
 				}
 			}			
 		}
