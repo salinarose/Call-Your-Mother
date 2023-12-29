@@ -32,6 +32,7 @@ public class ScheduleController implements Initializable {
 	// Variables to control selection and deselection
 	public int selected = -1;
 	Boolean b = false;
+	private Node selectedTime;
 
 	@FXML
 	Button btnCalculate;
@@ -46,11 +47,13 @@ public class ScheduleController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// Initialize button and label visibility
 		btnCalculate.setDisable(true);
 		btnClear.setDisable(true);
-		//btnAddToSchedule.setDisable(true);
+		btnAddToSchedule.setDisable(true);
 		lblMax.setVisible(false);
 		lblNoResults.setVisible(false);
+		
 		// Initialize contacts list
 		loadContacts();
 	}
@@ -202,7 +205,7 @@ public class ScheduleController implements Initializable {
 					Label label = new Label();
 					
 					if (day == 0) {
-						label.setText("SUNDAY");
+						label.setText("SUNDAY: ");
 						gridResults.add(label, 2, row - 1, 4, 1);
 					} else {
 						label.setText(DayOfWeek.of(day) + ": ");
@@ -244,46 +247,63 @@ public class ScheduleController implements Initializable {
 	/* Handle mouse events for selecting the time */
 	public void selectTime() {
 		
-		Node selected;
 		/* Events for hovering over or selecting times */
 		for (Node node : gridResults.getChildren()) {
-		    //node.setOnMouseEntered(e -> gridResults.getChildren().forEach(r -> {
+			// Gets the text value of the selected label
+		    String value = ((Labeled) node).getText().toString();
+		    
 		    node.setOnMouseEntered(e -> {
-		    	node.setStyle("-fx-background-color:#FFFFFF;");
+		    	// Only highlight if a time (not a day label)
+		    	if (!value.contains("DAY")) {
+		    		node.setStyle("-fx-background-color:#FFFFFF;");
+		    	}
 		    });
 		    node.setOnMouseExited(e -> {
 		            node.setStyle("-fx-background-color:#F3F3F3;");
 		    });
 		    node.setOnMouseClicked(e -> {
-		    	//TODO: how to get the day?
-		    	//TODO: how to get the plain text?
-		    	//TODO: make sure that it is a time and not a day?
-		    	int i = GridPane.getRowIndex(node);
-			    System.out.println(i);
-			    
-			    // Gets the text value of the selected label
-			    String value = ((Labeled) node).getText().toString();
-			    System.out.println(value);
-			    //if (value.equalsIgnoreCase("thursday: ")) {
-			    if (value.contains("DAY")) {
-			    	System.out.println("is a day");
-			    }
-			    
+			    // Make sure the selected node is a time, not a day label
+		    	if (!value.contains("DAY")) {
+		    		btnAddToSchedule.setDisable(false);
+		    		this.selectedTime = node;
+		    	} else {
+		    		btnAddToSchedule.setDisable(true);
+		    	}
 		    });
 		}
 	}
 	
-	/* Clear selected items in the listbox */
+	/* Clear selected items in the list box */
 	public void clearSelection() {
 		listSelected.getItems().clear();
 		btnCalculate.setDisable(true);
 		btnClear.setDisable(true);
+		btnAddToSchedule.setDisable(true);
 		gridResults.getChildren().clear();
+		selectedTime = null;
 	}
 	
 	/* Add selected time to the schedule */
 	public void addToSchedule() {
-		// TODO: get selected item
+		// Get the selected node
+		String time = ((Labeled) selectedTime).getText().toString();
+		
+		// Find the corresponding day
+		String day = "";
+		int row = GridPane.getRowIndex(selectedTime);
+		
+		// This feels very inefficient, but I haven't figured out a better way yet. 
+		// Loop through all the results, looking for one that contains a day in the label until we have reached the row of the selected node
+		for (Node node : gridResults.getChildren()) {
+			if (GridPane.getRowIndex(node) >= row) break;
+			String value = ((Labeled) node).getText().toString();
+			if (value.contains("DAY")) {
+				day = value;
+			}
+		}
+		
+		System.out.println(day + time);
+
 		// TODO: create a new call including day, time, and contact(s)		
 	}
 
