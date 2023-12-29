@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -302,7 +303,16 @@ public class ScheduleController implements Initializable {
 			}
 		}
 		
-		System.out.println(day + time);
+		StringBuilder people = new StringBuilder();
+		Object[] others = listSelected.getItems().toArray();
+		for (int i = 0; i < others.length; i++) {
+			people.append(((Contact) others[i]).getName());
+			if (i != others.length - 1) {
+				people.append(", ");
+			}
+		}
+		
+		System.out.println(day + time + " " + people.toString());
 
 		// TODO: create a new call including day, time, and contact(s)		
 	}
