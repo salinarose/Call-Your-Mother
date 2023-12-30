@@ -260,7 +260,11 @@ public class ScheduleController implements Initializable {
 		    	}
 		    });
 		    node.setOnMouseExited(e -> {
+		    	// Only changes the background color back to default if it isn't currently selected
+		    	// Right now it stays highlighted if you press the add button, then click a different time
+		    	if (node != selectedTime) {
 		            node.setStyle("-fx-background-color:#F3F3F3;");
+		    	}
 		    });
 		    node.setOnMouseClicked(e -> {
 			    // Make sure the selected node is a time, not a day label

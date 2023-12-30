@@ -1,12 +1,17 @@
 package com.salinasharudin.TimezoneManager;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +29,8 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import javafx.scene.control.Alert;
 
 public final class FileHelper {
+	
+	private static Map<String, String> calls = new HashMap<>();
 	
 	/* Contacts file methods */
 	private static ArrayList<Contact> contacts;
@@ -52,6 +59,7 @@ public final class FileHelper {
 		} catch (Exception e) {
 			System.out.println("Load unsuccessful.");
 			contactFileSuccess = false;
+			showFileAlert("contacts list");
 		}
 		
 		contacts = contactsList;
@@ -161,10 +169,64 @@ public final class FileHelper {
 		} catch (Exception e) {
 			System.out.println("Settings load unsuccessful.");
 			settingsFileSuccess = false;
+			showFileAlert("settings");
 		}
 	}
 	
+	/* Methods for handling scheduled call data */
+	/* Read call file */
+	public static void readCallFile() {
+		// Try with resources ensures the reader always gets closed
+		try (BufferedReader reader = new BufferedReader(new FileReader("calls.txt"))) {
+			
+			while (reader.readLine() != null) {
+				String[] entry = reader.readLine().split("\t");
+				String time = entry[0];
+				String people = entry[1];
+				
+				calls.put(time, people);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			showFileAlert("scheduled calls");
+		}
+	}
 	
+	/* Write to call file */
+	public static void writeCallFile() {
+		
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("calls.txt"));
+			
+			// Write each <"Day: Time", "Contacts">
+			for (Map.Entry<String, String> call : calls.entrySet()) {
+				// Key and value separated by a tab
+				writer.write(call.getKey() + "\t" + call.getValue());
+				
+				// new line
+				writer.newLine();
+			}
+			
+			writer.flush();
+			writer.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Error writing to call file");
+		} 
+		
+	}
+	
+	/* Error alert popup that informs the user that the data file has been corrupted */
+	public static void showFileAlert(String fileType) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("File Error");
+		alert.setHeaderText("Error reading " + fileType + " file");
+		alert.setContentText("Unable to load data. File may have been corrupted or deleted.");
+		alert.showAndWait();
+	}
+
 	/* Adds some sample people to the contacts list. */
 	static void test_addContacts() {
 		ArrayList<Contact> test = new ArrayList<>();
@@ -180,14 +242,4 @@ public final class FileHelper {
 		
 		writeContactData();
 	}
-	
-	/* Error alert popup that informs the user that the data file has been corrupted */
-	public static void showFileAlert() {
-		Alert alert = new Alert(Alert.AlertType.ERROR);
-		alert.setTitle("File Error");
-		alert.setHeaderText("Error reading file");
-		alert.setContentText("Unable to load data. File may have been corrupted or deleted.");
-		alert.showAndWait();
-	}
-
 }

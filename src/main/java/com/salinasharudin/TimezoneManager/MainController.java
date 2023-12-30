@@ -34,12 +34,14 @@ public class MainController implements Initializable {
 		displayLocalDateTime();
 		displayContacts();
 		
-		/* Shows an alert to the user if there is an error loading the contact file */
+		// TODO: verify that this can be removed. If so, remove fileSuccess variable
+		/* with changes, I do not think this is needed any longer.
 		if (FileHelper.contactFileSuccess == false) {
-			FileHelper.showFileAlert();
+			FileHelper.showFileAlert("contact");
 			// Change variable so that the alert only shows once after attempting to load the file
 			FileHelper.contactFileSuccess = true;
 		}
+		*/
 	}
 
 	// Creates a local clock using the time zone specified in user's settings
