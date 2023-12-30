@@ -66,7 +66,8 @@ public class App extends Application {
     	
     	// Load user settings
     	FileHelper.readSettingsData();
-    	//FileHelper.writeSettingsData();
+    	
+    	FileHelper.readCallData();
     }
     
     public static void testScheduleHelper() {

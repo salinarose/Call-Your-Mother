@@ -175,7 +175,7 @@ public final class FileHelper {
 	
 	/* Methods for handling scheduled call data */
 	/* Read call file */
-	public static void readCallFile() {
+	public static void readCallData() {
 		// Try with resources ensures the reader always gets closed
 		try (BufferedReader reader = new BufferedReader(new FileReader("calls.txt"))) {
 			
@@ -188,13 +188,14 @@ public final class FileHelper {
 			}
 			
 		} catch (IOException e) {
-			e.printStackTrace();
-			showFileAlert("scheduled calls");
+			System.out.println("call data not found");
+			//e.printStackTrace();
+			//showFileAlert("scheduled calls");
 		}
 	}
 	
 	/* Write to call file */
-	public static void writeCallFile() {
+	public static void writeCallData() {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("calls.txt"));
@@ -216,6 +217,11 @@ public final class FileHelper {
 			System.out.println("Error writing to call file");
 		} 
 		
+	}
+	
+	/* Get calls */
+	public static Map<String, String> getCalls() {
+		return calls;
 	}
 	
 	/* Error alert popup that informs the user that the data file has been corrupted */

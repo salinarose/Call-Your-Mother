@@ -34,6 +34,8 @@ public class MainController implements Initializable {
 		displayLocalDateTime();
 		displayContacts();
 		
+		System.out.println(FileHelper.getCalls().toString());
+		
 		// TODO: verify that this can be removed. If so, remove fileSuccess variable
 		/* with changes, I do not think this is needed any longer.
 		if (FileHelper.contactFileSuccess == false) {

@@ -17,7 +17,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
@@ -318,7 +320,30 @@ public class ScheduleController implements Initializable {
 		
 		System.out.println(day + time + " " + people.toString());
 
-		// TODO: create a new call including day, time, and contact(s)		
+		// Ask for confirmation
+		// If key already exists, ask "A call on DAY at TIME with CONTACTS already exists. Would you like to overwrite with PEOPLE? "
+		String message;
+		if (FileHelper.getCalls().containsKey(day + time)) {
+			message = "A call on " + day + time + " with " 
+					+ FileHelper.getCalls().get(day + time) 
+					+ " already exists. Would you like to overwrite with" 
+					+ people.toString() + "?";
+		} else {
+			message = "Add new call on " + day + time + "with " + people.toString() + "?";
+		}
+		confirmCall(message, day + time, people.toString());
+	}
+	
+	public void confirmCall(String message, String time, String people) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Confirm call");
+		alert.setContentText(message);
+		alert.showAndWait().ifPresent((btnType) -> {
+			
+  		  if (btnType == ButtonType.OK) {
+  			  FileHelper.getCalls().put(time, people);  			  
+  		  }
+		});
 	}
 
 	/* Methods for leaving the current scene */
