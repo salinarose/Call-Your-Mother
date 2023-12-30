@@ -179,8 +179,9 @@ public final class FileHelper {
 		// Try with resources ensures the reader always gets closed
 		try (BufferedReader reader = new BufferedReader(new FileReader("calls.txt"))) {
 			
-			while (reader.readLine() != null) {
-				String[] entry = reader.readLine().split("\t");
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] entry = line.split("\t");
 				String time = entry[0];
 				String people = entry[1];
 				

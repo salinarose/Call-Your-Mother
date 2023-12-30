@@ -349,6 +349,9 @@ public class ScheduleController implements Initializable {
 	/* Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
+		
+		FileHelper.writeCallData();
+		
 		/*
 		try {
 			App.setRoot("Main");
@@ -372,6 +375,9 @@ public class ScheduleController implements Initializable {
 	
 	/* Goes to the user settings scene */
 	public void goToSettingsScene() {
+		
+		FileHelper.writeCallData();
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("SettingsScene.fxml"));
         Parent root;
 		try {
