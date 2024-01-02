@@ -20,9 +20,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -69,6 +71,26 @@ public class ScheduleController implements Initializable {
 	ListView listSelected;
 	
 	public void updateList() {
+		// Context menu for removing items from ListView
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem menuItemRemove = new MenuItem("Remove");
+		MenuItem menuItemRemoveAll = new MenuItem("Remove All");
+		contextMenu.getItems().add(menuItemRemove);
+		contextMenu.getItems().add(menuItemRemoveAll);
+		listSelected.setContextMenu(contextMenu);
+		
+		// Context Menu events
+		menuItemRemove.setOnAction(e -> {
+			Object selected = listSelected.getSelectionModel().getSelectedItem();
+			if (listSelected.getItems().contains(selected)) {
+				listSelected.getItems().remove(selected);
+			}
+		});
+		
+		menuItemRemoveAll.setOnAction(e -> {
+			clearSelection();
+		});
+		
 		// Check that the number selected is valid
 		if (selected != -1 && selected < FileHelper.getContacts().size()) {
 			Contact c = FileHelper.getContacts().get(selected);
