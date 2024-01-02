@@ -7,6 +7,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -18,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -33,8 +36,9 @@ public class MainController implements Initializable {
 		/* Calls display methods */
 		displayLocalDateTime();
 		displayContacts();
+		displayCalls();
 		
-		System.out.println(FileHelper.getCalls().toString());
+		//System.out.println(FileHelper.getCalls().toString());
 		
 		// TODO: verify that this can be removed. If so, remove fileSuccess variable
 		/* with changes, I do not think this is needed any longer.
@@ -93,9 +97,9 @@ public class MainController implements Initializable {
 		int i = 0;
 		for (Contact c : list) {
 			Label name = new Label(c.getName());
-			name.setPrefWidth(60);
+			name.setPrefWidth(65);
 			Label zone = new Label(c.getTimezone());
-			zone.setPrefWidth(150);
+			zone.setPrefWidth(160);
 			gridPaneContacts.addRow(i, name, zone);
 			i++;
 		}
@@ -146,9 +150,22 @@ public class MainController implements Initializable {
 			        	r.setStyle("-fx-background-color:#F3F3F3;");   
 			        }
 			}));
-		}
+		}	
+	}
+	
+	@FXML 
+	TableView tblCalls;
+	@FXML
+	TableColumn col1;
+	@FXML
+	TableColumn col2;
+	
+	/* Populate table with calls data */
+	public void displayCalls() {
 		
 	}
+	
+	/** Methods for changing scenes */
 	
 	public void btnAddClicked() throws IOException {
 		selected = -1;
@@ -206,7 +223,7 @@ public class MainController implements Initializable {
 			//stage.setTitle("ScheduleScene");
 			stage.show();
 		} catch (IOException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Error loading schedule scene.");
 		}
 		/*
