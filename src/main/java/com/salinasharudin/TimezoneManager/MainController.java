@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +19,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class MainController implements Initializable {
 	
@@ -153,16 +160,51 @@ public class MainController implements Initializable {
 		}	
 	}
 	
-	@FXML 
-	TableView tblCalls;
 	@FXML
-	TableColumn col1;
-	@FXML
-	TableColumn col2;
+	ListView listCalls;
 	
 	/* Populate table with calls data */
 	public void displayCalls() {
 		
+		listCalls.setPlaceholder(new Label("No Scheduled calls found."));
+		
+		Map<String, String> calls = FileHelper.getCalls();
+		
+		for (String key : calls.keySet()) {
+			listCalls.getItems().add(key + calls.get(key));
+			System.out.println(key);
+		}
+		
+		// Context menu for removing items from ListView
+			ContextMenu contextMenu = new ContextMenu();
+			MenuItem menuItemRemove = new MenuItem("Remove");
+			MenuItem menuItemRemoveAll = new MenuItem("Remove All");
+			contextMenu.getItems().add(menuItemRemove);
+			contextMenu.getItems().add(menuItemRemoveAll);
+			listCalls.setContextMenu(contextMenu);
+				
+			// Context Menu events
+			menuItemRemove.setOnAction(e -> {
+				Object selected = listCalls.getSelectionModel().getSelectedItem();
+				
+				// Obtain just the key. It should always end in the space after 'm', as in 'am' or 'pm'
+				int i = selected.toString().indexOf('m');
+				String key = selected.toString().substring(0, i + 2);
+				
+				if (FileHelper.getCalls().containsKey(key)) {
+					FileHelper.getCalls().remove(key);
+					listCalls.getItems().remove(selected);
+				} else {
+					System.out.println(key);
+					System.out.println("Error: key not found in calls.");
+				}
+			});
+			
+			// Remove all the calls
+			menuItemRemoveAll.setOnAction(e -> {
+				FileHelper.getCalls().clear();
+				listCalls.getItems().clear();
+			});
 	}
 	
 	/** Methods for changing scenes */
