@@ -249,5 +249,11 @@ public class SettingsController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+    /* save all files */
+    public void saveAllFiles() {
+    	saveAll();
+    	FileHelper.saveAll();
+    }
 
 }

@@ -135,4 +135,5 @@ public final class ScheduleHelper {
 		alert.setContentText("There was an error creating the schedule.");
 		alert.show();
 	}
+	
 }

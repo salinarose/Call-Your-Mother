@@ -146,8 +146,8 @@ public class ContactSceneController implements Initializable {
 	@FXML
 	ChoiceBox<String> cbZone;
 	private void initZoneChoices() {
-		Map<String, String> o = ZoneId.SHORT_IDS;
-		cbZone.getItems().addAll(o.keySet());
+		//Map<String, String> o = ZoneId.getAvailableZoneIds();
+		cbZone.getItems().addAll(ZoneId.getAvailableZoneIds());
 		cbZone.setOnAction(this::getZone);
 	}
 	
@@ -177,7 +177,7 @@ public class ContactSceneController implements Initializable {
     }
     
     /* Saves contact data */
-    public void saveContact(ActionEvent event){
+    public void saveContact(){
     	// TODO: Currently still allows if the name is a whitespace character
     	if (tfName.getText() == null || cbZone.getValue() == null ||
     			tfName.getText() == "") {
@@ -248,6 +248,12 @@ public class ContactSceneController implements Initializable {
 		});
     	
     }
+    
+    /* save all files */
+    public void saveAllFiles() {
+    	saveContact();
+    	FileHelper.saveAll();
+    }
 	
 	/* Returns to main scene */
 	public void goToMainScene() {
@@ -279,5 +285,31 @@ public class ContactSceneController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	Button btnSchedule;
+	
+	/* Go to schedule scene */
+	public void goToScheduleScene() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleScene.fxml"));
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) btnSchedule.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			//stage.setTitle("ScheduleScene");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Error loading schedule scene.");
+		}
+		/*
+		try {
+			App.setRoot("ScheduleScene");
+		} catch (IOException e) {
+			System.out.println("Error loading schedule scene from main scene.");
+		}
+		*/
 	}
 }

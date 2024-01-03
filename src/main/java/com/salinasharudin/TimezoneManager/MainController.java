@@ -172,7 +172,7 @@ public class MainController implements Initializable {
 		
 		for (String key : calls.keySet()) {
 			listCalls.getItems().add(key + calls.get(key));
-			System.out.println(key);
+			//System.out.println(key);
 		}
 		
 		// Context menu for removing items from ListView
@@ -195,7 +195,7 @@ public class MainController implements Initializable {
 					FileHelper.getCalls().remove(key);
 					listCalls.getItems().remove(selected);
 				} else {
-					System.out.println(key);
+					//System.out.println(key);
 					System.out.println("Error: key not found in calls.");
 				}
 			});
@@ -218,21 +218,27 @@ public class MainController implements Initializable {
 	public void goToContactScene() throws IOException {
         // Load contact editing scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ContactScene.fxml"));
-        Parent root = loader.load();
+        Parent root;
+        try {
+	        root = loader.load();
+	 
+	        // Get controller of scene2
+	        ContactSceneController scene2Controller = loader.getController();
+	        
+	        // Pass selection index to the contact edit scene
+	        scene2Controller.getSelection(selected);
  
-        // Get controller of scene2
-        ContactSceneController scene2Controller = loader.getController();
-        
-        // Pass selection index to the contact edit scene
-        scene2Controller.getSelection(selected);
- 
-        
-        // Load scene2 in same window
-        // I could've used any node in this scene below, I chose btnEdit this time
-        Stage stage = (Stage) btnEdit.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Edit Contact");
-        stage.show();
+	        
+	        // Load scene2 in same window
+	        // I could've used any node in this scene below, I chose btnEdit this time
+	        Stage stage = (Stage) btnEdit.getScene().getWindow();
+	        stage.setScene(new Scene(root));
+	        stage.setTitle("Edit Contact");
+	        stage.show();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        	System.out.println("error loading contact edit scene");
+        }
     }
 	
 	/* Goes to the user settings scene */
@@ -256,6 +262,9 @@ public class MainController implements Initializable {
 	
 	/* Go to schedule scene */
 	public void goToScheduleScene() {
+		
+		//TODO: ask to save changes first
+		
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleScene.fxml"));
         Parent root;
 		try {
@@ -268,14 +277,12 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 			System.out.println("Error loading schedule scene.");
 		}
-		/*
-		try {
-			App.setRoot("ScheduleScene");
-		} catch (IOException e) {
-			System.out.println("Error loading schedule scene from main scene.");
-		}
-		*/
 	}
+    
+    /* save all files */
+    public void saveAll() {
+    	FileHelper.saveAll();
+    }
     
 }
 

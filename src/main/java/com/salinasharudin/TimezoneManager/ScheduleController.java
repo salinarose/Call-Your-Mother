@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -69,7 +70,9 @@ public class ScheduleController implements Initializable {
 	Button btnAddToList;
 	@FXML
 	ListView listSelected;
-	
+	@FXML 
+	ScrollPane scrollpane;
+
 	public void updateList() {
 		// Context menu for removing items from ListView
 		ContextMenu contextMenu = new ContextMenu();
@@ -133,10 +136,18 @@ public class ScheduleController implements Initializable {
 			Label name = new Label(c.getName());
 			name.setPrefWidth(60);
 			Label zone = new Label(c.getTimezone());
-			//zone.setPrefWidth(150);
+			zone.setPrefWidth(150);
 			gridContacts.addRow(i, name, zone);
 			i++;
 		}
+		
+		/* TODO: ContextMenu for the contacts list
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem item1 = new MenuItem("Add");
+		MenuItem item2 = new MenuItem("Remove");
+		contextMenu.getItems().add(item1);
+		contextMenu.getItems().add(item2);
+		*/
 		
 		/* Events for hovering over or selecting contacts */
 		for (Node node : gridContacts.getChildren()) {
@@ -148,6 +159,11 @@ public class ScheduleController implements Initializable {
 		    }));
 		    node.setOnMouseExited(e -> gridContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
+		        // TODO: Would be nice if already selected items stayed highlighted
+		        /*
+		        if (listSelected.getItems().contains(list.get(targetIndex))) {
+		        	System.out.println("in list already!");
+		        } */
 		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
 		            r.setStyle("-fx-background-color:#F3F3F3;");
 		        }
@@ -340,7 +356,7 @@ public class ScheduleController implements Initializable {
 			}
 		}
 		
-		System.out.println(day + time + " " + people.toString());
+		//System.out.println(day + time + " " + people.toString());
 
 		// Ask for confirmation
 		// If key already exists, ask "A call on DAY at TIME with CONTACTS already exists. Would you like to overwrite with PEOPLE? "
@@ -418,5 +434,10 @@ public class ScheduleController implements Initializable {
 			System.out.println("Error loading settings from schedule scene.");
 		}*/
 	}
+	
+    /* save all files */
+    public void saveAll() {
+    	FileHelper.saveAll();
+    }
 
 }

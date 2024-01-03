@@ -82,7 +82,7 @@ public final class FileHelper {
 			int last = contacts.size() - 1;
 			for (Contact c: contacts) {
 				JSONObject jo = new JSONObject(c);
-				System.out.println(jo);
+				//System.out.println(jo);
 				jo.write(writer, 1, 1);
 				if (counter < last) {
 					writer.append(',');
@@ -249,4 +249,17 @@ public final class FileHelper {
 		
 		writeContactData();
 	}
+	
+    
+    /* save all files */
+    public static void saveAll() {
+    	// save contacts data
+    	writeContactData();
+    	
+    	// save settings data
+    	writeSettingsData();
+    	
+    	// save calls data
+    	writeCallData();
+    }
 }

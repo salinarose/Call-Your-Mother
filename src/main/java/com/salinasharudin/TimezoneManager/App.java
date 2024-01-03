@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +35,11 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("Time Zone Manager");
         stage.show();
+        
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            exit(stage);
+        });
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -79,8 +86,24 @@ public class App extends Application {
     	
     }
     
-    public static void exit() {
-    	// save files before exiting
+    public void exit(Stage stage) {
+        
+        Alert alert = new Alert(Alert.AlertType.NONE, "Save changes before leaving?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.setTitle("Exit");
+        alert.setHeaderText("Unsaved Changes");
+        alert.setContentText("Would you like to save all changes before leaving?");
+
+        alert.showAndWait().ifPresent((btnType) -> {
+			
+    		  if (btnType == ButtonType.YES) {
+    			  FileHelper.saveAll();
+    			  stage.close();
+    		  }
+    		  if (btnType == ButtonType.NO) {
+    			  stage.close();
+    		  }
+  		});
+
     }
 
 }
