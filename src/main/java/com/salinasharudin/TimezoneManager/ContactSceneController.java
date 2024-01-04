@@ -19,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -35,13 +36,15 @@ public class ContactSceneController implements Initializable {
 		//System.out.println("Selected: " + selected);
 		if (selected == -1) {
 			// Adding new contact. All fields should be blank 
-			System.out.println("new contact");
+			//System.out.println("new contact");
+			taCalls.setText("No scheduled calls found.");
 		}
 		else {
-			System.out.println("existing contact");
+			//System.out.println("existing contact");
 			Contact c = FileHelper.getContacts().get(selected);
 			loadData(c);
 		}
+		
 		// Initialize the availability grid
 		initGrid();
 	}
@@ -55,11 +58,31 @@ public class ContactSceneController implements Initializable {
 	
 	@FXML
 	TextField tfName; 
+	@FXML
+	TextArea taCalls;
 	
 	/* Loads fields for existing contacts */
 	private void loadData(Contact c) {
+		// Display name and zone 
 		tfName.setText(c.getName());
 		cbZone.setValue(c.getTimezone());
+		
+		
+		// Display scheduled calls, if any
+		Boolean noCalls = true;
+		
+		Map<String, String> calls = FileHelper.getCalls();
+		for (String key : calls.keySet()) {
+			if (calls.get(key).contains(c.getName())) {
+				taCalls.appendText(key + '\n');
+				noCalls = false;
+			}
+		}
+		
+		// No calls were found
+		if (noCalls == true) {
+			taCalls.setText("No calls scheduled.");
+		}
 	}
 
 	/* Sets up the availability grid */
@@ -146,6 +169,7 @@ public class ContactSceneController implements Initializable {
 	@FXML
 	ChoiceBox<String> cbZone;
 	private void initZoneChoices() {
+		// TODO: make a nicer list
 		//Map<String, String> o = ZoneId.getAvailableZoneIds();
 		cbZone.getItems().addAll(ZoneId.getAvailableZoneIds());
 		cbZone.setOnAction(this::getZone);
@@ -163,8 +187,7 @@ public class ContactSceneController implements Initializable {
     	noneAvailable();
     	
     	// other fields
-    	//image
-    	//scheduled calls
+    	// image
     }
     
     public void resetAll() {
@@ -204,8 +227,6 @@ public class ContactSceneController implements Initializable {
     		    	Contact c = new Contact(name, zone);
     		    	c.setAvailability(hours);
     		    	FileHelper.getContacts().add(c);
-    		    	
-    		    	// other fields
     		    }
     		    // Saves changes to existing contact
     		    else {
