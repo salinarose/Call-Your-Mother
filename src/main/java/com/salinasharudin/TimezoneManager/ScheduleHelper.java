@@ -71,18 +71,10 @@ public final class ScheduleHelper {
 							same = checkTime(others.get(i), day, hr);
 						} else {
 							// conversion needed
-							int new_day = (day + ((hr + dif) / 24)) % 7;
-							int new_hr = (hr + dif) % 24;
-							if (new_hr < 0) {
-								new_hr += 24;
-								if (new_day - 1 < 0) {
-									same = checkTime(others.get(i), 6, new_hr);
-								} else {
-								same = checkTime(others.get(i), new_day - 1, new_hr);
-								}
-							} else {
-								same = checkTime(others.get(i), new_day, new_hr);
-							}
+							int[] converted = new int[2]; // converted time as [new_day, new_hr]
+							converted = convertTime(dif, day, hr);
+							
+							same = checkTime(others.get(i), converted[0], converted[1]);
 						}
 						
 						// If this contact is not compatible, no need to check the others
@@ -107,6 +99,26 @@ public final class ScheduleHelper {
 		
 	}
 	
+	private static int[] convertTime(int dif, int day, int hr) {
+		// Convert the day and time using the dif
+		int new_day = (day + ((hr + dif) / 24)) % 7;
+		int new_hr = (hr + dif) % 24;
+		
+		// Dif is negative and large enough to set it back to the previous day
+		if (new_hr < 0) {
+			new_hr += 24;
+			
+			// If previous day was already the first day of the week, set it to the last day of the week
+			if (new_day - 1 < 0) {
+				new_day = 6;
+			} else {
+				// Else just set it back one day
+				new_day -= 1;
+			}
+		} 
+		return new int[]{new_day, new_hr};
+	}
+
 	public static Boolean checkTime(Contact other, int day, int hr) {
 		if (other.getAvailability()[day][hr] != null &&
 				other.getAvailability()[day][hr] == true) return true;
