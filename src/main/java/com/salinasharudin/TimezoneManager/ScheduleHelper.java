@@ -128,8 +128,12 @@ public final class ScheduleHelper {
 	// Get Offset
 	public static int getOffsetInt(ZoneOffset offset) {
 		String o = offset.toString();
-		o = o.substring(0, 3);
+		if (o == "Z") {
+			return 0;
+		}
+		
 		try {
+			o = o.substring(0, 3);
 			int i = Integer.parseInt(o);
 			return i;
 		} catch (Exception e) {
