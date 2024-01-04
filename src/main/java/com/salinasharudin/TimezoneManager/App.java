@@ -82,7 +82,7 @@ public class App extends Application {
     	//others.add(FileHelper.getContacts().get(0));
     	others.add(FileHelper.getContacts().get(2));
     	
-    	ScheduleHelper.buildSchedule(others);
+    	ScheduleHelper.createMutualSchedule(others);
     	
     }
     

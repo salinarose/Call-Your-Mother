@@ -13,9 +13,8 @@ public final class ScheduleHelper {
 	// Map will store all the hours that all members have mutually available for each day
 	public static Map<Integer, ArrayList<Integer>> map = new HashMap<>();
 	
-	// TODO: get members 
-	public static void buildSchedule(ArrayList<Contact> others) {
-		Boolean[][] user = Settings.getInstance().getSchedule();
+	// Get members 
+	public static void createMutualSchedule(ArrayList<Contact> others) {
 		
 		// Get the user offset
 		ZoneOffset userOffset = OffsetDateTime.now(Settings.getInstance().getZone()).getOffset();
@@ -47,6 +46,13 @@ public final class ScheduleHelper {
 			difs[i] = getDif(userOffsetInt, otherOffsetInt);
 		}
 		
+		buildSchedule(difs, others);
+	}
+	
+	public static void buildSchedule(int[] difs, ArrayList<Contact> others) {
+
+		Boolean[][] user = Settings.getInstance().getSchedule();
+		
 		/* Build the schedule */
 		for (int day = 0; day < 7; day++) {
 			for (int hr = 0; hr < 24; hr++) {
@@ -54,9 +60,12 @@ public final class ScheduleHelper {
 				if (user[day][hr] == true) {
 					
 					Boolean same = false;
+					
 					// Check each contact's schedule
 					for (int i = 0; i < others.size(); i++) {
 						int dif = difs[i];
+						
+						// TODO: move to separate method
 						if (dif == 0) {
 							// same zone - no conversion needed
 							same = checkTime(others.get(i), day, hr);
@@ -75,14 +84,14 @@ public final class ScheduleHelper {
 								same = checkTime(others.get(i), new_day, new_hr);
 							}
 						}
-						// If this contact is compatible, no need to check the others
+						
+						// If this contact is not compatible, no need to check the others
 						if (same != true) {
 							break;
 						}
 					}
 					
 					// If same is true, all of the contacts were available at that time
-					//map.put(day, map.get(day).add(hr));
 					if (same == true) {
 						//System.out.println(day + ", " + hr);
 						
@@ -104,7 +113,7 @@ public final class ScheduleHelper {
 		else return false;
 	}
 	
-	// TODO: get offset
+	// Get Offset
 	public static int getOffsetInt(ZoneOffset offset) {
 		String o = offset.toString();
 		o = o.substring(0, 3);
@@ -124,7 +133,7 @@ public final class ScheduleHelper {
 	}
 
 
-	// TODO: get mutual schedule
+	// Get mutual schedule
 	public Map<Integer, ArrayList<Integer>> getMutual() {
 		return this.map;
 	}

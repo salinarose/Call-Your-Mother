@@ -218,7 +218,7 @@ public class ScheduleController implements Initializable {
 		others.addAll(listSelected.getItems());
 
 		// Build the mutual schedule
-		ScheduleHelper.buildSchedule(others);
+		ScheduleHelper.createMutualSchedule(others);
 		
 		// Display the results
 		gridResults.getChildren().clear();
