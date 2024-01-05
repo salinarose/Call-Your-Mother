@@ -54,14 +54,111 @@ class ScheduleHelperTest {
 
 	/** Tests for getDif **/
 	@Test
-	void testGetDif() {
-		//fail("Not yet implemented");
+	void testGetDifPos() {
+		// User offsetInt at -5, Other at +8 for a total dif of +13
+		int actual = ScheduleHelper.getDif(-5, 8);
+		assertEquals(13, actual);
+	}
+	
+	@Test
+	void testGetDifNeg() {
+		// User offsetInt at 3, Other at -2 for a total dif of -5
+		int actual = ScheduleHelper.getDif(3, -2);
+		assertEquals(-5, actual);
+	}
+	
+	@Test
+	void testGetDifNoDif() {
+		// User and other have the same offsetInt value
+		int actual = ScheduleHelper.getDif(5, 5);
+		assertEquals(0, actual);
+	}
+	
+	@Test
+	void testGetDifMore1() {
+		int actual = ScheduleHelper.getDif(8, -5);
+		assertEquals(-13, actual);
+	}
+	
+	@Test
+	void testGetDifMore2() {
+		int actual = ScheduleHelper.getDif(-2, 3);
+		assertEquals(5, actual);
+	}
+	
+	@Test
+	void testGetDifBothPos() {
+		int actual = ScheduleHelper.getDif(1, 5);
+		assertEquals(4, actual);
+	}
+	
+	@Test
+	void testGetDifBothPosFlip() {
+		int actual = ScheduleHelper.getDif(5, 1);
+		assertEquals(-4, actual);
+	}
+	
+	@Test
+	void testGetDifBothNeg() {
+		int actual = ScheduleHelper.getDif(-3, -1);
+		assertEquals(2, actual);
+	}
+	
+	@Test
+	void testGetDifBothNegFlip() {
+		int actual = ScheduleHelper.getDif(-1, -3);
+		assertEquals(-2, actual);
 	}
 	
 	/** Tests for convertTime **/
+	// convertTime(int dif, int day, int hr)
 	@Test
-	void testConvertTime() {
-		
+	void testConvertTimeNoDif() {
+		int[] actual = ScheduleHelper.convertTime(0, 5, 15);
+		System.out.println(actual);
+		assertTrue(actual[0] == 5 && actual[1] == 15);
+	}
+	
+	@Test
+	void testConvertTimeNegDif() {
+		int[] actual = ScheduleHelper.convertTime(-5, 5, 15);
+		System.out.println(actual);
+		assertTrue(actual[0] == 5 && actual[1] == 10);
+	}
+	
+	@Test
+	void testConvertTimeNegDifNewDay() {
+		int[] actual = ScheduleHelper.convertTime(-5, 5, 3);
+		System.out.println(actual);
+		assertTrue(actual[0] == 4 && actual[1] == 22);
+	}
+	
+	@Test
+	void testConvertTimePosDif() {
+		int[] actual = ScheduleHelper.convertTime(5, 5, 15);
+		System.out.println(actual);
+		assertTrue(actual[0] == 5 && actual[1] == 20);
+	}
+	
+	@Test
+	void testConvertTimePosDifNewDay() {
+		int[] actual = ScheduleHelper.convertTime(10, 5, 15);
+		System.out.println(actual);
+		assertTrue(actual[0] == 6 && actual[1] == 1);
+	}
+	
+	@Test
+	void testConvertTimePosDifNewWeek() {
+		int[] actual = ScheduleHelper.convertTime(5, 6, 22);
+		System.out.println(actual);
+		assertTrue(actual[0] == 0 && actual[1] == 3);
+	}
+	
+	@Test
+	void testConvertTimeNegDifNewWeek() {
+		int[] actual = ScheduleHelper.convertTime(-1, 0, 0);
+		System.out.println(actual);
+		assertTrue(actual[0] == 6 && actual[1] == 23);
 	}
 
 }

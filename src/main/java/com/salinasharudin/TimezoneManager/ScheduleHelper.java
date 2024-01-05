@@ -99,7 +99,10 @@ public final class ScheduleHelper {
 		
 	}
 	
-	private static int[] convertTime(int dif, int day, int hr) {
+	// Move coordinates of day,time to where it matches up with the other zone using the dif
+	// From user's day,time -> use dif to find other's corresponding day,time 
+	// Day 0 = Sunday, Day 6 = Saturday. Hour 0 = 12am, hour 23 = 11pm
+	static int[] convertTime(int dif, int day, int hr) {
 		// Convert the day and time using the dif
 		int new_day = (day + ((hr + dif) / 24)) % 7;
 		int new_hr = (hr + dif) % 24;
@@ -144,6 +147,7 @@ public final class ScheduleHelper {
 	}
 	
 	// Gets the difference in offset between the user and the other contact. For example, -05 (user) and +08 (other) have a +13 difference.
+	// Tests how far the and what direction, moving from user to other
 	public static int getDif(int user, int other) {
 		return (0 - user) - (0 - other);
 	}
