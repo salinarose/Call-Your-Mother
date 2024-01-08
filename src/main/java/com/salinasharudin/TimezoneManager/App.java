@@ -21,8 +21,8 @@ import java.util.Map;
 /**
  * Author: Salina Sharudin
  * App: TimeZone Manager
- * Version: 0.8
- * Date Updated: 1/03/2023
+ * Version: 1.0
+ * Date Updated: 1/07/2023
  */
 public class App extends Application {
 
