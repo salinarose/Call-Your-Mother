@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 
 public class ScheduleController implements Initializable {
 	
-	// Variables to control selection and deselection
+	// Variables to control selection and de-selection
 	public int selected = -1;
 	Boolean b = false;
 	private Node selectedTime;
@@ -69,7 +69,7 @@ public class ScheduleController implements Initializable {
 	@FXML
 	Button btnAddToList;
 	@FXML
-	ListView listSelected;
+	ListView<Contact> listSelected;
 	@FXML 
 	ScrollPane scrollpane;
 
@@ -141,14 +141,6 @@ public class ScheduleController implements Initializable {
 			i++;
 		}
 		
-		/* TODO: ContextMenu for the contacts list
-		ContextMenu contextMenu = new ContextMenu();
-		MenuItem item1 = new MenuItem("Add");
-		MenuItem item2 = new MenuItem("Remove");
-		contextMenu.getItems().add(item1);
-		contextMenu.getItems().add(item2);
-		*/
-		
 		/* Events for hovering over or selecting contacts */
 		for (Node node : gridContacts.getChildren()) {
 		    node.setOnMouseEntered(e -> gridContacts.getChildren().forEach(r -> {
@@ -212,7 +204,7 @@ public class ScheduleController implements Initializable {
 		// In case it is already visible
 		lblNoResults.setVisible(false);
 		
-		// Get all the selected items and store it in a new arraylist 
+		// Get all the selected items and store it in a new ArrayList 
 		ArrayList<Contact> others = new ArrayList<>();
 		others.clear();
 		others.addAll(listSelected.getItems());
@@ -275,14 +267,11 @@ public class ScheduleController implements Initializable {
 						gridResults.add(new Label(hour), col, row + 1);	
 						col++;
 					}
-					
 					gridResults.add(new Label(""), 0, gridResults.getRowCount() + 1);
 				}
 			}			
 		}
-		
-		selectTime();
-		
+		selectTime();	
 	}
 	
 	/* Handle mouse events for selecting the time */
@@ -336,8 +325,7 @@ public class ScheduleController implements Initializable {
 		// Find the corresponding day
 		String day = "";
 		int row = GridPane.getRowIndex(selectedTime);
-		
-		// This feels very inefficient, but I haven't figured out a better way yet. 
+
 		// Loop through all the results, looking for one that contains a day in the label until we have reached the row of the selected node
 		for (Node node : gridResults.getChildren()) {
 			if (GridPane.getRowIndex(node) >= row) break;
@@ -355,8 +343,6 @@ public class ScheduleController implements Initializable {
 				people.append(", ");
 			}
 		}
-		
-		//System.out.println(day + time + " " + people.toString());
 
 		// Ask for confirmation
 		// If key already exists, ask "A call on DAY at TIME with CONTACTS already exists. Would you like to overwrite with PEOPLE? "
@@ -372,6 +358,7 @@ public class ScheduleController implements Initializable {
 		confirmCall(message, day + time, people.toString());
 	}
 	
+	/* Ask the user to confirm the selected call time */
 	public void confirmCall(String message, String time, String people) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Confirm call");
@@ -384,19 +371,12 @@ public class ScheduleController implements Initializable {
 		});
 	}
 
-	/* Methods for leaving the current scene */
+	/** Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
 		
 		FileHelper.writeCallData();
-		
-		/*
-		try {
-			App.setRoot("Main");
-		} catch (IOException e) {
-			System.out.println("Error loading main scene from schedule scene.");
-		}
-		*/
+
 		// Load main scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
         Parent root;
@@ -427,12 +407,6 @@ public class ScheduleController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*
-		try {
-			App.setRoot("SettingsScene");
-		} catch (IOException e) {
-			System.out.println("Error loading settings from schedule scene.");
-		}*/
 	}
 	
     /* save all files */

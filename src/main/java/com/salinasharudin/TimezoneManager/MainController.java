@@ -44,17 +44,6 @@ public class MainController implements Initializable {
 		displayLocalDateTime();
 		displayContacts();
 		displayCalls();
-		
-		//System.out.println(FileHelper.getCalls().toString());
-		
-		// TODO: verify that this can be removed. If so, remove fileSuccess variable
-		/* with changes, I do not think this is needed any longer.
-		if (FileHelper.contactFileSuccess == false) {
-			FileHelper.showFileAlert("contact");
-			// Change variable so that the alert only shows once after attempting to load the file
-			FileHelper.contactFileSuccess = true;
-		}
-		*/
 	}
 
 	// Creates a local clock using the time zone specified in user's settings
@@ -80,10 +69,6 @@ public class MainController implements Initializable {
 		lblLocalTime.setText(clockNow.format(formatTime));
 		lblLocalDay.setText(clockNow.getDayOfWeek().toString());
 		lblLocalDate.setText(clockNow.format(formatDate));
-		
-		// Obtain offset from clock
-		//String offset = clockNow.getOffset().toString();
-	
 	}
 	
 	@FXML
@@ -161,7 +146,7 @@ public class MainController implements Initializable {
 	}
 	
 	@FXML
-	ListView listCalls;
+	ListView<String> listCalls;
 	
 	/* Populate table with calls data */
 	public void displayCalls() {
@@ -172,7 +157,6 @@ public class MainController implements Initializable {
 		
 		for (String key : calls.keySet()) {
 			listCalls.getItems().add(key + calls.get(key));
-			//System.out.println(key);
 		}
 		
 		// Context menu for removing items from ListView
@@ -195,7 +179,6 @@ public class MainController implements Initializable {
 					FileHelper.getCalls().remove(key);
 					listCalls.getItems().remove(selected);
 				} else {
-					//System.out.println(key);
 					System.out.println("Error: key not found in calls.");
 				}
 			});
@@ -207,8 +190,7 @@ public class MainController implements Initializable {
 			});
 	}
 	
-	/** Methods for changing scenes */
-	
+	/** Methods for changing scenes */	
 	public void btnAddClicked() throws IOException {
 		selected = -1;
 		goToContactScene();
@@ -227,10 +209,8 @@ public class MainController implements Initializable {
 	        
 	        // Pass selection index to the contact edit scene
 	        scene2Controller.getSelection(selected);
- 
-	        
-	        // Load scene2 in same window
-	        // I could've used any node in this scene below, I chose btnEdit this time
+
+	        // Load next scene in same window
 	        Stage stage = (Stage) btnEdit.getScene().getWindow();
 	        stage.setScene(new Scene(root));
 	        stage.setTitle("Edit Contact");
@@ -271,7 +251,6 @@ public class MainController implements Initializable {
 			root = loader.load();
 			Stage stage = (Stage) btnPlan.getScene().getWindow();
 			stage.setScene(new Scene(root));
-			//stage.setTitle("ScheduleScene");
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

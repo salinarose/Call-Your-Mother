@@ -41,13 +41,7 @@ public class SettingsController implements Initializable {
 		initThemeChoices();
 		cbTheme.setValue(Settings.getInstance().getTheme());
 		
-		initGrid();
-		
-		/* test
-		System.out.println("username: " + Settings.getInstance().getUsername());
-		System.out.println("zone: " + Settings.getInstance().getZone());
-		*/
-		
+		initGrid();		
 	}
 	
 	/* Initialize zone choice box */
@@ -58,7 +52,6 @@ public class SettingsController implements Initializable {
 		Set<String> o = ZoneId.getAvailableZoneIds();
 		cbZone.getItems().addAll(o);
 		cbZone.setOnAction(this::getZone);
-		// TODO: make it uneditable
 	}
 	
 	@FXML

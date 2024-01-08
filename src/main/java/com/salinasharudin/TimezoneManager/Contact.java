@@ -4,7 +4,7 @@ public class Contact {
 	
 	//Fields
 	private String name;
-	private String timezone; //may change if I decide to use offset instead
+	private String timezone;
 	private Boolean[][] availability;
 	
 	//Constructors

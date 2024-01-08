@@ -33,7 +33,6 @@ public final class ScheduleHelper {
 		int[] difs = new int[others.size()];
 		
 		for (int i = 0; i < others.size(); i++) {
-			//Boolean[][] other = c.getAvailability();
 			// Get the user's offset as an int
 			Contact c = others.get(i);
 			int otherOffsetInt = getOffsetInt(OffsetDateTime.now(ZoneId.of(c.getTimezone())).getOffset());
@@ -41,11 +40,9 @@ public final class ScheduleHelper {
 				map.clear();
 				showErrorAlert();
 				return;
-			}
-			
+			}			
 			difs[i] = getDif(userOffsetInt, otherOffsetInt);
 		}
-		
 		buildSchedule(difs, others);
 	}
 	
@@ -85,8 +82,6 @@ public final class ScheduleHelper {
 					
 					// If same is true, all of the contacts were available at that time
 					if (same == true) {
-						//System.out.println(day + ", " + hr);
-						
 				        if (!map.containsKey(day)) {
 				            map.put(day, new ArrayList<>());
 				        }
@@ -122,6 +117,7 @@ public final class ScheduleHelper {
 		return new int[]{new_day, new_hr};
 	}
 
+	/* Check if the contact is available at the calculated converted time */
 	public static Boolean checkTime(Contact other, int day, int hr) {
 		if (other.getAvailability()[day][hr] != null &&
 				other.getAvailability()[day][hr] == true) return true;
@@ -141,7 +137,6 @@ public final class ScheduleHelper {
 			return i;
 		} catch (Exception e) {
 			System.out.println("error converting offset to int");
-			//System.exit(1);
 			return -100;
 		}
 	}

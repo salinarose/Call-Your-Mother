@@ -28,10 +28,10 @@ import java.util.Map;
  * Version: 1.0
  * Date Updated: 1/08/2023
  */
+
 public class App extends Application {
 
     private static Scene scene;
-    //private static ArrayList<Contact> contacts;
    
     @Override
     public void start(Stage stage) throws IOException {
@@ -46,12 +46,6 @@ public class App extends Application {
         });
     }
 
-    /*
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-    */
-
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
@@ -60,19 +54,10 @@ public class App extends Application {
     public static void main(String[] args) {
     	initialize();
     	
-    	//testScheduleHelper();
-    	
         launch();
     }
     
     public static void initialize() {
-    	/* Test data - only run if current contacts file deleted or corrupted
-    	FileHelper.test_addContacts();
-    	ArrayList<Contact> contactList = FileHelper.getContacts();
-    	for (Contact c : contactList) {
-    		System.out.println(c.toString());
-    	}
-    	*/
     	
     	// Load the contacts list from a file if it exists, or a new empty list if it does not
     	FileHelper.readContactData();
@@ -80,18 +65,11 @@ public class App extends Application {
     	// Load user settings
     	FileHelper.readSettingsData();
     	
+    	// Load saved call data
     	FileHelper.readCallData();
     }
     
-    public static void testScheduleHelper() {
-    	ArrayList<Contact> others = new ArrayList<>();
-    	//others.add(FileHelper.getContacts().get(0));
-    	others.add(FileHelper.getContacts().get(2));
-    	
-    	ScheduleHelper.createMutualSchedule(others);
-    	
-    }
-    
+    /* Alert the user to save before exiting the program */
     public static void exit(Stage stage) {
         
         Alert alert = new Alert(Alert.AlertType.NONE, "Save changes before leaving?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
@@ -101,6 +79,8 @@ public class App extends Application {
 
         alert.showAndWait().ifPresent((btnType) -> {
 			
+        	// if btnType == ButtonType.CANCEL, do nothing
+        	
     		  if (btnType == ButtonType.YES) {
     			  FileHelper.saveAll();
     			  stage.close();
@@ -109,7 +89,6 @@ public class App extends Application {
     			  stage.close();
     		  }
   		});
-
     }
 
 }

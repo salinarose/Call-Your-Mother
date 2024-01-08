@@ -23,6 +23,7 @@ public class Settings {
 	public static Settings getInstance() {
 		return single_instance;
 	}
+	
 	/*// Lazy initialization 
     public static Settings Settings()
     {

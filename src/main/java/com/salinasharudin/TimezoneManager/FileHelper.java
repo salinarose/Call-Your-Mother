@@ -34,7 +34,6 @@ public final class FileHelper {
 	
 	/* Contacts file methods */
 	private static ArrayList<Contact> contacts;
-	//private static Settings settings;
 	public static Boolean contactFileSuccess = false;
 	public static Boolean settingsFileSuccess = false;
 	
@@ -89,12 +88,11 @@ public final class FileHelper {
 				}
 				counter++;
 			}
-
+			
 			writer.append(']');
 			
 			writer.flush();
 			writer.close();
-			//System.out.println("Save successful.");
 			
 		} catch (IOException ioe) {
 			System.out.println("Error with save file.");
@@ -127,8 +125,6 @@ public final class FileHelper {
 			ObjectMapper mapper = new ObjectMapper();
 		    Map<?, ?> map = mapper.readValue(Paths.get("settings.json").toFile(), Map.class);
 
-		    
-		    
 		    // Load each field in settings from map 
 		    Settings settings = Settings.getInstance();
 		    
@@ -142,9 +138,7 @@ public final class FileHelper {
 		    int dayCount = 0;
 		    for (ArrayList day : v) {
 		    	int hourCount = 0;
-		    	//System.out.println(day);
 		    	for (var hour : day) {
-		    		//System.out.println(hour);
 		    		if (hour == null) {
 		    			hour = false;
 		    		}
@@ -154,14 +148,6 @@ public final class FileHelper {
 		    	dayCount++;
 		    }
 		    settings.setSchedule(hours);
-		    
-		    
-		    // test: print map entries
-		    /*
-		    for (Map.Entry<?, ?> entry : map.entrySet()) {
-		        System.out.println(entry.getKey() + "=" + entry.getValue());
-		    }
-		    */
 
 			System.out.println("Settings load successful.");
 			settingsFileSuccess = true;
@@ -191,7 +177,6 @@ public final class FileHelper {
 		} catch (IOException e) {
 			System.out.println("call data not found");
 			//e.printStackTrace();
-			//showFileAlert("scheduled calls");
 		}
 	}
 	
@@ -205,8 +190,6 @@ public final class FileHelper {
 			for (Map.Entry<String, String> call : calls.entrySet()) {
 				// Key and value separated by a tab
 				writer.write(call.getKey() + "\t" + call.getValue());
-				
-				// new line
 				writer.newLine();
 			}
 			
@@ -225,7 +208,7 @@ public final class FileHelper {
 		return calls;
 	}
 	
-	/* Error alert popup that informs the user that the data file has been corrupted */
+	/* Error alert pop-up that informs the user that the data file has been corrupted */
 	public static void showFileAlert(String fileType) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("File Error");

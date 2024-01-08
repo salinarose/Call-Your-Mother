@@ -36,11 +36,9 @@ public class ContactSceneController implements Initializable {
 		//System.out.println("Selected: " + selected);
 		if (selected == -1) {
 			// Adding new contact. All fields should be blank 
-			//System.out.println("new contact");
 			taCalls.setText("No scheduled calls found.");
 		}
 		else {
-			//System.out.println("existing contact");
 			Contact c = FileHelper.getContacts().get(selected);
 			loadData(c);
 		}
@@ -52,7 +50,7 @@ public class ContactSceneController implements Initializable {
 	/* Initializes scene */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Set up choicebox
+		// Set up ChoiceBox
 		initZoneChoices();
 	}
 	
@@ -139,7 +137,7 @@ public class ContactSceneController implements Initializable {
 		}
 	}
 	
-	/* Button actions for changing availability grid */
+	/** Button actions for changing availability grid */
 	/* Reset to default */
 	public void resetGrid() {
 		initGrid();	
@@ -169,8 +167,7 @@ public class ContactSceneController implements Initializable {
 	@FXML
 	ChoiceBox<String> cbZone;
 	private void initZoneChoices() {
-		// TODO: make a nicer list
-		//Map<String, String> o = ZoneId.getAvailableZoneIds();
+		// TODO: make a soted, easier to navigate list
 		cbZone.getItems().addAll(ZoneId.getAvailableZoneIds());
 		cbZone.setOnAction(this::getZone);
 	}
@@ -185,9 +182,6 @@ public class ContactSceneController implements Initializable {
     	tfName.setText(null);
     	cbZone.setValue(null);
     	noneAvailable();
-    	
-    	// other fields
-    	// image
     }
     
     public void resetAll() {
@@ -195,8 +189,6 @@ public class ContactSceneController implements Initializable {
     	tfName.setText(c.getName());
     	cbZone.setValue(c.getTimezone());
     	this.resetGrid();
-    	
-    	// any other fields
     }
     
     /* Saves contact data */
@@ -221,7 +213,7 @@ public class ContactSceneController implements Initializable {
     		  if (btnType == ButtonType.OK) {
     			// Saves as new contact
     		    if (selected == -1) {
-    		    	// Save as a new contact and add to the arraylist
+    		    	// Save as a new contact and add to the ArrayList
     		    	String name = tfName.getText();
     		    	String zone = cbZone.getValue();
     		    	Contact c = new Contact(name, zone);
@@ -230,19 +222,13 @@ public class ContactSceneController implements Initializable {
     		    }
     		    // Saves changes to existing contact
     		    else {
-    		    	// Make changes to existing contact and no need to update the arraylist
+    		    	// Make changes to existing contact and no need to update the ArrayList
     		    	Contact c = FileHelper.getContacts().get(selected);
     		    	c.setName(tfName.getText());
     		    	c.setTimezone(cbZone.getValue());
     		    	c.setAvailability(hours);
-    		    	
-    		    	// other fields
     		    }
     		    System.out.println("Changes saved.");
-    		    /* TODO: I want to change this so that it doesn't go back to the main scene. However, for new contacts I will
-    		     * need to change the selected value so that subsequent changes do not lead to multiple new new contacts. I 
-    		     * also would like the alert to have a slightly different message.
-    		     */
     		    // return to main scene
 				goToMainScene();
     		  } else if (btnType == ButtonType.CANCEL) {
@@ -325,13 +311,6 @@ public class ContactSceneController implements Initializable {
 			e.printStackTrace();
 			System.out.println("Error loading schedule scene.");
 		}
-		/*
-		try {
-			App.setRoot("ScheduleScene");
-		} catch (IOException e) {
-			System.out.println("Error loading schedule scene from main scene.");
-		}
-		*/
 	}
 	
     /* close the program */
