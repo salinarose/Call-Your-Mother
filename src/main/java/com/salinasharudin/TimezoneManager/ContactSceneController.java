@@ -185,10 +185,14 @@ public class ContactSceneController implements Initializable {
     }
     
     public void resetAll() {
-    	Contact c = FileHelper.getContacts().get(selected);
-    	tfName.setText(c.getName());
-    	cbZone.setValue(c.getTimezone());
-    	this.resetGrid();
+    	if (selected != -1) {
+	    	Contact c = FileHelper.getContacts().get(selected);
+	    	tfName.setText(c.getName());
+	    	cbZone.setValue(c.getTimezone());
+	    	this.resetGrid();
+    	} else {
+    		clearAll();
+    	}
     }
     
     /* Saves contact data */
