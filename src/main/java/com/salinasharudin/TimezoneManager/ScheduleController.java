@@ -439,5 +439,10 @@ public class ScheduleController implements Initializable {
     public void saveAll() {
     	FileHelper.saveAll();
     }
+    
+    /* close the program */
+    public void close() {
+    	App.exit((Stage) btnCalculate.getScene().getWindow());
+    }
 
 }

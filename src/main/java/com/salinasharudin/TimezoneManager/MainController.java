@@ -284,6 +284,11 @@ public class MainController implements Initializable {
     	FileHelper.saveAll();
     }
     
+    /* close the program */
+    public void close() {
+    	App.exit((Stage) btnPlan.getScene().getWindow());
+    }
+    
 }
 
 

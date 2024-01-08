@@ -20,9 +20,13 @@ import java.util.Map;
 
 /**
  * Author: Salina Sharudin
- * App: TimeZone Manager
+ * Title: TimeZone Manager
+ * Description: Helps users find times that they and their contacts are mutually available.
+ * Users can store a time zone and an availability schedule for each contact. The user can then add up to 
+ * three contacts to a list and find the times in which all people have open availability. This availability is 
+ * calculated by the program into the user's own set time zone.
  * Version: 1.0
- * Date Updated: 1/07/2023
+ * Date Updated: 1/08/2023
  */
 public class App extends Application {
 
@@ -42,9 +46,11 @@ public class App extends Application {
         });
     }
 
+    /*
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
+    */
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
@@ -86,7 +92,7 @@ public class App extends Application {
     	
     }
     
-    public void exit(Stage stage) {
+    public static void exit(Stage stage) {
         
         Alert alert = new Alert(Alert.AlertType.NONE, "Save changes before leaving?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.setTitle("Exit");

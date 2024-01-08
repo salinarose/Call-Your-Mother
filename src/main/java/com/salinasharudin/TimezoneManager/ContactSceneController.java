@@ -333,4 +333,9 @@ public class ContactSceneController implements Initializable {
 		}
 		*/
 	}
+	
+    /* close the program */
+    public void close() {
+    	App.exit((Stage) btnSchedule.getScene().getWindow());
+    }
 }
