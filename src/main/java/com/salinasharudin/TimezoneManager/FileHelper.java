@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public final class FileHelper {
 	
@@ -38,9 +39,10 @@ public final class FileHelper {
 	public static Boolean settingsFileSuccess = false;
 	
 	/* Read contact data from save file and load them into a new array */
-	public static void readContactData() {
+	public static Boolean readContactData() {
 		
 		ArrayList<Contact> contactsList = new ArrayList<>();
+		Boolean success;
 	    
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -54,14 +56,17 @@ public final class FileHelper {
 			}
 			System.out.println("Load successful.");
 			contactFileSuccess = true;
+			success = true;
 			
 		} catch (Exception e) {
 			System.out.println("Load unsuccessful.");
 			contactFileSuccess = false;
 			showFileAlert("contacts list");
+			success = false;
 		}
 		
 		contacts = contactsList;
+		return success;
 	}
 	
 	public static ArrayList<Contact> getContacts() {
@@ -117,7 +122,8 @@ public final class FileHelper {
 	}
 	
 	/* Read settings data from save file */
-	public static void readSettingsData() {
+	public static Boolean readSettingsData() {
+		//Boolean failed = false;
 	    
 		try {
 			
@@ -151,17 +157,24 @@ public final class FileHelper {
 
 			System.out.println("Settings load successful.");
 			settingsFileSuccess = true;
+			return true;
+			//failed = false;
 			
 		} catch (Exception e) {
 			System.out.println("Settings load unsuccessful.");
 			settingsFileSuccess = false;
-			showFileAlert("settings");
+			return false;
+			//failed = true;
+			//showFileAlert("settings");
+			
 		}
+		
+		//if (failed) showFileAlert("settings");
 	}
 	
 	/* Methods for handling scheduled call data */
 	/* Read call file */
-	public static void readCallData() {
+	public static Boolean readCallData() {
 		// Try with resources ensures the reader always gets closed
 		try (BufferedReader reader = new BufferedReader(new FileReader("calls.txt"))) {
 			
@@ -174,9 +187,12 @@ public final class FileHelper {
 				calls.put(time, people);
 			}
 			
+			return true;
+			
 		} catch (IOException e) {
 			System.out.println("call data not found");
 			//e.printStackTrace();
+			return false;
 		}
 	}
 	

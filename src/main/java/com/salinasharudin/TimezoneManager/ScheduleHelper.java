@@ -54,7 +54,7 @@ public final class ScheduleHelper {
 		for (int day = 0; day < 7; day++) {
 			for (int hr = 0; hr < 24; hr++) {
 				// Check if the user has that time available
-				if (user[day][hr] == true) {
+				if (user[day][hr] != null && user[day][hr] == true) {
 					
 					Boolean same = false;
 					
@@ -62,7 +62,7 @@ public final class ScheduleHelper {
 					for (int i = 0; i < others.size(); i++) {
 						int dif = difs[i];
 						
-						// TODO: move to separate method
+						// TODO: possible move to separate method
 						if (dif == 0) {
 							// same zone - no conversion needed
 							same = checkTime(others.get(i), day, hr);

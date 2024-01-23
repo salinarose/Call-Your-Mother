@@ -248,5 +248,10 @@ public class SettingsController implements Initializable {
     	saveAll();
     	FileHelper.saveAll();
     }
+    
+    /* close the program */
+    public void close() {
+    	App.exit((Stage) btnBack.getScene().getWindow());
+    }
 
 }
