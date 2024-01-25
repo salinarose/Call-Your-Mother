@@ -25,8 +25,8 @@ import java.util.Map;
  * Users can store a time zone and an availability schedule for each contact. The user can then add up to 
  * three contacts to a list and find the times in which all people have open availability. This availability is 
  * calculated by the program into the user's own set time zone.
- * Version: 1.0
- * Date Updated: 1/08/2023
+ * Version: 1.0.1
+ * Date Updated: 1/24/2024
  */
 
 public class App extends Application {
