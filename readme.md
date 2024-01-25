@@ -27,7 +27,7 @@ User settings, contacts data, and schedule calls are all saved locally as settin
 
 On the home screen, a list of currently saved contacts is displayed. On the right, the current time, location, offset, and currently scheduled calls are shown. From here the user can add or edit contacts or plan a new call.  
 
-On the “planning a call” page, the user may select 1 - 3 contacts in the list and calculate the mutual availability shared between all of them. The availability for each is stored by [day][time] as either available (true) or not available (false), relative to their own selected time zone. To calculate the mutual availability, the program iterates through the user’s schedule and finds their available times. It converts the user’s and each contact’s zone into an offset value and calculates the difference. This difference is applied to each contact and the mutual availability is stored in a map and displayed in a grid to the user.  
+On the “planning a call” page, the user may select 1 - 3 contacts in the list and calculate the mutual availability shared between all of them. The availability for each is stored by day and time as either available (true) or not available (false), relative to their own selected time zone. To calculate the mutual availability, the program iterates through the user’s schedule and finds their available times. It converts the user’s and each contact’s zone into an offset value and calculates the difference. This difference is applied to each contact and the mutual availability is stored in a map and displayed in a grid to the user.  
 
 Currently, non-hour offsets are truncated down to the hour. For example, an offset of +02:15 is truncated to +02. I hope to fix this in a future update!  
 
