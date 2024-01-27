@@ -2,10 +2,18 @@ package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.OffsetTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -167,8 +175,12 @@ public class ContactSceneController implements Initializable {
 	@FXML
 	ChoiceBox<String> cbZone;
 	private void initZoneChoices() {
-		// TODO: make a soted, easier to navigate list
-		cbZone.getItems().addAll(ZoneId.getAvailableZoneIds());
+		List<String> options = ZoneId.getAvailableZoneIds().stream()
+				.map(zone -> zone.toString())
+				.sorted()
+				.collect(Collectors.toList());
+		
+		cbZone.getItems().addAll(options);
 		cbZone.setOnAction(this::getZone);
 	}
 	

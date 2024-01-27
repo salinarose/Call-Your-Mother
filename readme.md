@@ -29,15 +29,15 @@ On the home screen, a list of currently saved contacts is displayed. On the righ
 
 On the “planning a call” page, the user may select 1 - 3 contacts in the list and calculate the mutual availability shared between all of them. The availability for each is stored by day and time as either available (true) or not available (false), relative to their own selected time zone. To calculate the mutual availability, the program iterates through the user’s schedule and finds their available times. It converts the user’s and each contact’s zone into an offset value and calculates the difference. This difference is applied to each contact and the mutual availability is stored in a map and displayed in a grid to the user.  
 
-Currently, non-hour offsets are truncated down to the hour. For example, an offset of +02:15 is truncated to +02. I hope to fix this in a future update!  
+Currently, non-hour offsets are truncated down to the hour. For example, an offset of +02:30 is truncated to +02. I hope to fix this in a future update!  
 
 To avoid loss of data, the user is prompted to save changes when exiting the program.  
 
 ### Planned future features:
-- Account for 15/30/45 minute offsets and DST
-- Create an easier to navigate timezone dropdown list
+- Account for 30 minute offsets and DST
 - Light and dark modes
 - Profile pictures for each contact
+- Prettier UI overall
 - more!
 
 ## Contributing
