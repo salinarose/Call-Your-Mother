@@ -4,16 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,11 +22,8 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class ScheduleController implements Initializable {
@@ -134,10 +127,15 @@ public class ScheduleController implements Initializable {
 		int i = 0;
 		for (Contact c : list) {
 			Label name = new Label(c.getName());
-			name.setPrefWidth(60);
+			name.setMinWidth(80);
 			Label zone = new Label(c.getTimezone());
-			zone.setPrefWidth(150);
-			gridContacts.addRow(i, name, zone);
+			zone.setMinWidth(150);
+			
+			HBox row = new HBox();
+			row.setSpacing(10);
+			row.getChildren().addAll(name, zone);
+			
+			gridContacts.addRow(i, row);
 			i++;
 		}
 		

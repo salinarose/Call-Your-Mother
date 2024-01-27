@@ -26,7 +26,7 @@ import java.util.Map;
  * three contacts to a list and find the times in which all people have open availability. This availability is 
  * calculated by the program into the user's own set time zone.
  * Version: 1.0.1
- * Date Updated: 1/24/2024
+ * Date Updated: 1/26/2024
  */
 
 public class App extends Application {
