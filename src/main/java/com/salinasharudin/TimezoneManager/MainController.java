@@ -2,16 +2,21 @@ package com.salinasharudin.TimezoneManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -23,8 +28,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainController implements Initializable {
 	
@@ -40,10 +45,7 @@ public class MainController implements Initializable {
 		displayCalls();
 	}
 
-	// Creates a local clock using the time zone specified in user's settings
-	private ZonedDateTime clockNow = ZonedDateTime.now(Settings.getInstance().getZone());
-	private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
-	private DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
 	
 	@FXML
 	Label lblLocalLocation;
@@ -58,11 +60,30 @@ public class MainController implements Initializable {
 	
 	/* Displays a local clock, date, location, and time zone */
 	public void displayLocalDateTime() {
-		lblLocalLocation.setText(clockNow.getZone().toString());
-		lblLocalTimeZone.setText(clockNow.format(DateTimeFormatter.ofPattern("z")));
-		lblLocalTime.setText(clockNow.format(formatTime));
-		lblLocalDay.setText(clockNow.getDayOfWeek().toString());
-		lblLocalDate.setText(clockNow.format(formatDate));
+		// Creates a local clock using the time zone specified in user's settings
+		ZonedDateTime location = ZonedDateTime.now(Settings.getInstance().getZone());
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd MMM yyyy");
+		
+		// Time and location do not need to be updated in real time
+		lblLocalTimeZone.setText(location.format(DateTimeFormatter.ofPattern("z")));
+		lblLocalLocation.setText(location.getZone().toString());
+		
+		final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
+				new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent event)
+			{
+				LocalDateTime clockNow = LocalDateTime.now();
+				lblLocalTime.setText(clockNow.format(formatTime));
+				lblLocalDay.setText(clockNow.getDayOfWeek().toString());
+				lblLocalDate.setText(clockNow.format(formatDate));
+			}
+		}));
+
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
 	}
 	
 	@FXML
