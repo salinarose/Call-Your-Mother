@@ -369,7 +369,7 @@ public class ScheduleController implements Initializable {
 		});
 	}
 
-	/** Methods for leaving the current scene */
+	/* Methods for leaving the current scene */
 	/* Go to main scene */
 	public void goToMainScene() {
 		

@@ -44,8 +44,6 @@ public class MainController implements Initializable {
 		displayContacts();
 		displayCalls();
 	}
-
-
 	
 	@FXML
 	Label lblLocalLocation;
@@ -104,7 +102,7 @@ public class MainController implements Initializable {
 		int i = 0;
 		for (Contact c : list) {
 			Label name = new Label(c.getName());
-			name.setMinWidth(80);
+			name.setMinWidth(60);
 			name.setAlignment(Pos.BASELINE_LEFT);
 			
 			Label zone = new Label(c.getTimezone());
@@ -213,7 +211,7 @@ public class MainController implements Initializable {
 			});
 	}
 	
-	/** Methods for changing scenes */	
+	/* Methods for changing scenes */	
 	public void btnAddClicked() throws IOException {
 		selected = -1;
 		goToContactScene();
