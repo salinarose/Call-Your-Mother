@@ -4,13 +4,18 @@
 
 .root {
     -fx-background-color:"white";
-    -fx-font-family: "Courier New";
+    -fx-font-family: "Courier New", monospace;
     -fx-text-fill: "black";
 }
 
-/*
-.label {
-    -fx-font-family: "Courier New";
-    -fx-text-fill: "black";
+
+.highlight-selection {
+	-fx-background-color: "gray";
+	-fx-blend-mode: difference;
 }
-*/
+
+.selected {
+	-fx-background-color: "lightgray";
+	-fx-blend-mode: difference;
+}
+

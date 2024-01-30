@@ -35,7 +35,6 @@ public class MainController implements Initializable {
 	
 	// variables that control selection and de-selection
 	public int selected = -1;
-	Boolean b = false;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -124,46 +123,47 @@ public class MainController implements Initializable {
 		for (Node node : gridPaneContacts.getChildren()) {
 		    node.setOnMouseEntered(e -> gridPaneContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
+		        // Highlights the current row (if not already selected - they have a different style)
 		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
-		            r.setStyle("-fx-background-color:#FFFFFF;");
+		        	r.getStyleClass().add("highlight-selection");
 		        }
 		    }));
+		    
 		    node.setOnMouseExited(e -> gridPaneContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
+		        // Removes the highlight when the mouse leaves
 		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
-		            r.setStyle("-fx-background-color:#F3F3F3;");
+		        	r.getStyleClass().remove("highlight-selection");
 		        }
 		    }));
+		    
 		    node.setOnMouseClicked(e -> gridPaneContacts.getChildren().forEach(r -> {
 			        Integer targetIndex = GridPane.getRowIndex(node);
 			        
 			        if (GridPane.getRowIndex(r) == targetIndex) {
+			        	
 			        	// De-selects if target is the currently selected item
-			        	if (b == true || selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
-			        		r.setStyle("-fx-background-color:#F3F3F3;");
-			        		
-			        		// Last column
-			        		if (GridPane.getColumnIndex(r) == gridPaneContacts.getColumnCount() -1) {
-			        			b = false; // reset boolean to false
-			        			btnEdit.setDisable(true);
-			        			selected = -1;
-			        		}
-			        		else {
-			        			b = true;
-			        		}
+			        	if (selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
+			        		r.getStyleClass().remove("selected");
+			        		r.getStyleClass().remove("highlight-selection");
+
+			        		btnEdit.setDisable(true);
+			        		selected = -1;
 			        	}
 			        	// Item was not already selected
 			        	else {
 				        	// Get the item selected
 				            selected = targetIndex;
 				            btnEdit.setDisable(false);
-				            r.setStyle("-fx-background-color:#cccccc;");
-				            b = false;
+				            r.getStyleClass().remove("highlight-selection");
+				            r.getStyleClass().add("selected");
 			        	}
 			        }
+			        
 			        // Item was not the target of the click
 			        else {
-			        	r.setStyle("-fx-background-color:#F3F3F3;");   
+			        	r.getStyleClass().remove("highlight-selection");
+			        	r.getStyleClass().remove("selected");
 			        }
 			}));
 		}	
