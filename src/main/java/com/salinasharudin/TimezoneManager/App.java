@@ -37,14 +37,15 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Main"), 640, 640);
         
-        /*
-        String cssFile = this.getClass().getResource("theme-default.css").toExternalForm();
-        scene.getStylesheets().add(cssFile);
-        */
-        
         stage.setScene(scene);
         stage.setTitle("Time Zone Manager");
         stage.show();
+        
+        
+        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
+        //scene.getStylesheets().add(defaultTheme);
+        stage.getScene().getStylesheets().add(defaultTheme);
+        
         
         stage.setOnCloseRequest(event -> {
             event.consume();
@@ -73,7 +74,7 @@ public class App extends Application {
     	
     	// Load saved call data
     	FileHelper.readCallData();
-
+    	
     }
     
     /* Alert the user to save before exiting the program */

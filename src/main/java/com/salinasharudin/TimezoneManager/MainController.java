@@ -39,12 +39,15 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/* Calls display methods */
+		// Call display methods
 		displayLocalDateTime();
 		displayContacts();
 		displayCalls();
+		
+		// Set theme
+		//setTheme();
 	}
-	
+
 	@FXML
 	Label lblLocalLocation;
 	@FXML
@@ -233,7 +236,9 @@ public class MainController implements Initializable {
 
 	        // Load next scene in same window
 	        Stage stage = (Stage) btnEdit.getScene().getWindow();
-	        stage.setScene(new Scene(root));
+
+			setTheme(root, stage);
+			
 	        stage.setTitle("Edit Contact");
 	        stage.show();
         } catch (IOException e) {
@@ -250,7 +255,9 @@ public class MainController implements Initializable {
 		try {
 			root = loader.load();
 			Stage stage = (Stage) btnEdit.getScene().getWindow();
-			stage.setScene(new Scene(root));
+			
+			setTheme(root, stage);
+			
 			stage.setTitle("Settings");
 			stage.show();
 		} catch (IOException e) {
@@ -264,14 +271,14 @@ public class MainController implements Initializable {
 	/* Go to schedule scene */
 	public void goToScheduleScene() {
 		
-		//TODO: ask to save changes first
-		
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleScene.fxml"));
         Parent root;
 		try {
 			root = loader.load();
 			Stage stage = (Stage) btnPlan.getScene().getWindow();
-			stage.setScene(new Scene(root));
+			
+			setTheme(root, stage);
+	        
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -289,6 +296,14 @@ public class MainController implements Initializable {
     	App.exit((Stage) btnPlan.getScene().getWindow());
     }
     
+    /* Set the theme */
+	private void setTheme(Parent root, Stage stage) {
+		Scene scene = new Scene(root);
+        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
+        scene.getStylesheets().add(defaultTheme);
+		
+        stage.setScene(scene);
+	}
 }
 
 

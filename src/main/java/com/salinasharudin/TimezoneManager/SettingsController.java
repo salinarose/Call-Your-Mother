@@ -241,12 +241,23 @@ public class SettingsController implements Initializable {
 		try {
 			root = loader.load();
 			Stage stage = (Stage) btnBack.getScene().getWindow();
-			stage.setScene(new Scene(root));
+
+			setTheme(root, stage);
+			
 			stage.setTitle("Time Zone Manager");
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+    /* Set the theme */
+	private void setTheme(Parent root, Stage stage) {
+		Scene scene = new Scene(root);
+        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
+        scene.getStylesheets().add(defaultTheme);
+		
+        stage.setScene(scene);
 	}
 	
     /* save all files */

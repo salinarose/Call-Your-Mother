@@ -39,6 +39,8 @@ public class ContactSceneController implements Initializable {
 	
 	/* Get the index of the selected contact. If it is -1, it is a new contact that has yet to be added */
 	public void getSelection(int selected) {
+
+		
 		this.selected = selected;
 		
 		//System.out.println("Selected: " + selected);
@@ -302,7 +304,9 @@ public class ContactSceneController implements Initializable {
 		try {
 			root = loader.load();
 			Stage stage = (Stage) gridAvailability.getScene().getWindow();
-			stage.setScene(new Scene(root));
+
+			setTheme(root, stage);
+			
 			stage.setTitle("Settings");
 			stage.show();
 		} catch (IOException e) {
@@ -320,8 +324,9 @@ public class ContactSceneController implements Initializable {
 		try {
 			root = loader.load();
 			Stage stage = (Stage) btnSchedule.getScene().getWindow();
-			stage.setScene(new Scene(root));
-			//stage.setTitle("ScheduleScene");
+
+			setTheme(root, stage);
+			
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -333,4 +338,13 @@ public class ContactSceneController implements Initializable {
     public void close() {
     	App.exit((Stage) btnSchedule.getScene().getWindow());
     }
+    
+    /* Set the theme */
+	private void setTheme(Parent root, Stage stage) {
+		Scene scene = new Scene(root);
+        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
+        scene.getStylesheets().add(defaultTheme);
+		
+        stage.setScene(scene);
+	}
 }

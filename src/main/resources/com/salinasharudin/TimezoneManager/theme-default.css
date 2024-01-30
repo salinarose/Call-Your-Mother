@@ -1,0 +1,16 @@
+/* # - target by id
+    . - target by class of items
+*/
+
+.root {
+    -fx-background-color:"white";
+    -fx-font-family: "Courier New";
+    -fx-text-fill: "black";
+}
+
+/*
+.label {
+    -fx-font-family: "Courier New";
+    -fx-text-fill: "black";
+}
+*/
