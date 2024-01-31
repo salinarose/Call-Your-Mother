@@ -26,6 +26,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -35,7 +37,7 @@ public class MainController implements Initializable {
 	
 	// variables that control selection and de-selection
 	public int selected = -1;
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Call display methods
@@ -43,8 +45,7 @@ public class MainController implements Initializable {
 		displayContacts();
 		displayCalls();
 		
-		// Set theme
-		//setTheme();
+		// Set themes
 	}
 
 	@FXML
@@ -90,15 +91,27 @@ public class MainController implements Initializable {
 	GridPane gridPaneContacts;
 	@FXML
 	Button btnEdit;
+	@FXML 
+	AnchorPane leftPane;
+	@FXML
+	AnchorPane rightPane;
+	@FXML
+	ScrollPane scrollPane;
 	
 	@FXML
 	/* Displays the user's list of contacts */
 	public void displayContacts() {
+		
+		leftPane.getStyleClass().add("pane");
+		rightPane.getStyleClass().add("pane");
+		scrollPane.getStyleClass().add("grid");
+		
 		// Get the contact list
 		ArrayList<Contact> list = FileHelper.getContacts();
 		
 		// Clear the grid pane
 		gridPaneContacts.getChildren().clear();
+		//gridPaneContacts.getStyleClass().add("grid");
 		
 		// Populate the grid pane with the new contacts
 		int i = 0;
@@ -298,9 +311,13 @@ public class MainController implements Initializable {
     
     /* Set the theme */
 	private void setTheme(Parent root, Stage stage) {
+		String theme = Settings.getInstance().getTheme();
+		
+		System.out.println(theme);
+		
 		Scene scene = new Scene(root);
-        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
-        scene.getStylesheets().add(defaultTheme);
+        String currentTheme = this.getClass().getResource(theme).toExternalForm();
+        scene.getStylesheets().add(currentTheme);
 		
         stage.setScene(scene);
 	}

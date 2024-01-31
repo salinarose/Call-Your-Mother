@@ -13,7 +13,7 @@ public class Settings {
 	private String username = "User";
 	private ZoneId zone;
 	private Boolean[][] schedule = new Boolean[7][24];
-	private String theme = "default";
+	private String theme;
 	
 	// Private constructor to ensure it is a singleton class
 	private Settings() {}
@@ -68,6 +68,9 @@ public class Settings {
 	}
 	
 	public String getTheme() {
+		if (theme == null) {
+			return "theme-default.css";
+		}
 		return theme;
 	}
 	

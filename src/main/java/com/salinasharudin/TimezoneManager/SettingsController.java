@@ -253,9 +253,11 @@ public class SettingsController implements Initializable {
 	
     /* Set the theme */
 	private void setTheme(Parent root, Stage stage) {
+		String theme = Settings.getInstance().getTheme();
+		
 		Scene scene = new Scene(root);
-        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
-        scene.getStylesheets().add(defaultTheme);
+        String currentTheme = this.getClass().getResource(theme).toExternalForm();
+        scene.getStylesheets().add(currentTheme);
 		
         stage.setScene(scene);
 	}

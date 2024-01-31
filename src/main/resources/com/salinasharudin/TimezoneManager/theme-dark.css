@@ -1,0 +1,58 @@
+/** Dark theme: dark mode with a dark gray background and white text
+*/
+
+.root {
+   	-fx-background-color: black;
+    -fx-font-family: "Courier New", monospace;
+}
+
+.label {
+	-fx-text-fill: white;
+}
+
+.menu .label { /* Styles the text on a menu item */ 
+	-fx-text-fill: black;
+}
+
+.menu-item .label {
+  -fx-text-fill: black;
+}
+
+.context-menu {
+  -fx-background-color: white;
+}
+
+.pane {
+	-fx-background-color: black;
+}
+
+.vbox {
+	-fx-background-color: black;
+}
+
+.highlight-selection {
+	-fx-background-color: lightgray;
+	-fx-blend-mode: difference;
+}
+
+.selected {
+	-fx-background-color: green;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: black; /*or whatever you want*/
+  }
+
+.scroll-pane {
+    -fx-background-color:transparent;
+}
+
+.list-view .list-cell:even {
+-fx-background-color: gray;
+-fx-text-fill: white;
+}
+
+.list-view .list-cell:odd {
+-fx-background-color: gainsboro;
+-fx-text-fill: black;
+}
