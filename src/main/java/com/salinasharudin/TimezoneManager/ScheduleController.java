@@ -80,6 +80,12 @@ public class ScheduleController implements Initializable {
 			Object selected = listSelected.getSelectionModel().getSelectedItem();
 			if (listSelected.getItems().contains(selected)) {
 				listSelected.getItems().remove(selected);
+				
+				int items = listSelected.getItems().size();
+				if (items > 0 && items <= 3) {
+					lblMax.setVisible(false);
+					btnCalculate.setDisable(false);
+				}
 			}
 		});
 		
@@ -321,6 +327,7 @@ public class ScheduleController implements Initializable {
 		btnAddToSchedule.setDisable(true);
 		gridResults.getChildren().clear();
 		selectedTime = null;
+		lblMax.setVisible(false);
 	}
 	
 	/* Add selected time to the schedule */
