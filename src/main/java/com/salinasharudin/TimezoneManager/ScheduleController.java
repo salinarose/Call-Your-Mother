@@ -22,15 +22,16 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ScheduleController implements Initializable {
 	
 	// Variables to control selection and de-selection
 	public int selected = -1;
-	Boolean b = false;
 	private Node selectedTime;
 
 	@FXML
@@ -56,17 +57,16 @@ public class ScheduleController implements Initializable {
 		// Initialize contacts list
 		loadContacts();
 	}
-	
+
 	@FXML
 	GridPane gridContacts;
 	@FXML
 	Button btnAddToList;
 	@FXML
 	ListView<Contact> listSelected;
-	@FXML 
-	ScrollPane scrollpane;
 
 	public void updateList() {
+		
 		// Context menu for removing items from ListView
 		ContextMenu contextMenu = new ContextMenu();
 		MenuItem menuItemRemove = new MenuItem("Remove");
@@ -144,9 +144,10 @@ public class ScheduleController implements Initializable {
 		    node.setOnMouseEntered(e -> gridContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
 		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
-		            r.setStyle("-fx-background-color:#FFFFFF;");
+		        	r.getStyleClass().add("highlight-selection");
 		        }
 		    }));
+		    
 		    node.setOnMouseExited(e -> gridContacts.getChildren().forEach(r -> {
 		        Integer targetIndex = GridPane.getRowIndex(node);
 		        // TODO: Would be nice if already selected items stayed highlighted
@@ -155,39 +156,46 @@ public class ScheduleController implements Initializable {
 		        	System.out.println("in list already!");
 		        } */
 		        if (selected != targetIndex && GridPane.getRowIndex(r) == targetIndex) {
-		            r.setStyle("-fx-background-color:#F3F3F3;");
+		        	r.getStyleClass().remove("highlight-selection");
 		        }
 		    }));
+		    
 		    node.setOnMouseClicked(e -> gridContacts.getChildren().forEach(r -> {
 			        Integer targetIndex = GridPane.getRowIndex(node);
 			        
 			        if (GridPane.getRowIndex(r) == targetIndex) {
 			        	// De-selects if target is the currently selected item
-			        	if (b == true || selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
-			        		r.setStyle("-fx-background-color:#F3F3F3;");
+			        	if (selected == targetIndex && GridPane.getColumnIndex(r) == 0) {
+			        		r.getStyleClass().remove("selected");
+			        		r.getStyleClass().remove("highlight-selection");
 			        		
+			        		btnAddToList.setDisable(true);
+		        			selected = -1;
+			        		/*
 			        		// Last column
 			        		if (GridPane.getColumnIndex(r) == gridContacts.getColumnCount() -1) {
 			        			b = false; // reset boolean to false
 			        			btnAddToList.setDisable(true);
 			        			selected = -1;
 			        		}
+			        		
 			        		else {
 			        			b = true;
-			        		}
+			        		}*/
 			        	}
 			        	// Item was not already selected
 			        	else {
 				        	// Get the item selected
 				            selected = targetIndex;
 				            btnAddToList.setDisable(false);
-				            r.setStyle("-fx-background-color:#cccccc;");
-				            b = false;
+				            r.getStyleClass().remove("highlight-selection");
+				            r.getStyleClass().add("selected");
 			        	}
 			        }
 			        // Item was not the target of the click
 			        else {
-			        	r.setStyle("-fx-background-color:#F3F3F3;");   
+			        	r.getStyleClass().remove("highlight-selection");
+			        	r.getStyleClass().remove("selected"); 
 			        }
 			}));
 		}
@@ -283,14 +291,14 @@ public class ScheduleController implements Initializable {
 		    node.setOnMouseEntered(e -> {
 		    	// Only highlight if a time (not a day label)
 		    	if (!value.contains("DAY")) {
-		    		node.setStyle("-fx-background-color:#FFFFFF;");
+		    		node.getStyleClass().add("selected");
 		    	}
 		    });
 		    node.setOnMouseExited(e -> {
 		    	// Only changes the background color back to default if it isn't currently selected
 		    	// Right now it stays highlighted if you press the add button, then click a different time
 		    	if (node != selectedTime) {
-		            node.setStyle("-fx-background-color:#F3F3F3;");
+		    		node.getStyleClass().remove("selected");
 		    	}
 		    });
 		    node.setOnMouseClicked(e -> {

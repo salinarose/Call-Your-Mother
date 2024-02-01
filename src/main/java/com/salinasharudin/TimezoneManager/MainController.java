@@ -91,20 +91,15 @@ public class MainController implements Initializable {
 	GridPane gridPaneContacts;
 	@FXML
 	Button btnEdit;
-	@FXML 
-	AnchorPane leftPane;
-	@FXML
-	AnchorPane rightPane;
-	@FXML
-	ScrollPane scrollPane;
 	
 	@FXML
 	/* Displays the user's list of contacts */
 	public void displayContacts() {
 		
-		leftPane.getStyleClass().add("pane");
-		rightPane.getStyleClass().add("pane");
-		scrollPane.getStyleClass().add("grid");
+		// Add CSS styles
+		//leftPane.getStyleClass().add("pane");
+		//rightPane.getStyleClass().add("pane");
+		//scrollPane.getStyleClass().add("grid");
 		
 		// Get the contact list
 		ArrayList<Contact> list = FileHelper.getContacts();

@@ -28,14 +28,14 @@
 }
 
 .menu-item .label {
-  -fx-text-fill: black;
+ 	-fx-text-fill: black;
 }
 
 .context-menu {
-  -fx-background-color: white;
+ 	-fx-background-color: white;
 }
 
-.pane {
+.split-pane {
 	-fx-background-color: black;
 }
 
@@ -48,13 +48,13 @@
 }
 
 .list-view .list-cell:even {
--fx-background-color: gray;
--fx-text-fill: white;
+	-fx-background-color: gray;
+	-fx-text-fill: white;
 }
 
 .list-view .list-cell:odd {
--fx-background-color: gainsboro;
--fx-text-fill: black;
+	-fx-background-color: gainsboro;
+	-fx-text-fill: black;
 }
 
 /* Background color of the whole context menu */
