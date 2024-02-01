@@ -14,7 +14,6 @@
 	-fx-background-color: lightgray;
 	-fx-blend-mode: difference;
 }
-
 .selected {
 	-fx-background-color: green;
 }
@@ -26,11 +25,9 @@
 .menu .label { /* Styles the text on a menu item */ 
 	-fx-text-fill: black;
 }
-
 .menu-item .label {
  	-fx-text-fill: black;
 }
-
 .context-menu {
  	-fx-background-color: white;
 }
@@ -42,7 +39,6 @@
 .scroll-pane .viewport {
     -fx-background-color: black;
  }
-
 .scroll-pane {
     -fx-background-color:transparent;
 }
@@ -51,7 +47,6 @@
 	-fx-background-color: gray;
 	-fx-text-fill: white;
 }
-
 .list-view .list-cell:odd {
 	-fx-background-color: gainsboro;
 	-fx-text-fill: black;
