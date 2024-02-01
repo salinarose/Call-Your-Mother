@@ -293,7 +293,9 @@ public class ContactSceneController implements Initializable {
 		try {
 			root = loader.load();
 			Stage stage = (Stage) gridAvailability.getScene().getWindow();
-			stage.setScene(new Scene(root));
+
+			setTheme(root, stage);
+			
 			stage.setTitle("Time Zone Manager");
 			stage.show();
 		} catch (IOException e) {
