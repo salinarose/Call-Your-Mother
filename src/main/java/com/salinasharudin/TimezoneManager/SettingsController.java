@@ -88,7 +88,7 @@ public class SettingsController implements Initializable {
     ChoiceBox<String> cbTheme;
     
     private void initThemeChoices() {
-    	String[] options = {"default", "light", "dark"};
+    	String[] options = {"theme-default.css", "theme-dark.css"};
     	cbTheme.getItems().addAll(options);
     	cbTheme.setOnAction(this::getTheme);
     }
@@ -97,12 +97,12 @@ public class SettingsController implements Initializable {
     public String getTheme(ActionEvent event) {
     	String theme = cbTheme.getValue();
     	if (theme == "light") {
-    		return "light.css";
+    		return "theme-default.css";
     	}
     	else if (theme == "dark") {
-    		return "dark.css";
+    		return "theme-dark.css";
     	}
-    	else return "default.css";
+    	else return "theme-default.css";
     }
     
     /* Clears all fields */
@@ -210,6 +210,8 @@ public class SettingsController implements Initializable {
 			s.setSchedule(hours);
 			
 			FileHelper.writeSettingsData();
+			goToSettingsScene();
+			
 		} else {
 			Alert alert = new Alert(Alert.AlertType.WARNING);
 			alert.setHeaderText("Settings not saved.");
@@ -245,6 +247,24 @@ public class SettingsController implements Initializable {
 			setTheme(root, stage);
 			
 			stage.setTitle("Time Zone Manager");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/* Goes to the user settings scene */
+	public void goToSettingsScene() {
+		// TODO: add confirmation alert / save changes first
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SettingsScene.fxml"));
+        Parent root;
+		try {
+			root = loader.load();
+			Stage stage = (Stage) btnBack.getScene().getWindow();
+			
+			setTheme(root, stage);
+			
+			stage.setTitle("Settings");
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

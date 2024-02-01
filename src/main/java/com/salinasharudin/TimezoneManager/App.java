@@ -41,7 +41,7 @@ public class App extends Application {
         stage.setTitle("Time Zone Manager");
         
     	// Load user settings
-    	//FileHelper.readSettingsData();
+    	FileHelper.readSettingsData();
         
     	String theme = Settings.getInstance().getTheme();
         String themeResource = this.getClass().getResource(theme).toExternalForm();
