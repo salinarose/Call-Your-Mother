@@ -71,14 +71,14 @@ public class Settings {
 		if (theme == null) {
 			return "theme-default.css";
 		}
-		if (theme != "theme-default.css" || theme != "theme-dark.css") {
+		else if (!theme.equals("theme-default.css") && !theme.equals("theme-dark.css")) {
 			return "theme-default.css";
 		}
 		return theme;
 	}
 	
 	public void setTheme(String filePath) {
-		if (theme == "theme-default.css" || theme == "theme-dark.css") {
+		if (filePath.equals("theme-default.css") || filePath.equals("theme-dark.css")) {
 			this.theme = filePath;
 		}
 	}
