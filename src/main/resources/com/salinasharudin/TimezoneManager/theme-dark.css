@@ -6,6 +6,19 @@
     -fx-font-family: "Courier New", monospace;
 }
 
+.header {
+	-fx-font-size: 20px;
+}
+
+.highlight-selection {
+	-fx-background-color: lightgray;
+	-fx-blend-mode: difference;
+}
+
+.selected {
+	-fx-background-color: green;
+}
+
 .label {
 	-fx-text-fill: white;
 }
@@ -26,22 +39,9 @@
 	-fx-background-color: black;
 }
 
-.vbox {
-	-fx-background-color: black;
-}
-
-.highlight-selection {
-	-fx-background-color: lightgray;
-	-fx-blend-mode: difference;
-}
-
-.selected {
-	-fx-background-color: green;
-}
-
 .scroll-pane .viewport {
-    -fx-background-color: black; /*or whatever you want*/
-  }
+    -fx-background-color: black;
+ }
 
 .scroll-pane {
     -fx-background-color:transparent;
@@ -55,4 +55,24 @@
 .list-view .list-cell:odd {
 -fx-background-color: gainsboro;
 -fx-text-fill: black;
+}
+
+/* Background color of the whole context menu */
+.choice-box .context-menu { 
+	-fx-background-color: black; 
+}
+/* Focused item background color in the list */
+.choice-box .menu-item:focused { 
+	-fx-background-color: green; 
+}
+/* Text color of non-focused items in the list */
+.choice-box .menu-item > .label { 
+	-fx-text-fill: white; 
+}
+/* Text color of focused item in the list */
+.choice-box .menu-item:focused > .label { 
+	-fx-text-fill: white; 
+}
+.choice-box .label {
+	-fx-text-fill: black;
 }

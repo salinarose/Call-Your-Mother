@@ -45,12 +45,12 @@
             <AnchorPane prefHeight="615.0" prefWidth="640.0">
                <children>
                   <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackClicked" text="Back" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                  <Button fx:id="btnSave" layoutX="25.0" layoutY="560.0" mnemonicParsing="false" onAction="#saveAll" text="Save All Changes" AnchorPane.bottomAnchor="29.600000000000023" AnchorPane.leftAnchor="25.0">
+                  <Button fx:id="btnSave" layoutX="33.0" layoutY="385.0" mnemonicParsing="false" onAction="#saveAll" prefHeight="47.0" prefWidth="145.0" text="Save All Changes" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="465.0">
                      <font>
                         <Font name="Courier New" size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="72.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearAll" prefWidth="75.0" text="Clear All" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="15.0" />
+                  <Button layoutX="72.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearAll" prefWidth="103.0" text="Clear All" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="15.0" />
                   <Label alignment="CENTER" layoutX="271.0" layoutY="130.0" prefHeight="20.0" prefWidth="258.0" text="Availability" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font size="14.0" />
@@ -60,15 +60,15 @@
                   <Label layoutX="356.0" layoutY="76.0" text="Time Zone" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="180.0" />
                   <TextField fx:id="tfUsername" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="178.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="80.0" />
                   <ChoiceBox fx:id="cbZone" layoutX="356.0" layoutY="96.0" prefHeight="26.0" prefWidth="178.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="200.0" />
-                  <Button layoutX="43.0" layoutY="401.0" mnemonicParsing="false" onAction="#resetGrid" prefHeight="30.0" prefWidth="125.0" text="Reset" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="401.0" />
-                  <Button layoutX="43.0" layoutY="441.0" mnemonicParsing="false" onAction="#noneAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Unavailable" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="441.0" />
-                  <Button layoutX="43.0" layoutY="481.0" mnemonicParsing="false" onAction="#allAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Available" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="481.0" />
-                  <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="375.0" prefHeight="18.0" prefWidth="178.0" text="Availability Options" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="375.0" />
+                  <Button layoutX="30.4" layoutY="386.2" mnemonicParsing="false" onAction="#resetGrid" prefHeight="30.0" prefWidth="125.0" text="Reset" AnchorPane.leftAnchor="30.4" AnchorPane.rightAnchor="464.79999999999995" AnchorPane.topAnchor="385.0" />
+                  <Button layoutX="30.4" layoutY="426.2" mnemonicParsing="false" onAction="#noneAvailable" prefHeight="40.0" prefWidth="125.0" text="Set All Unavailable" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="30.4" AnchorPane.rightAnchor="464.79999999999995" AnchorPane.topAnchor="425.0" />
+                  <Button layoutX="43.0" layoutY="481.0" mnemonicParsing="false" onAction="#allAvailable" prefHeight="30.0" prefWidth="125.0" text="Set All Available" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="475.0" />
+                  <Label alignment="TOP_CENTER" layoutX="15.2" layoutY="360.6" prefHeight="18.0" prefWidth="178.0" text="Availability Options" AnchorPane.leftAnchor="15.2" AnchorPane.rightAnchor="444.80000000000007" AnchorPane.topAnchor="360.0" />
                   <ScrollPane hbarPolicy="NEVER" layoutX="13.0" layoutY="290.0" prefHeight="305.0" prefWidth="425.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <GridPane fx:id="grid" gridLinesVisible="true" hgap="5.0" layoutY="14.0" mouseTransparent="true" prefHeight="480.0" prefWidth="410.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane fx:id="grid" hgap="5.0" layoutY="14.0" prefHeight="480.0" prefWidth="410.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnConstraints>
                                     <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="57.0" />
                                     <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />

@@ -37,6 +37,9 @@ public class ContactSceneController implements Initializable {
 	private int selected;
 	private Boolean[][] hours;
 	
+	@FXML
+	Label lblHeader;
+	
 	/* Get the index of the selected contact. If it is -1, it is a new contact that has yet to be added */
 	public void getSelection(int selected) {
 
@@ -55,6 +58,8 @@ public class ContactSceneController implements Initializable {
 		
 		// Initialize the availability grid
 		initGrid();
+		
+		lblHeader.getStyleClass().add("header");
 	}
 	
 	/* Initializes scene */
