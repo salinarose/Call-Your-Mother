@@ -20,13 +20,13 @@ import java.util.Map;
 
 /**
  * Author: Salina Sharudin
- * Title: TimeZone Manager
+ * Title: Call Your Mother! A Personal Time-Zone Management Tool
  * Description: Helps users find times that they and their contacts are mutually available.
  * Users can store a time zone and an availability schedule for each contact. The user can then add up to 
  * three contacts to a list and find the times in which all people have open availability. This availability is 
  * calculated by the program into the user's own set time zone.
- * Version: 1.0.1
- * Date Updated: 1/26/2024
+ * Version: 1.0.2
+ * Date Updated: 1/31/2024
  */
 
 public class App extends Application {
@@ -39,14 +39,15 @@ public class App extends Application {
         
         stage.setScene(scene);
         stage.setTitle("Time Zone Manager");
+        
+    	// Load user settings
+    	//FileHelper.readSettingsData();
+        
+    	String theme = Settings.getInstance().getTheme();
+        String themeResource = this.getClass().getResource(theme).toExternalForm();
+        stage.getScene().getStylesheets().add(themeResource);        
+        
         stage.show();
-        
-        
-        String defaultTheme = this.getClass().getResource("theme-default.css").toExternalForm();
-        //scene.getStylesheets().add(defaultTheme);
-        stage.getScene().getStylesheets().add(defaultTheme);
-        
-        
         stage.setOnCloseRequest(event -> {
             event.consume();
             exit(stage);
@@ -59,18 +60,18 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-    	initialize();
+    	loadFiles();
     	
         launch();
     }
     
-    public static void initialize() {
+    public static void loadFiles() {
     	
     	// Load the contacts list from a file if it exists, or a new empty list if it does not
     	FileHelper.readContactData();
     	
     	// Load user settings
-    	FileHelper.readSettingsData();
+    	//FileHelper.readSettingsData();
     	
     	// Load saved call data
     	FileHelper.readCallData();
