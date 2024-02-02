@@ -3,13 +3,13 @@
 A timezone management app for keeping in touch with friends and family around the world.
 
 ## Description  
-Call Your Mother is a desktop app that allows you to easily keep in touch with friends and family with chaotic schedules across different time zones. Automatically calculate the windows of time you have in common with up to four other people.
+Call Your Mother is a desktop app that allows you to easily keep in touch with friends and family with chaotic schedules across different time zones. Automatically calculate the windows of time you have in common with up to three other people.
 
 Features include:
 - Save contacts and input their time zone and availability
 - Automatically calculates shared time windows based around your own schedule
 - Easily schedule a meetup across time zones with up to three other people
-- Save contacts, scheduled calls, and schedule for future convenience
+- Contacts, scheduled calls, and personal schedule is saved locally for future convenience and privacy
 
 ## Why  
 Many people, including myself, have friends and family members scattered across different time zones. Living so far apart and unable to see so many of my loved ones in person, I rely heavily on text and social media to stay in touch. However, nothing quite beats talking face-to-face over video chat. Unfortunately, this can be difficult to prioritize when busy schedules and vastly different time zones get in the way. Additionally, looking up and converting between time zones every time you want to call your grandmother who lives on the other side of the globe gets tedious very quickly.
@@ -35,7 +35,6 @@ To avoid loss of data, the user is prompted to save changes when exiting the pro
 
 ### Planned future features:
 - Account for 30 minute offsets and DST
-- Light and dark modes
 - Profile pictures for each contact
 - Prettier UI overall
 - more!
