@@ -5,6 +5,7 @@ public class Contact {
 	//Fields
 	private String name;
 	private String timezone;
+	private String imagePath;
 	private Boolean[][] availability;
 	
 	//Constructors
@@ -14,6 +15,7 @@ public class Contact {
 		this.name = name;
 		this.timezone = timezone;
 		this.availability = new Boolean[7][24];
+		imagePath = "default1.png";
 	}
 	
 	//Methods
@@ -39,6 +41,14 @@ public class Contact {
 	
 	public void setAvailability(Boolean[][] availability) {
 		this.availability = availability;
+	}
+	
+	public String getImage() {
+		return this.imagePath;
+	}
+	
+	public void setImage(String path) {
+		this.imagePath = path;
 	}
 	
 	public String toString() {
