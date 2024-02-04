@@ -29,6 +29,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -62,11 +63,17 @@ public class ContactSceneController implements Initializable {
 		lblHeader.getStyleClass().add("header");
 	}
 	
+	@FXML
+	ImageView pic;
+	
 	/* Initializes scene */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Set up ChoiceBox
 		initZoneChoices();
+		
+		// Set photo
+		pic.setVisible(true);
 	}
 	
 	@FXML
