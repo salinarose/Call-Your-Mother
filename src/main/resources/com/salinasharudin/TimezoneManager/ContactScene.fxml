@@ -60,10 +60,10 @@
                      </font>
                   </Button>
                   <Button layoutX="68.8" layoutY="14.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="30.0" prefWidth="97.0" text="Clear All" AnchorPane.leftAnchor="69.0" AnchorPane.topAnchor="15.0" />
-                  <Label alignment="TOP_CENTER" layoutX="61.0" layoutY="226.0" prefWidth="150.0" text="Change Image" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="220.0" />
-                  <ImageView fx:id="pic" fitHeight="150.0" fitWidth="150.0" layoutX="13.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="65.0">
+                  <Label fx:id="lblImage" alignment="TOP_CENTER" layoutX="61.0" layoutY="226.0" prefWidth="150.0" text="Change Image" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="220.0" />
+                  <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" layoutX="13.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="65.0">
                      <image>
-                        <Image url="@defaultPic1.jpg" />
+                        <Image url="@default1.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="208.0" layoutY="267.0" text="Availability" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="240.0">

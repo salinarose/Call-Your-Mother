@@ -1,5 +1,7 @@
 package com.salinasharudin.TimezoneManager;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -29,6 +31,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -64,7 +67,7 @@ public class ContactSceneController implements Initializable {
 	}
 	
 	@FXML
-	ImageView pic;
+	ImageView imageView;
 	
 	/* Initializes scene */
 	@Override
@@ -72,14 +75,15 @@ public class ContactSceneController implements Initializable {
 		// Set up ChoiceBox
 		initZoneChoices();
 		
-		// Set photo
-		pic.setVisible(true);
+		//imageView.setVisible(true);
 	}
 	
 	@FXML
 	TextField tfName; 
 	@FXML
 	TextArea taCalls;
+	@FXML
+	Label lblImage;
 	
 	/* Loads fields for existing contacts */
 	private void loadData(Contact c) {
@@ -103,6 +107,17 @@ public class ContactSceneController implements Initializable {
 		if (noCalls == true) {
 			taCalls.setText("No calls scheduled.");
 		}
+		
+		imageView.setVisible(true);
+		try {
+			Image image = new Image(c.getImage());
+			imageView.setImage(image);
+		} catch (Exception e) {
+			System.out.println("Corrupted photo file path");
+			imageView.setImage(new Image("default1.png"));
+		}
+		
+		lblImage.setText(c.getImage());
 	}
 
 	/* Sets up the availability grid */
