@@ -1,20 +1,11 @@
 package com.salinasharudin.TimezoneManager;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.OffsetTime;
 import java.time.ZoneId;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.event.ActionEvent;
@@ -28,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -46,7 +38,6 @@ public class ContactSceneController implements Initializable {
 	
 	/* Get the index of the selected contact. If it is -1, it is a new contact that has yet to be added */
 	public void getSelection(int selected) {
-
 		
 		this.selected = selected;
 		
@@ -66,16 +57,13 @@ public class ContactSceneController implements Initializable {
 		lblHeader.getStyleClass().add("header");
 	}
 	
-	@FXML
-	ImageView imageView;
 	
 	/* Initializes scene */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Set up ChoiceBox
-		initZoneChoices();
-		
-		//imageView.setVisible(true);
+		setZoneChoices();
+		setPicChoices();
 	}
 	
 	@FXML
@@ -83,14 +71,13 @@ public class ContactSceneController implements Initializable {
 	@FXML
 	TextArea taCalls;
 	@FXML
-	Label lblImage;
+	ImageView imageView;
 	
 	/* Loads fields for existing contacts */
 	private void loadData(Contact c) {
 		// Display name and zone 
 		tfName.setText(c.getName());
 		cbZone.setValue(c.getTimezone());
-		
 		
 		// Display scheduled calls, if any
 		Boolean noCalls = true;
@@ -116,8 +103,6 @@ public class ContactSceneController implements Initializable {
 			System.out.println("Corrupted photo file path");
 			imageView.setImage(new Image("default1.png"));
 		}
-		
-		lblImage.setText(c.getImage());
 	}
 
 	/* Sets up the availability grid */
@@ -203,7 +188,7 @@ public class ContactSceneController implements Initializable {
 	/* Initialize zone choice box */
 	@FXML
 	ChoiceBox<String> cbZone;
-	private void initZoneChoices() {
+	private void setZoneChoices() {
 		List<String> options = ZoneId.getAvailableZoneIds().stream()
 				.map(zone -> zone.toString())
 				.sorted()
@@ -212,6 +197,36 @@ public class ContactSceneController implements Initializable {
 		cbZone.getItems().addAll(options);
 		cbZone.setOnAction(this::getZone);
 	}
+	
+	@FXML
+	ComboBox<String> cbImage;
+	
+	/* Sets up the profile pic choices */
+	private void setPicChoices() {
+		List<String> choices = List.of(
+				"default1.png",
+				"default2.png",
+				"default3.png",
+				"default4.png",
+				"default5.png",
+				"default6.png",
+				"Upload new"
+		);
+		
+		cbImage.getItems().addAll(choices);
+		cbImage.setOnAction(this::getPic);
+		
+	}
+	
+	/* Gets the selected value of the zone */
+    public void getPic(ActionEvent event) {
+        String path = cbImage.getValue();
+        /*
+        if (path.equals("Upload new")) {
+        	
+        }
+        */
+    }
 	
 	/* Gets the selected value of the zone */
     public void getZone(ActionEvent event) {
