@@ -1,5 +1,6 @@
 package com.salinasharudin.TimezoneManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
@@ -26,6 +27,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class ContactSceneController implements Initializable {
@@ -45,6 +48,7 @@ public class ContactSceneController implements Initializable {
 		if (selected == -1) {
 			// Adding new contact. All fields should be blank 
 			taCalls.setText("No scheduled calls found.");
+			showImage("default1.png");
 		}
 		else {
 			Contact c = FileHelper.getContacts().get(selected);
@@ -70,8 +74,6 @@ public class ContactSceneController implements Initializable {
 	TextField tfName; 
 	@FXML
 	TextArea taCalls;
-	@FXML
-	ImageView imageView;
 	
 	/* Loads fields for existing contacts */
 	private void loadData(Contact c) {
@@ -95,14 +97,7 @@ public class ContactSceneController implements Initializable {
 			taCalls.setText("No calls scheduled.");
 		}
 		
-		imageView.setVisible(true);
-		try {
-			Image image = new Image(c.getImage());
-			imageView.setImage(image);
-		} catch (Exception e) {
-			System.out.println("Corrupted photo file path");
-			imageView.setImage(new Image("default1.png"));
-		}
+		showImage(c.getImage());
 	}
 
 	/* Sets up the availability grid */
@@ -159,7 +154,7 @@ public class ContactSceneController implements Initializable {
 		}
 	}
 	
-	/** Button actions for changing availability grid */
+	/* Button actions for changing availability grid */
 	/* Reset to default */
 	public void resetGrid() {
 		initGrid();	
@@ -198,6 +193,46 @@ public class ContactSceneController implements Initializable {
 		cbZone.setOnAction(this::getZone);
 	}
 	
+	@FXML 
+	ImageView imageView;
+	
+	// Displays the profile photo
+	private void showCustomImage(String path) {
+		imageView.setVisible(true);
+		try {
+			Image image = new Image("file:" + path, 150, 150, false, false);
+			imageView.setImage(image);
+			
+			if (!cbImage.getItems().contains(path)) {
+				cbImage.getItems().add(path);
+				//cbImage.getSelectionModel().select(path);
+				cbImage.setValue(path);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Corrupted photo file path");
+			imageView.setImage(new Image("default1.png"));
+		}
+	}
+	private void showImage(String path) {
+		// If not a default pic option, it needs the showCustomImage method
+		if (!cbImage.getItems().contains(path)) {
+			showCustomImage(path);
+			return;
+		}
+		
+		imageView.setVisible(true);
+		try {
+			Image image = new Image(path);
+			imageView.setImage(image);
+			cbImage.setValue(path);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Corrupted photo file path");
+			imageView.setImage(new Image("default1.png"));
+		}
+	}
+	
 	@FXML
 	ComboBox<String> cbImage;
 	
@@ -220,12 +255,36 @@ public class ContactSceneController implements Initializable {
 	
 	/* Gets the selected value of the zone */
     public void getPic(ActionEvent event) {
+		List<String> defaultChoices = List.of(
+				"default1.png",
+				"default2.png",
+				"default3.png",
+				"default4.png",
+				"default5.png",
+				"default6.png"
+		);
+    	
         String path = cbImage.getValue();
-        /*
+        
+        // Let the user select an image from their device
         if (path.equals("Upload new")) {
+        	FileChooser fileChooser = new FileChooser();
+        	fileChooser.setTitle("Select Photo");
+        	fileChooser.getExtensionFilters().add(
+        			new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        	);
         	
+        	File selectedFile = fileChooser.showOpenDialog(new Stage());
+        	//System.out.println(selectedFile.toString());
+        	if (selectedFile != null) {
+        		showCustomImage(selectedFile.toString());
+        	}
+        	
+        } else if (defaultChoices.contains(path)) {
+        	showImage(path);
+      	} else {
+        	showCustomImage(path);
         }
-        */
     }
 	
 	/* Gets the selected value of the zone */
@@ -276,8 +335,14 @@ public class ContactSceneController implements Initializable {
     		    	// Save as a new contact and add to the ArrayList
     		    	String name = tfName.getText();
     		    	String zone = cbZone.getValue();
+    		    	
     		    	Contact c = new Contact(name, zone);
     		    	c.setAvailability(hours);
+    		    	if (cbImage.getValue() != null) {
+    		    		String path = cbImage.getValue();
+    		    		c.setImage(path);
+    		    	}
+    		    	
     		    	FileHelper.getContacts().add(c);
     		    }
     		    // Saves changes to existing contact
@@ -287,6 +352,10 @@ public class ContactSceneController implements Initializable {
     		    	c.setName(tfName.getText());
     		    	c.setTimezone(cbZone.getValue());
     		    	c.setAvailability(hours);
+    		    	if (cbImage.getValue() != null) {
+    		    		String path = cbImage.getValue();
+    		    		c.setImage(path);
+    		    	}
     		    }
     		    System.out.println("Changes saved.");
     		    // return to main scene

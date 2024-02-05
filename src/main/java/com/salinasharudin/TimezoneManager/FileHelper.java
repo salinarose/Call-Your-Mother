@@ -54,7 +54,7 @@ public final class FileHelper {
 				//System.out.println(c.toString());
 				contactsList.add(c);
 			}
-			System.out.println("Load successful.");
+			//System.out.println("Load successful.");
 			contactFileSuccess = true;
 			success = true;
 			
@@ -155,7 +155,7 @@ public final class FileHelper {
 		    }
 		    settings.setSchedule(hours);
 
-			System.out.println("Settings load successful.");
+			//System.out.println("Settings load successful.");
 			settingsFileSuccess = true;
 			return true;
 			//failed = false;

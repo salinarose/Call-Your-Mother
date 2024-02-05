@@ -308,7 +308,7 @@ public class MainController implements Initializable {
 	private void setTheme(Parent root, Stage stage) {
 		String theme = Settings.getInstance().getTheme();
 		
-		System.out.println(theme);
+		//System.out.println(theme);
 		
 		Scene scene = new Scene(root);
         String currentTheme = this.getClass().getResource(theme).toExternalForm();
