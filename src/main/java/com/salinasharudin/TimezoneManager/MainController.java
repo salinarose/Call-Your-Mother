@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -148,6 +149,7 @@ public class MainController implements Initializable {
 			vbox.setAlignment(Pos.CENTER_LEFT);
 			HBox row = new HBox();
 			row.setSpacing(10);
+			row.setPadding(new Insets(3));
 			row.getChildren().addAll(imageView, vbox);
 			
 			gridPaneContacts.addRow(i, row);
