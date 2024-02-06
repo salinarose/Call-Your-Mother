@@ -143,10 +143,11 @@ public class MainController implements Initializable {
 			}
 			imageView = new ImageView(image);
 
-			// Set items into the gridbox
+			// Set items into the grid
 			VBox vbox = new VBox();
 			vbox.getChildren().addAll(name, zone);
 			vbox.setAlignment(Pos.CENTER_LEFT);
+			
 			HBox row = new HBox();
 			row.setSpacing(10);
 			row.setPadding(new Insets(3));

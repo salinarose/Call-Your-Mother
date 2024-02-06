@@ -71,7 +71,7 @@ public class App extends Application {
     	FileHelper.readContactData();
     	
     	// Load user settings
-    	//FileHelper.readSettingsData();
+    	FileHelper.readSettingsData();
     	
     	// Load saved call data
     	FileHelper.readCallData();
