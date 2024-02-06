@@ -13,11 +13,18 @@
 
 .highlight-selection {
 	-fx-background-color: "gray";
-	-fx-blend-mode: difference;
+}
+
+.highlight-selection .label {
+	-fx-text-fill: "white";
 }
 
 .selected {
 	-fx-background-color: "lightgray";
-	-fx-blend-mode: difference;
+}
+
+.selected .label {
+	-fx-background-color: "lightgray";
+	-fx-text-fill: "white";
 }
 
