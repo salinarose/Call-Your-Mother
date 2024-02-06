@@ -1,5 +1,6 @@
 package com.salinasharudin.TimezoneManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -26,10 +28,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -96,33 +99,57 @@ public class MainController implements Initializable {
 	/* Displays the user's list of contacts */
 	public void displayContacts() {
 		
-		// Add CSS styles
-		//leftPane.getStyleClass().add("pane");
-		//rightPane.getStyleClass().add("pane");
-		//scrollPane.getStyleClass().add("grid");
-		
 		// Get the contact list
 		ArrayList<Contact> list = FileHelper.getContacts();
 		
 		// Clear the grid pane
 		gridPaneContacts.getChildren().clear();
-		//gridPaneContacts.getStyleClass().add("grid");
+		gridPaneContacts.setVgap(5);
 		
 		// Populate the grid pane with the new contacts
 		int i = 0;
 		for (Contact c : list) {
+			// Get their name
 			Label name = new Label(c.getName());
 			name.setMinWidth(60);
 			name.setAlignment(Pos.BASELINE_LEFT);
 			
+			// Get their current time zone location
 			Label zone = new Label(c.getTimezone());
 			zone.setMinWidth(150);
 			zone.setAlignment(Pos.BASELINE_LEFT);
 			
+			// Get their profile image
+			String imagePath = c.getImage();
+			Image image;
+			ImageView imageView;
+			int size = 50; // size of the image, in pixels
+			try {
+				if (Pattern.matches("default[1-6].png", imagePath)) {
+					image = new Image(imagePath, size, size, false, true);
+				} else {
+					File file = new File(imagePath);
+					if (file.exists()) {
+						image = new Image("file:" + imagePath, size, size, false, true);
+					} else {
+						image = new Image("default1.png", size, size, false, true);
+					}
+				}
+			} catch (Exception e) {
+				// If image cannot be loaded, used a default image in place
+				System.out.println("Image file not found. Default used.");
+				image = new Image("default1.png", size, size, false, true);
+			}
+			imageView = new ImageView(image);
+
+			// Set items into the gridbox
+			VBox vbox = new VBox();
+			vbox.getChildren().addAll(name, zone);
+			vbox.setAlignment(Pos.CENTER_LEFT);
 			HBox row = new HBox();
 			row.setSpacing(10);
+			row.getChildren().addAll(imageView, vbox);
 			
-			row.getChildren().addAll(name, zone);
 			gridPaneContacts.addRow(i, row);
 			i++;
 		}
