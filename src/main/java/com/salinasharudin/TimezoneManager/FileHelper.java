@@ -233,23 +233,6 @@ public final class FileHelper {
 		alert.showAndWait();
 	}
 
-	/* Adds some sample people to the contacts list. */
-	static void test_addContacts() {
-		ArrayList<Contact> test = new ArrayList<>();
-		Contact person1 = new Contact("Mom", "UTC-1");
-		Contact person2 = new Contact("Dad", "UTC-3");
-		Contact person3 = new Contact("Simon", "UTC-2");
-		person3.setTimezone("north pole");
-		test.add(person1);
-		test.add(person2);
-		test.add(person3);
-		
-		contacts = test;
-		
-		writeContactData();
-	}
-	
-    
     /* save all files */
     public static void saveAll() {
     	// save contacts data

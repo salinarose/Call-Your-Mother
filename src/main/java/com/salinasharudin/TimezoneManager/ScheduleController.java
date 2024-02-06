@@ -215,17 +215,7 @@ public class ScheduleController implements Initializable {
 			        		
 			        		btnAddToList.setDisable(true);
 		        			selected = -1;
-			        		/*
-			        		// Last column
-			        		if (GridPane.getColumnIndex(r) == gridContacts.getColumnCount() -1) {
-			        			b = false; // reset boolean to false
-			        			btnAddToList.setDisable(true);
-			        			selected = -1;
-			        		}
 			        		
-			        		else {
-			        			b = true;
-			        		}*/
 			        	}
 			        	// Item was not already selected
 			        	else {
@@ -274,8 +264,6 @@ public class ScheduleController implements Initializable {
 	/* Displays the results of calculate */
 	private void showResults() {
 		Map<Integer, ArrayList<Integer>> results = ScheduleHelper.map;
-		
-		//gridResults.getChildren().clear();
 		
 		if (results.isEmpty()) {
 			lblNoResults.setVisible(true);

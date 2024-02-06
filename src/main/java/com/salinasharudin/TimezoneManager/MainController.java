@@ -39,7 +39,7 @@ import javafx.util.Duration;
 
 public class MainController implements Initializable {
 	
-	// variables that control selection and de-selection
+	// Controls selection and de-selection
 	public int selected = -1;
 	
 	@Override
@@ -48,8 +48,6 @@ public class MainController implements Initializable {
 		displayLocalDateTime();
 		displayContacts();
 		displayCalls();
-		
-		// Set themes
 	}
 
 	@FXML
@@ -143,7 +141,7 @@ public class MainController implements Initializable {
 			}
 			imageView = new ImageView(image);
 
-			// Set items into the gridbox
+			// Set items into the grid
 			VBox vbox = new VBox();
 			vbox.getChildren().addAll(name, zone);
 			vbox.setAlignment(Pos.CENTER_LEFT);

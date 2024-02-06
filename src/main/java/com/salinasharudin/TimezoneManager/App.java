@@ -71,7 +71,7 @@ public class App extends Application {
     	FileHelper.readContactData();
     	
     	// Load user settings
-    	//FileHelper.readSettingsData();
+    	FileHelper.readSettingsData();
     	
     	// Load saved call data
     	FileHelper.readCallData();
@@ -87,9 +87,6 @@ public class App extends Application {
         alert.setContentText("Would you like to save all changes before leaving?");
 
         alert.showAndWait().ifPresent((btnType) -> {
-			
-        	// if btnType == ButtonType.CANCEL, do nothing
-        	
     		  if (btnType == ButtonType.YES) {
     			  FileHelper.saveAll();
     			  stage.close();
