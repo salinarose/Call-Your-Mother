@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javafx.event.ActionEvent;
@@ -197,38 +198,33 @@ public class ContactSceneController implements Initializable {
 	ImageView imageView;
 	
 	// Displays the profile photo
-	private void showCustomImage(String path) {
+	private void showImage(String path) {
 		imageView.setVisible(true);
+		
+		Image image;
 		try {
-			Image image = new Image("file:" + path, 150, 150, false, false);
-			imageView.setImage(image);
-			
-			if (!cbImage.getItems().contains(path)) {
-				cbImage.getItems().add(path);
-				//cbImage.getSelectionModel().select(path);
-				cbImage.setValue(path);
+			// default image
+			if (Pattern.matches("default[1-6].png", path)) {
+				image = new Image(path, 150, 150, false, false);
+				
+			} else { // custom image
+				File file = new File(path);
+				if (!file.canRead()) { // file doesn't exist and/or can't be read
+					image = new Image("default1.png", 150, 150, false, true);
+				} else {
+					image = new Image("file:" + path, 150, 150, false, false);					
+				}
 			}
 			
-		} catch (Exception e) {
-			System.out.println("Corrupted photo file path");
-			imageView.setImage(new Image("default1.png"));
-		}
-	}
-	private void showImage(String path) {
-		// If not a default pic option, it needs the showCustomImage method
-		if (!cbImage.getItems().contains(path)) {
-			showCustomImage(path);
-			return;
-		}
-		
-		imageView.setVisible(true);
-		try {
-			Image image = new Image(path);
 			imageView.setImage(image);
-			cbImage.setValue(path);
+			// Add the file path to the list of options 
+			if (!cbImage.getItems().contains(path)) {
+				cbImage.getItems().add(path);
+				cbImage.setValue(path);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Corrupted photo file path");
+			//e.printStackTrace();
+			System.out.println("Something went wrong.");
 			imageView.setImage(new Image("default1.png"));
 		}
 	}
@@ -247,23 +243,12 @@ public class ContactSceneController implements Initializable {
 				"default6.png",
 				"Upload new"
 		);
-		
 		cbImage.getItems().addAll(choices);
-		cbImage.setOnAction(this::getPic);
-		
+		cbImage.setOnAction(this::getPic);	
 	}
 	
 	/* Gets the selected value of the zone */
     public void getPic(ActionEvent event) {
-		List<String> defaultChoices = List.of(
-				"default1.png",
-				"default2.png",
-				"default3.png",
-				"default4.png",
-				"default5.png",
-				"default6.png"
-		);
-    	
         String path = cbImage.getValue();
         
         // Let the user select an image from their device
@@ -273,17 +258,12 @@ public class ContactSceneController implements Initializable {
         	fileChooser.getExtensionFilters().add(
         			new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
         	);
-        	
         	File selectedFile = fileChooser.showOpenDialog(new Stage());
-        	//System.out.println(selectedFile.toString());
         	if (selectedFile != null) {
-        		showCustomImage(selectedFile.toString());
+        		showImage(selectedFile.toString());
         	}
-        	
-        } else if (defaultChoices.contains(path)) {
-        	showImage(path);
       	} else {
-        	showCustomImage(path);
+      		showImage(path);
         }
     }
 	
@@ -382,7 +362,6 @@ public class ContactSceneController implements Initializable {
 			  goToMainScene();
 		  }
 		});
-    	
     }
     
     /* save all files */
