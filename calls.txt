@@ -1,5 +1,3 @@
-THURSDAY: 12:00 am 	David
-SATURDAY: 3:00 am 	Mom, Barry
-SUNDAY: 1:00 am 	Mom
-THURSDAY: 4:00 pm 	Mom
-THURSDAY: 8:00 am 	Mom
+TUESDAY: 6:00 pm 	Mom
+SUNDAY: 4:00 pm 	Mom, Dad
+SUNDAY: 2:00 pm 	Barry
