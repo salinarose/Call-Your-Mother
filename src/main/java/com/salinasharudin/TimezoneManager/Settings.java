@@ -5,35 +5,31 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class Settings {
-	
+
 	// Singleton variable
-	//private static Settings single_instance = null; // lazy initialization
+	// private static Settings single_instance = null; // lazy initialization
 	private static final Settings single_instance = new Settings(); // eager initialization
-	
+
 	private String username = "User";
 	private ZoneId zone;
 	private Boolean[][] schedule = new Boolean[7][24];
 	private String theme;
-	
+
 	// Private constructor to ensure it is a singleton class
-	private Settings() {}
- 
-    // Static method to create instance of Singleton class
+	private Settings() {
+	}
+
+	// Static method to create instance of Singleton class
 	// Eager initialization
 	public static Settings getInstance() {
 		return single_instance;
 	}
-	
-	/*// Lazy initialization 
-    public static Settings Settings()
-    {
-        // To ensure only one instance is created
-        if (single_instance == null) {
-            single_instance = new Settings();
-        }
-        return single_instance;
-    }
-    */
+
+	/*
+	 * // Lazy initialization public static Settings Settings() { // To ensure only
+	 * one instance is created if (single_instance == null) { single_instance = new
+	 * Settings(); } return single_instance; }
+	 */
 
 	public String getUsername() {
 		return username;
@@ -58,29 +54,28 @@ public class Settings {
 	public LocalDateTime getLocalClock() {
 		return LocalDateTime.now(getZone());
 	}
-	
+
 	public Boolean[][] getSchedule() {
 		return schedule;
 	}
-	
+
 	public void setSchedule(Boolean[][] array) {
 		this.schedule = array;
 	}
-	
+
 	public String getTheme() {
 		if (theme == null) {
 			return "theme-default.css";
-		}
-		else if (!theme.equals("theme-default.css") && !theme.equals("theme-dark.css")) {
+		} else if (!theme.equals("theme-default.css") && !theme.equals("theme-dark.css")) {
 			return "theme-default.css";
 		}
 		return theme;
 	}
-	
+
 	public void setTheme(String filePath) {
 		if (filePath.equals("theme-default.css") || filePath.equals("theme-dark.css")) {
 			this.theme = filePath;
 		}
 	}
-	
+
 }
